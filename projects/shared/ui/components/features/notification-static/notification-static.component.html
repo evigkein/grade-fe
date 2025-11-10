@@ -1,0 +1,13 @@
+<div
+    class="notification"
+    [class]="['notification--bg-' + backgroundType]"
+    [class.notification--primary]="type === 'primary'">
+    <p2p-icon
+        *ngIf="icon"
+        class="notification__icon"
+        size="50"
+        [icon]="icon"></p2p-icon>
+    <span class="notification__message"
+          [class.notification__message--sm]="size === 'sm'"
+          [innerHTML]="message | safeHtml"></span>
+</div>

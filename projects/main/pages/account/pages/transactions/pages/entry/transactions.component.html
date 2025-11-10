@@ -1,0 +1,45 @@
+<div class="page-container" [formGroup]="filterForm">
+  <h1 class="page-title">Транзакции</h1>
+  
+  <div class="filters">
+    <p-datepicker
+      class="filters__datepicker"
+      isRange
+      formControlName="period"
+      label="Период">
+    </p-datepicker>
+    
+    <p-select
+      class="filters__select"
+      size="m"
+      placeholder="Валюта"
+      [options]="currencyOptions"
+      formControlName="currency">
+    </p-select>
+    
+    <p-select
+      class="filters__select"
+      size="m"
+      placeholder="Статус"
+      [options]="statusOptions"
+      formControlName="status">
+    </p-select>
+    
+    <div class="filters__amount-range">
+      <p-input placeholder="Сумма от" formControlName="amountFrom"></p-input>
+      <span class="filters__amount-separator">–</span>
+      <p-input placeholder="Сумма до" formControlName="amountTo"></p-input>
+    </div>
+  </div>
+  
+  <p-table
+    skipHydration
+    class="transactions__table"
+    [table]="(tableData$ | async)!"
+    [totalItems]="2"
+    [isLoading]="(isLoading$ | async)!"
+    [isLoaded]="(isLoaded$ | async)!"
+    emptyTitle="Транзакций не найдено"
+    (action)="handleTableAction($event)">
+  </p-table>
+</div>

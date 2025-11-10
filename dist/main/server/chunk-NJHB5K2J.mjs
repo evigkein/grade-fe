@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{Ga as i,Na as s,V as n,la as r}from"./chunk-3YBNO2ZJ.mjs";var t=class t{constructor(){this.el=n(r);this.r=n(i)}ngOnInit(){let e=this.el.nativeElement;this.r.removeAttribute(e,"ng-version"),this.r.removeClass(e,"hydrated")}};t.\u0275fac=function(a){return new(a||t)},t.\u0275dir=s({type:t,selectors:[["","skipHydration",""]],hostAttrs:["ngSkipHydration","true"]});var o=t;export{o as a};

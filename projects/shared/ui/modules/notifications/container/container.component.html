@@ -1,0 +1,16 @@
+<div
+  *ngFor="let notification of notifications"
+  @nested
+  class="p-notification__container">
+  <div @shrink class="p-notification__card">
+    <div class="p-notification__card-content" [class]="'p-notification__card-content--' + notification.data.type">
+      <ng-container
+        *ngComponentOutlet="
+          notification.component;
+          injector: notification.injector"></ng-container>
+      <button (click)="notification.close()" class="p-notification__close" type="button">
+        <p-icon icon="close"></p-icon>
+      </button>
+    </div>
+  </div>
+</div>

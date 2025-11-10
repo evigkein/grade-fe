@@ -1,0 +1,56 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.checkbox-container {
+  display: flex;
+  cursor: pointer;
+
+  .checkbox-input {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .checkbox-border {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #cbcbcb;
+    border-radius: 4px;
+
+    &:hover {
+      border: 1px solid #8e8e93;
+    }
+
+    &.focused {
+      border: 1px solid #4a90e2;
+    }
+
+    .checkbox-filling {
+      width: 10px;
+      height: 10px;
+      border-radius: 1px;
+      background: #009866;
+    }
+  }
+}
+
+svg {
+  position: relative;
+  left: 1px;
+  top: 1px;
+  width: 16px;
+  height: 14px;
+}

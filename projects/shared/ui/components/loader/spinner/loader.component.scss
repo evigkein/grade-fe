@@ -1,0 +1,51 @@
+:root {
+  --spinnerRGB: 255, 0, 0;
+  //--spinnerRGB: 255, 157, 0;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &--centered {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.spinner {
+  margin-top: var(--spinnerMarginTop, 0px);
+  border: 4px solid rgba(var(--spinnerRGB), 0.2);
+  border-top-color: rgba(var(--spinnerRGB), 0.4);
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite, fade 2.4s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade {
+  0% {
+    border-top-color: rgba(var(--spinnerRGB), 0.4);
+  }
+  50% {
+    border-top-color: rgba(var(--spinnerRGB), 1);
+  }
+  100% {
+    border-top-color: rgba(var(--spinnerRGB), 0.4);
+  }
+}

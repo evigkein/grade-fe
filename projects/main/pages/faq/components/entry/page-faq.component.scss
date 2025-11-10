@@ -1,0 +1,46 @@
+.booking__title {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 36px;
+  line-height: 100%;
+  color: #111111;
+}
+
+.booking__go-back {
+  padding: 8px 12px 8px 24px;
+  width: max-content;
+  background-color: #F8F8F8;
+  font-size: 14px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.booking__go-back::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 8px solid #999;
+  border-radius: 2px;
+}
+
+.faqs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+p-skeleton-grid {
+  margin-top: 20px;
+}

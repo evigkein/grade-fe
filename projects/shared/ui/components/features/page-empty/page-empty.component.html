@@ -1,0 +1,13 @@
+<section class="page-empty">
+  <div class="page-empty__title text__title2">{{ title | translate }}</div>
+  <div class="page-empty__subtitle text__body">{{ subTitle | translate }}</div>
+  <p-button
+    *ngIf="buttonText"
+    color="primary"
+    type="primary"
+    width="wide"
+    class="page-empty__button"
+    (click)="onActionClick()">
+    {{ buttonText | translate }}
+  </p-button>
+</section>

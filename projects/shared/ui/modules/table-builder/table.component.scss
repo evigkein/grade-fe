@@ -1,0 +1,272 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+@mixin scrollable($position, $width, $height, $gradient-direction) {
+    &::after {
+        content: '';
+        position: absolute;
+        @if $position == 'bottom' {
+            bottom: 0;
+            right: 0;
+            width: $width;
+            height: $height;
+        } @else if $position == 'right' {
+            top: 0;
+            right: 0;
+            width: $width;
+            height: $height;
+        } @else if $position == 'left' {
+            top: 0;
+            left: 0;
+            width: $width;
+            height: $height;
+        }
+
+        background: linear-gradient($gradient-direction, rgba(255, 255, 255, 0) 0%, white 100%);
+    }
+}
+
+@mixin useBorderRadiusTable($radius: 8px) {
+    &:first-child {
+        border-radius: $radius 0 0 0;
+    }
+
+    &:last-child {
+        border-radius: 0 $radius 0 0;
+    }
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &--separate {
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+    &--no-wrap {
+        white-space: nowrap;
+    }
+
+    &--fixed {
+        table-layout: fixed;
+    }
+
+    &--use-border-radius {
+        border-radius: 0 0 8px 8px;
+    }
+
+    &__header {
+        &--sticky {
+            position: sticky;
+            top: 0;
+        }
+
+        &-col {
+            z-index: 3;
+            width: 100%;
+            height: 32px;
+            background: #ffffff;
+            cursor: default;
+            padding: 24px;
+            color: var(--gray-2);
+            white-space: normal;
+            vertical-align: middle;
+            border-bottom: .5px solid var(--gray-1);
+
+            &--double-row {
+                white-space: normal;
+            }
+
+            &--single-row {
+                white-space: nowrap;
+            }
+
+            &--short {
+                padding: 24px 8px;
+            }
+
+            &--action {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(var(--secondary-1-rgb), .2);
+                }
+            }
+
+            @include useBorderRadiusTable;
+        }
+    }
+
+    &__header-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+        font-size: 10px;
+        width: 100%;
+        text-transform: uppercase;
+        border-bottom: none;
+
+        &-sorting {
+            display: flex;
+            flex-direction: column;
+            height: 10px;
+            width: 5px;
+            position: relative;
+            left: 5px;
+            top: -3px;
+            transition: 0.3s ease-in-out;
+
+            &--center {
+                //top: -6px;
+                left: 5px;
+            }
+
+            &-icon {
+                transition: 0.3s ease-in-out;
+
+                &--desc {
+                    transform: rotate(-180deg) translateX(-100%);
+                }
+            }
+        }
+
+        &--center {
+            //white-space: normal;
+            text-align: center;
+        }
+
+        &--bold {
+            font-weight: 600;
+        }
+    }
+
+    &__body {
+        position: relative;
+    }
+
+    &__body-row {
+        //background: red;
+        height: 40px;
+
+        &:nth-child(2n) {
+            background: #f9fafb;
+        }
+    }
+
+    &__body-item {
+        font-size: 14px;
+        border-top: 1px solid var(--gray-1);
+        background: #FFF;
+        vertical-align: middle;
+        color: var(--active-text);
+
+        &--padding {
+            padding: 20px 10px;
+        }
+
+        &--padding-short {
+            padding: 10px;
+        }
+
+        &--multiple-lines {
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+
+        &--center {
+            text-align: center;
+        }
+
+        &--color {
+            &-green {
+                color: var(--green-1);
+            }
+            &-red {
+                color: var(--red-1);
+            }
+            &-teal-blue {
+                color: var(--teal-blue-1);
+            }
+            &-gray {
+                color: var(--gray-2);
+            }
+        }
+    }
+
+    &__pagination {
+        padding-bottom: 12px;
+    }
+
+    &__empty-body {
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+//.use-paddings {
+//    &:first-child {
+//        padding-left: 16px;
+//    }
+//
+//    &:last-child {
+//        padding-left: 16px;
+//    }
+//}
+
+.scrolling-wrapper {
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: auto;
+    width: 100%;
+    max-width: inherit;
+    max-height: 100%;
+
+    &--shadow {
+        //::after {
+        //    content: '';
+        //    position: absolute;
+        //    top: 0;
+        //    right: 10px;
+        //    bottom: 0;
+        //    height: 100%;
+        //    width: 20px;
+        //    background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.012))
+        //    pointer-events: none;
+        //}
+    }
+
+    &--custom-width {
+        width: inherit;
+    }
+}
+
+.table-wrapper {
+    border-radius: 12px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &--scrollable-bottom {
+        @include scrollable('bottom', 100%, 40px, to bottom);
+    }
+
+    &--scrollable-right {
+        @include scrollable('right', 40px, 100%, to right);
+    }
+
+    &--scrollable-left {
+        @include scrollable('left', 40px, 100%, to left);
+    }
+}

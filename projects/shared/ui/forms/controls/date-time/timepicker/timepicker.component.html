@@ -1,0 +1,30 @@
+<div class="timepicker" role="group" aria-label="Выбор времени">
+  <div class="timepicker-nav" role="heading" aria-level="2">
+    <div class="timepicker-header">
+      <div *ngIf="formControl.value; else defaultHeader" aria-live="polite">
+        {{ getFormattedTime(formControl.value) }}
+      </div>
+    </div>
+  </div>
+  
+  <div #timepickerBody class="timepicker-body hide-scrollbar" role="listbox" aria-label="Список доступных времён">
+    <ng-container *ngFor="let time of timeSlots(); let i = index">
+      <div *ngIf="shouldAddDivider(i)" class="time-divider" aria-hidden="true"></div>
+      <div class="timepicker-time" role="option"
+           [attr.aria-selected]="isActive(time)">
+        <button class="time-item"
+                [ngClass]="{'is-active': isActive(time)}"
+                type="button"
+                (click)="selectTime(time)"
+                [attr.aria-pressed]="isActive(time)"
+                [attr.aria-label]="getFormattedTime(time)">
+          {{ getFormattedTime(time) }}
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #defaultHeader>
+  <div aria-live="polite">{{ navDate.format('MMMM YYYY') }}</div>
+</ng-template>

@@ -1,0 +1,25 @@
+<header class="p-header">
+  <div class="p-header__left">
+    <div class="p-header__logo" (click)="onNavigate('')">
+      <p-icon icon="mainLogo" size="68"></p-icon>
+      <div class="p-header__desc">
+        <span class="p-header__title">СОЮЗ ТРАНСФЕР</span>
+        <span class="p-header__subtitle">Поездки и доставка по регионам России</span>
+      </div>
+    </div>
+    
+    <nav class="p-header__nav">
+      <a class="p-header__link" stopEvents (click)="onNavigate('faq')">Поддержка</a>
+      <a class="p-header__link" stopEvents (click)="onNavigate('reviews')">Отзывы</a>
+    </nav>
+  </div>
+  
+  <div class="p-header__right">
+    <p-header-right isHeader [currentWidth]="currentWidth()" (navigate)="onNavigate($event)" (openCallbackModal)="onCallClick()"/>
+  </div>
+</header>
+
+
+<ng-template #login>
+  <div class="header__link" (click)="onOpenLoginModal()">Login</div>
+</ng-template>

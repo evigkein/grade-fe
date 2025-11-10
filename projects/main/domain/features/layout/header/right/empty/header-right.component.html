@@ -1,0 +1,30 @@
+<div class="p-header-right">
+  <div class="p-header-right__desktop">
+    <div class="p-header-right__socials">
+      <p-sm-icons size="s"></p-sm-icons>
+    </div>
+    
+    <div class="p-header-right__phone">
+      <p-phone-link></p-phone-link>
+      <span class="p-header-right__worktime">Работаем 24/7</span>
+    </div>
+    
+    <p-button
+      label="Заказать звонок"
+      type="primary"
+      padding="icon"
+      size="l"
+      (action)="onCallClick()"
+    ></p-button>
+  </div>
+  
+  <div class="p-header-right__mobile">
+    <p-phone-link isSmallIcon></p-phone-link>
+    
+    <p-actions-menu
+      skipHydration
+      [actions]="getHeaderMenuActionsOptions"
+      (action)="onHeaderMenuAction($event)"
+    ></p-actions-menu>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="media-section">
+  <ng-container *ngTemplateOutlet="ticker"></ng-container>
+  <ng-container *ngTemplateOutlet="ticker"></ng-container>
+</div>
+
+<ng-template #ticker>
+  <div class="media-section__list">
+
+    <div *ngFor="let talent of query; trackBy: trackByUserName"
+         rel="noreferrer noopener"
+         class="media-section__list-item">
+      <app-talent-card-header [user]="talent.user"
+                              [desiredPosition]="talent.desiredPosition"
+                              class="media-section__list-item-content"></app-talent-card-header>
+    </div>
+  </div>
+
+</ng-template>

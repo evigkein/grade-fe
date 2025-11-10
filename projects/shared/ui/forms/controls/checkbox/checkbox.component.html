@@ -1,0 +1,39 @@
+<label class="checkbox-container"
+       [attr.for]="id"
+       [class.checkbox-container--center]="isCentered"
+       [class.focused]="isFocused()"
+       (focus)="isFocused.set(true)"
+       (blur)="isFocused.set(false)"
+       (click)="onAction()">
+  <div class="checkbox-border">
+  <input
+    class="checkbox-input"
+    type="checkbox"
+    [id]="id"
+  />
+<!--    [formControl]="formControl"-->
+    <ng-container *ngIf="!!formControl?.value">
+      <ng-container *ngTemplateOutlet="checkboxIcon"></ng-container>
+    </ng-container>
+
+    <!--    <div class="checkbox-filling" *ngIf="!!formControl.value"></div>-->
+  </div>
+  <div class="checkbox__label" *ngIf="label; else content">{{label}}</div>
+</label>
+
+<ng-template #content>
+  <ng-content/>
+</ng-template>
+
+<ng-template #checkboxIcon>
+  <svg viewBox="2 1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>checkbox</title>
+    <desc>Created with Sketch.</desc>
+    <g>
+      <title>Layer 1</title>
+      <line stroke="#000" id="svg_5" y2="18.090701" x2="10.781275" y1="11.028341" x1="3.218923" stroke-width="3"/>
+      <line stroke="#000" transform="rotate(-0.4939 15.0624,11.7783) " stroke-width="3" id="svg_6" y2="5.349067"
+            x2="21.413574" y1="18.207585" x1="8.711307"/>
+    </g>
+  </svg>
+</ng-template>

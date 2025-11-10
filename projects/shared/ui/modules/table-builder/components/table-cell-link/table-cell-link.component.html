@@ -1,0 +1,14 @@
+<a
+  class="link__cell"
+  stopEvents
+  [href]="item.link!.url | siteLink: item.link?.isExternal"
+  (click)="onNavigate()">
+  <p-fade-text
+    class="link__content"
+    [isEnabled]="item.hasAutoEllipsis!"
+    [text]="item!.value! | siteLinkView"></p-fade-text>
+  <p-icon
+    *ngIf="item.link!.icon"
+    [icon]="item.link!.icon!"></p-icon>
+</a>
+

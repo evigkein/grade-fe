@@ -1,0 +1,56 @@
+:host {
+  width:100%;
+  max-width: 100%;
+  cursor: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ellipsis-text {
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.main-text {
+  white-space: nowrap;
+
+  &--hidden {
+    //opacity: 0;
+    //position: absolute;
+    //top: -1000px;
+  }
+}
+
+
+
+@mixin fadeTruncate($width: 80%) {
+  overflow: hidden;
+  white-space: nowrap;
+
+  mask-image: linear-gradient(90deg, #000 $width, transparent);
+
+  &.fade-left {
+    direction: rtl;
+
+    mask-image: linear-gradient(-90deg, #000 $width, transparent);
+  }
+}
+
+.fade-truncate {
+  @include fadeTruncate();
+}
+
+.line {
+  white-space: nowrap;
+
+  &:last-child {
+    @include fadeTruncate();
+  }
+}

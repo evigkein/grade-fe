@@ -1,0 +1,55 @@
+.review-post {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  padding: 16px 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 18px;
+    color: #111;
+    margin: 0;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 140%;
+    color: #111;
+    margin: 0 0 16px 0;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #777;
+    gap: 16px;
+  }
+
+  @media (max-width: 780px) {
+    padding: 12px 14px;
+
+    &__name {
+      font-size: 16px;
+    }
+
+    &__text {
+      font-size: 15px;
+    }
+
+    &__footer {
+      //flex-direction: column;
+      align-items: flex-start;
+      font-size: 13px;
+      gap: 16px;
+    }
+  }
+}

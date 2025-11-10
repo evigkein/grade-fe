@@ -1,0 +1,36 @@
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--content-bg-1);
+  padding: var(--p-items);
+  border-radius: 12px;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  &__right {
+    display: flex;
+
+    p-button {
+      min-width: 160px;
+    }
+
+    @media (max-width: 550px) {
+      width: 100%;
+
+      p-button {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,82 @@
+<div class="file-uploader" dnd (fileDropped)="dropFile($event.files, $event.originalEvent)">
+  
+  <div #fileDrop (drop)="drop$.next($event)" (click)="fileInput.click()" class="file-drop">
+    <input
+        #fileInput
+        autocomplete="off"
+        multiple
+        style="display: none"
+        type="file"
+        [accept]="this.isMobileOrTablet() ? 'image/*' : extensions"
+        [attr.multiple]="isMulti ? 'multiple' : ''"
+        (change)="onFileChanged($event)"/>
+    <div *ngIf="text && !hasIcon" [innerHTML]="text | translate | safeHtml" class="drop-text"></div>
+    <div *ngIf="hasIcon" class="plus-icon"></div>
+    <p-button *ngIf="!hasIcon" (action)="fileInput.click()" stopEvents>{{'file-input.choose-file' | translate}}</p-button>
+  </div>
+  <ng-content></ng-content>
+  <p-tooltip-help *ngIf="hasTooltip" class="tooltip" size="m" [tooltip]="tooltip"></p-tooltip-help>
+</div>
+
+<div class="dropped-files" *ngIf="formArray?.controls?.length" @openClose>
+  <ng-container *ngFor="let control of formArray.controls; let i = index">
+    <div *ngIf="control.value" class="uploaded-file"
+         [ngClass]="{
+          'field-invalid':
+            (errors() && errors().length && errors()[i]) ||
+            (errors() && errors().length && i === errors().length)
+        }">
+      <div class="uploaded-file__data-container">
+        <img *ngIf="isImage(control.value)" [src]="getImagePreview(control.value)" class="uploaded-file__preview"/>
+        <div *ngIf="!isPicOnly" class="uploaded-file__name" [class.canceled]="errors() && errors().length && i > errors().length">
+          <p-fade-text [text]="control.value.name"></p-fade-text>
+        </div>
+      </div>
+      <div>
+        <div class="file-right">
+          <div class="uploaded-file__size"><span>{{ control.value.size | bytesToSize }}</span></div>
+          <p-button
+            *ngIf="!(errors() && errors().length && i > errors().length)"
+            color="red"
+            iconPrefix="trash"
+            type="icon"
+            class="button-delete"
+            (click)="removeFile(i)">
+<!--            {{'file-input.delete' | translate}}-->
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+<div>
+  <div *ngFor="let error of errors()" @openClose class="errors">
+    <ng-container [ngSwitch]="error.type">
+      <div *ngSwitchCase="'maxAmount'">
+        {{ 'file-input.errors.max-size' | translate }} <span class="red">{{ error.maxAmount }}</span>
+      </div>
+      <div *ngSwitchCase="'invalidExtension'">
+        {{ 'file-input.errors.types-1' | translate }} <span class="red">.{{ error.fileExtension }}</span>.
+        {{ 'file-input.errors.types-2' | translate }} <span class="blue">{{ error.allowedExtensions }}</span>
+      </div>
+      <div *ngSwitchCase="'maxSize'">
+        {{ 'file-input.errors.size' | translate }} <span
+        class="red">{{ error.fileName }}</span>. {{'file-input.errors.size-max' | translate}}<span
+        class="blue">{{ maxSize }}</span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ 'errors.unknown' | translate }}
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #tooltip>
+  <div style="width: 350px;">
+    <span>{{'file-input.tooltip.size' | translate}} {{maxSize}}</span>
+    <br>
+    <span>{{'file-input.tooltip.ext' | translate}} {{tooltipExts}}</span>
+  </div>
+</ng-template>

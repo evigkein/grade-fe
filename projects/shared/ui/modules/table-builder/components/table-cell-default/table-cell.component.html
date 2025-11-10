@@ -1,0 +1,38 @@
+<div class="table__cell" [class.table__cell--padding]="item.value">
+    <ng-container [ngSwitch]="item.type">
+        <ng-container *ngSwitchCase="cellType.Button">
+            <p2p-table-cell-button
+                [item]="item"
+                (action)="onAction($event)"></p2p-table-cell-button>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="cellType.Link">
+            <p2p-table-cell-link
+                [item]="item"
+                (navigate)="onNavigate($event)"></p2p-table-cell-link>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="cellType.Icon">
+            <p2p-table-cell-icon [item]="item"></p2p-table-cell-icon>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="cellType.Date">
+            <p2p-table-cell-date [item]="item"></p2p-table-cell-date>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="cellType.Status">
+            <p2p-table-cell-status [item]="item"></p2p-table-cell-status>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="cellType.Menu">
+            <p2p-table-cell-dots-menu [item]="item"
+                                      (action)="onAction($event)"></p2p-table-cell-dots-menu>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+            <p-fade-text
+                [text]="item!.value!"
+                [isEnabled]="item.hasAutoEllipsis!"></p-fade-text>
+        </ng-container>
+    </ng-container>
+</div>

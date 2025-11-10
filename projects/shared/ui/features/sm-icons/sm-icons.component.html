@@ -1,0 +1,17 @@
+<div class="sm-icons" [class]="['sm-icons--' + size]">
+  <a [href]="smContacts.whatsapp" rel="noopener noreferrer">
+    <p-icon class="sm-icons__item" icon="whatsapp" [size]="size === 'm' ? '40': '30'" skipHydration stopEvents (click)="navigateSm('whatsapp')"></p-icon>
+  </a>
+  
+  <a [href]="smContacts.max" rel="noopener noreferrer">
+    <p-icon class="sm-icons__item" icon="max" [size]="size === 'm' ? '40': '30'" skipHydration stopEvents (click)="navigateSm('max')"></p-icon>
+  </a>
+  
+  <a [href]="smContacts.telegramm" rel="noopener noreferrer">
+    <p-icon class="sm-icons__item" icon="telegramm" [size]="size === 'm' ? '40': '30'" skipHydration stopEvents (click)="navigateSm('telegramm')"></p-icon>
+  </a>
+  
+  <a [href]="smContacts.viber" rel="noopener noreferrer">
+    <p-icon class="sm-icons__item" icon="viber" [size]="size === 'm' ? '40': '30'" skipHydration stopEvents (click)="navigateSm('viber')"></p-icon>
+  </a>
+</div>

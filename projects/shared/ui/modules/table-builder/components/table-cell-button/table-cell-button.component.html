@@ -1,0 +1,6 @@
+<p-button
+  [size]="item!.button?.size || 'sm'"
+  [color]="item!.button?.color || ''"
+  [iconPrefix]="item!.button?.iconPrefix || ''"
+  [iconPostfix]="item!.button?.iconPostFix || ''"
+  (action)="onAction()">{{item.value!.toString()}}</p-button>

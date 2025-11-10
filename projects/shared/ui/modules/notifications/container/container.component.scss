@@ -1,0 +1,67 @@
+:host {
+  display: block;
+  position: fixed;
+  top: 16px;
+  right: 0;
+  z-index: 9999;
+}
+
+.p-notification {
+  &__container {
+    margin-right: 40px;
+  }
+
+  &__card {
+    position: relative;
+    overflow: hidden;
+    width: 340px;
+    border-radius: 3px;
+    box-shadow: 0 4px 10px 0 rgba(78,87,101,0.36);
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+
+  &__card-content {
+    &--error {
+      //background: #F8D7D9;
+    }
+
+    padding: 22px 40px 21px 0;
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+    outline: none;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      bottom: -5px;
+      left: -5px;
+    }
+    p-icon {
+      color: #b5b5b5;
+      transition: color 0.3s ease;
+    }
+    &:active {
+      p-icon {
+        color: #c22540;
+      }
+    }
+  }
+}
+
+.p-notification__close:hover p-icon,
+.p-notification__close:focus p-icon {
+  color: #e32c4b;
+}

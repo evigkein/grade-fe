@@ -1,0 +1,24 @@
+@use 'sass:map';
+
+@mixin blur-backdrop($type: 'base', $isBg: true) {
+  $backgrounds: (
+          'base': rgba(30, 40, 57, 0.5),
+          'light': rgba(30, 40, 57, 0.24),
+          'slight': rgba(30, 40, 57, 0.11),
+          'dark': rgba(0, 0, 0, 0.6)
+  );
+
+  $blurs: (
+          'base': 6px,
+          'light': 3px,
+          'slight': 2px,
+          'dark': 1px
+  );
+
+  @if map.has-key($backgrounds, $type) {
+    @if $isBg == true {
+      background: map.get($backgrounds, $type);
+    }
+    backdrop-filter: blur(map.get($blurs, $type));
+  }
+}

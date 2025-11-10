@@ -1,0 +1,58 @@
+<div class="p-page-wrapper">
+  <div class="booking__head">
+    <h3 class="booking__title">Заказ трансфера</h3>
+    <button class="booking__go-back" (click)="goBack()">Вернуться к вариантам</button>
+  </div>
+  
+  <form [formGroup]="form" formGroupStore="booking_form" ttlMins="30" class="form">
+    
+    <div class="form__address">
+      <div class="form__address">
+        <span>Откуда</span>
+        <p>{{titleFrom()}}</p>
+      </div>
+      <div class="form__from-controls">
+        <p-autocomplete formControlName="fromAddress" placeholder="ул. Свердловская 1" label="Адрес подачи"></p-autocomplete>
+        <p-datepicker [hasYear]="false" hasTime [minDate]="minDate" [maxDate]="maxDate" formControlName="dateTime" label="Дата и время подачи"></p-datepicker>
+      </div>
+      
+      <div class="form__address">
+        <span>Куда</span>
+        <p>{{titleTo()}}</p>
+      </div>
+      <div class="form__from-controls">
+        <p-autocomplete hasPaddingBottom formControlName="toAddress" placeholder="ул. Свердловская 1" label="Адрес назначения"></p-autocomplete>
+      </div>
+    </div>
+    
+    <div class="form__details">
+      <p-switch formControlName="needChildSeat" label="Детское кресло"></p-switch>
+      <p-switch formControlName="hasPet" label="Перевозка домашнего животного"></p-switch>
+      
+      <div class="form-passengers">
+<!--        <div>Количество пассажиров: </div>-->
+        <p-input label="Количество пассажиров" formControlName="passengers"></p-input>
+      </div>
+    </div>
+    
+    <div class="form__name">
+      <div class="form__from-controls">
+        <p-input formControlName="fullName" hasPaddingBottom placeholder="Фамилия Имя Отчество" label="ФИО пассажира"></p-input>
+        <p-input formControlName="phone" prefixText="+7" type="tel" appRussianNumberMask hasPaddingBottom label="Номер телефона" placeholder="(___) ___-__-__"></p-input>
+      </div>
+      <p-input
+        formControlName="comment"
+        isTextArea
+        mode="noOutline"
+        areaMinHeight="120"
+        areaMaxHeight="150"
+        placeholder="То, что нам важно знать, чтобы ваша поездка прошла наиболее комфортным для вас образом"
+        label="Комментарий к заказу">
+      </p-input>
+    </div>
+  
+    <p-button class="form__submit" label="Заказать трансфер" (action)="submit()"></p-button>
+  </form>
+</div>
+
+<p-alert-modal title="Ваша заявка принята" subTitle="Наш менеджер свяжется с Вами в течение 15 минут" buttonText="Спасибо"></p-alert-modal>

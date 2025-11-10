@@ -1,0 +1,17 @@
+<ng-container *ngFor="let modal of modalsQueue$ | async; trackBy: trackByFn">
+  <div
+    disableBodyScroll
+    class="modal-container__overlay"
+    [@overlayAnimation]="isShow"
+    [class.modal-container__overlay--hidden]="modal.isOverlayHidden"
+    [class.modal-container__overlay--transparent-bg]="modal.isOverlayTransparent"
+    [style.z-index]="modal.zIndex"
+    [style.top]="modal.offsetForSmartBanner ? bannerOffsetStyle.top : '0'"
+    [style.height]="modal.offsetForSmartBanner ? bannerOffsetStyle.height : '100%'"
+    (click)="onPointerUp(modal.id!)">
+    <ng-template
+      [ngTemplateOutlet]="modal.templateRef"
+      [ngTemplateOutletContext]="{ params: modal.templateCtx }"
+    ></ng-template>
+  </div>
+</ng-container>

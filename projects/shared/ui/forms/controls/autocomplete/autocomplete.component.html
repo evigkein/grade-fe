@@ -1,0 +1,18 @@
+<!--<label class="p-autoc__label" *ngIf="label" [for]="id">-->
+<!--  <div class="p-autoc__label-text">{{ label }}</div>-->
+<!--  <p-tooltip-help *ngIf="tooltipText" [tooltip]="tooltipText"></p-tooltip-help>-->
+<!--</label>-->
+<p-input
+  [label]="label"
+  [formControl]="formControl"
+  [nzAutocomplete]="list"
+  [hasPaddingBottom]="hasPaddingBottom"
+  [placeholder]="placeholder"></p-input>
+<nz-autocomplete #list (selectionChange)="onSelect($event)">
+  <nz-auto-option
+    *ngFor="let o of (isSync && formControl.value ? _options() : options)"
+    [nzValue]="o.value"
+    class="search-item">
+    {{ o.label ? o.label : o.value }}
+  </nz-auto-option>
+</nz-autocomplete>

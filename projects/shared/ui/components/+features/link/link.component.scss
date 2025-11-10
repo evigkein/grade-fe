@@ -1,0 +1,19 @@
+.link {
+    display: inline-block;
+    height: fit-content;
+    text-decoration: none;
+    cursor: pointer;
+    color: #1890ff;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        color: #006bb3;
+        transform: scale(1.1);
+    }
+
+    &--button {
+        background: transparent;
+        outline: none;
+        border: none;
+    }
+}

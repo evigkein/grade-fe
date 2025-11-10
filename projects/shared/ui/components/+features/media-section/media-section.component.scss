@@ -1,0 +1,110 @@
+@import 'index';
+
+//@mixin ticker-margin($direct: left, $reverse: right) {
+//  margin-#{$direct}: 40px;
+//
+//  @include breakpoint($media-small-desktop) {
+//    margin-#{$direct}: 100px;
+//  }
+//
+//  @include breakpoint($media-tablet) {
+//    margin-#{$direct}: 140px;
+//  }
+//
+//  @include rtl() {
+//    margin-#{$direct}: unset;
+//    margin-#{$reverse}: 40px;
+//
+//    @include breakpoint($media-tablet) {
+//      margin-#{$direct}: unset;
+//      margin-#{$reverse}: 100px;
+//    }
+//
+//    @include breakpoint($media-small-desktop) {
+//      margin-#{$direct}: unset;
+//      margin-#{$reverse}: 140px;
+//    }
+//  }
+//}
+
+@keyframes ticker {
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes ticker-rtl {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+:host {
+  overflow: hidden;
+}
+
+.media-section {
+  $this: &;
+
+  display: flex;
+  background-color: var(--second-5);
+  border-top: 1px solid var(--second-4);
+  border-bottom: 1px solid var(--second-4);
+
+  @include size(fit-content, 100%);
+
+  @include breakpoint(1100px) {
+    @include size(100%);
+  }
+
+  &:hover {
+    #{$this}__list {
+      animation-play-state: paused;
+    }
+  }
+
+  @include rtl {
+    flex-direction: row-reverse;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    @include breakpoint(1100px) {
+      @include size(100%);
+      flex: 1 0 100%;
+    }
+
+
+    @include hiddenScroll() {
+      overflow: hidden;
+    }
+
+    animation: ticker linear 30s infinite;
+    animation-play-state: inherit;
+
+    @include rtl {
+      animation: ticker-rtl linear 30s infinite;
+    }
+  }
+
+  &__list-item {
+    @include breakpoint(1100px) {
+      & + & {
+        margin-left: auto;
+      }
+      &:last-of-type {
+        margin-right: auto;
+      }
+    }
+
+  }
+
+  &__list-item-content {
+    display: flex;
+    width: max-content;
+    margin-right: 40px;
+  }
+}

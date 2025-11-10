@@ -1,0 +1,106 @@
+Arguments: 
+  /Users/anton/.nvm/versions/node/v22.18.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js icons
+
+PATH: 
+  /Users/anton/.bun/bin:/Users/anton/.nvm/versions/node/v22.18.0/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/anton/Documents/storm/my/sphera/sf/node_modules/.bin:/Users/anton/Library/Application Support/JetBrains/Toolbox/scripts
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  22.18.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  SyntaxError: /Users/anton/Documents/storm/my/sphera/sf/package.json: Expected ':' after property name in JSON at position 111 (line 6 column 5)
+      at JSON.parse (<anonymous>)
+      at /opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (/opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:310:30)
+      at /opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "sf",
+    "version": "0.0.0",
+    "scripts": {
+      "--------------------ST-----------------------"
+      "start": "ng serve main",
+      "build": "ng build main --configuration production --source-map=false --named-chunks=false",
+      "build-prod": "ng build main --configuration production --source-map=false",
+      "serve:ssr:main": "node dist/main/server/server.mjs",
+      "swagger": "npx _scripts/swagger/swagger-main.json",
+      "icons": "node _scripts/icons/main-icons.js",
+      "watch": "ng build --watch --configuration development",
+      "test": "ng test",
+      "--------------------DR-----------------------"
+      "start2": "ng serve dr",
+      "icons2": "node _scripts/icons/dr-icons.js",
+      "swagger2": "npx _scripts/swagger/swagger-dr.json",
+      "serve:ssr:dr": "node dist/dr/server/server.mjs"
+    },
+    "private": true,
+    "dependencies": {
+      "@angular/animations": "^20.0.7",
+      "@angular/common": "^20.0.7",
+      "@angular/compiler": "^20.0.7",
+      "@angular/core": "^20.0.7",
+      "@angular/forms": "^20.0.7",
+      "@angular/platform-browser": "^20.0.7",
+      "@angular/platform-browser-dynamic": "^20.0.7",
+      "@angular/platform-server": "^20.0.7",
+      "@angular/router": "^20.0.7",
+      "@angular/ssr": "^20.3.6",
+      "@ctrl/tinycolor": "^4.1.0",
+      "@ng-select/ng-select": "20.0.1",
+      "@ngx-translate/core": "^17.0.0",
+      "angular8-yandex-maps": "^20.0.0",
+      "eslint": "^9.32.0",
+      "eslint-config-prettier": "^10.1.8",
+      "eslint-plugin-cypress": "^5.1.0",
+      "eslint-plugin-import": "^2.32.0",
+      "express": "^5.1.0",
+      "file-saver": "^2.0.5",
+      "gsap": "^3.13.0",
+      "hammerjs": "^2.0.8",
+      "imask": "^7.6.1",
+      "install": "^0.13.0",
+      "jsotp": "^1.0.4",
+      "libphonenumber-js": "^1.12.24",
+      "localforage": "^1.10.0",
+      "moment": "^2.30.1",
+      "ng-openapi-gen": "^0.53.0",
+      "ng-zorro-antd": "^20.1.0",
+      "ngx-socket-io": "^4.9.3",
+      "npm": "^11.5.2",
+      "rxjs": "~7.8.0",
+      "split-type": "^0.3.4",
+      "tslib": "^2.3.0",
+      "zone.js": "~0.15.0"
+    },
+    "devDependencies": {
+      "@angular/build": "^20.1.4",
+      "@angular/cli": "^20.1.4",
+      "@angular/compiler-cli": "^20.0.7",
+      "@angular/language-service": "^20.3.10",
+      "@types/express": "^5.0.1",
+      "@types/jasmine": "~5.1.0",
+      "@types/node": "^20.17.19",
+      "jasmine-core": "~5.4.0",
+      "karma": "~6.4.0",
+      "karma-chrome-launcher": "~3.2.0",
+      "karma-coverage": "~2.2.0",
+      "karma-jasmine": "~5.1.0",
+      "karma-jasmine-html-reporter": "~2.1.0",
+      "ng-packagr": "^20.1.0",
+      "typescript": "~5.8.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

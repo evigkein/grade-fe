@@ -1,0 +1,102 @@
+<div class="table-wrapper scrollbar--transparent">
+    <div
+        class="scrolling-wrapper scrollbar--transparent"
+        textOverflow
+        [class.scrolling-wrapper--custom-width]="hasCustomWidth"
+        scroll
+        addScrollableClass="scrolling-wrapper--shadow"
+        [scrollBottomThreshold]="300"
+        (scrolledToBottom)="loadMoreRows()">
+        <table
+            class="table"
+            [class.table--fixed]="isFixedLayout"
+            [class.table--no-wrap]="!hasBreakWord"
+            [class.table--use-border-radius]="hasPaddings"
+            [class.table--separate]="isBorderSeparate">
+            <thead>
+            <tr>
+                <ng-container *ngFor="let col of table.cols;">
+                    <th
+                        class="table__header-col table__header-col--double-row"
+                        [class.table__header--sticky]="isSticky"
+                        [class.table__header-col--action]="sorting?.[col.name]"
+                        [class.table__header-col--double-row]="col.isDoubleRow"
+                        [class.table__header-col--single-row]="col.isSingleRow"
+                        [class.table__header-col--short]="col.isShortPadding"
+                        [class.use-paddings]="hasPaddings"
+                        [style.width]="col.name! | columnParam: table.cols : 'width'"
+                        [style.min-width]="col.name! | columnParam: table.cols : 'minWidth'"
+                        (click)="headerCellClick(col)">
+                        <div
+                            class="table__header-item"
+                            [class]="[
+                            'table__header-item--' + alignType,
+                            ]"
+                            [class.table__header-item--bold]="col.isBold">
+                            <span>{{ col.title | translate }}</span>
+                            <div *ngIf="sorting?.[col.name]"
+                                 class="table__header-item-sorting"
+                                 [class.table__header-item-sorting--center]="sorting?.[col.name] === 'none'">
+                                <i *ngIf="sorting?.[col.name] !== 'none'; else neutralSortingIcon"
+                                   [class.table__header-item-sorting-icon--desc]="sorting?.[col.name] === 'desc'"
+                                   class="table__header-item-sorting-icon bi bi-caret-up-fill"></i>
+                            </div>
+                        </div>
+                    </th>
+                </ng-container>
+            </tr>
+            </thead>
+            <tbody *ngIf="totalItems > 0; else emptyTemplate" class="table__body">
+            <tr
+                *ngFor="let row of displayedRows; trackBy: trackByFn"
+                class="table__body-row">
+                <ng-container *ngFor="let cell of row">
+                    <td
+                        class="table__body-item"
+                        [class]="[
+                            'table__body-item--' + alignType,
+                            'table__body-item--color-' + cell.color,
+                        ]"
+                        [class.table__body-item--padding]="hasPaddings"
+                        [class.table__body-item--padding-short]="cell.type === 'date'"
+                        [class.table__body-item--multiple-lines]="cell.hasMultipleLines"
+                        [style.width]="cell.colName! | columnParam: table.cols : 'width'">
+                        <p2p-table-cell
+                            [item]="cell"
+                            [alignType]="alignType"
+                            (action)="onAction($event)"
+                            (navigate)="onNavigate($event)">
+                        </p2p-table-cell>
+                    </td>
+                </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!--    <ng-container *ngIf="!isOnePagePaginationHidden || totalItems >= pagination!.pageSize">-->
+<!--        <div class="table__pagination">-->
+<!--            <ng-content select="[pagination]"></ng-content>-->
+<!--        </div>-->
+<!--    </ng-container>-->
+
+    <ng-container *ngIf="isLoaded && isLoading">
+        <p-loader />
+    </ng-container>
+</div>
+
+
+<ng-template #emptyTemplate>
+    <td [colSpan]="table.cols.length">
+        <p-page-empty *ngIf="isLoaded"
+                        [title]="emptyTitle"
+                        [subTitle]="emptySubtitle"
+                        [buttonText]="emptyButtonText"
+                        (action)="actionEmpty.emit()"
+        ></p-page-empty>
+    </td>
+</ng-template>
+
+<ng-template #neutralSortingIcon>
+    <i class="bi bi-distribute-vertical"></i>
+</ng-template>

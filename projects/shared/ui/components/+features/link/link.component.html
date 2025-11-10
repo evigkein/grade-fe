@@ -1,0 +1,14 @@
+<a
+  *ngIf="url; else noUrl"
+  class="link"
+  stopEvents
+  [class.link--internal]="!isExternal"
+  [class.link--external]="isExternal"
+  [href]="url"
+  (click)="onNavigate()">
+  <ng-content></ng-content>
+</a>
+
+<ng-template #noUrl>
+  <button class="link link--button">{{text | translate}}</button>
+</ng-template>

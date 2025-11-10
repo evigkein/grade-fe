@@ -1,0 +1,16 @@
+<div
+  class="floating-buttons-container"
+>
+<!--  [ngStyle]="{ 'margin-bottom': bottomCorrection, 'margin-right': topCorrection, right: right, bottom: bottom }"-->
+  <button class="floating-button" [tooltip]="tooltip" (click)="onClick()">
+    <div class="display-flex justify-content-center align-items-center content">
+      <p-icon *ngIf="!(inProgress$ | async)" [icon]="icon"></p-icon>
+      <p-loader *ngIf="inProgress$ | async"></p-loader>
+    </div>
+  </button>
+<!--  <div class="menu-helper" [matMenuTriggerFor]="addMenu"></div>-->
+</div>
+
+<!--<mat-menu #addMenu="matMenu" class="menu-with-backdrop" xPosition="before">-->
+<!--  <ng-content></ng-content>-->
+<!--</mat-menu>-->

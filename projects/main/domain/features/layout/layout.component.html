@@ -1,0 +1,30 @@
+<div class="layout">
+  <p-header (openLoginModal)="openLoginModal()" (logOut)="logout()" (navigate)="navigate($event)" (openCallbackModal)="openCallbackModal()"></p-header>
+  
+  <main class="layout__main">
+    <div class="layout__content">
+      <router-outlet />
+    </div>
+  </main>
+  
+  <p-footer class="layout__footer" (navigate)="navigate($event)" (openCallbackModal)="openCallbackModal()"></p-footer>
+</div>
+
+<!--<div *ngIf="user$ | async; else auth" class="main p-page-wrapper">-->
+<!--  <div class="layout__menu">-->
+<!--    <p-menu [options]="settingsMenu"></p-menu>-->
+<!--  </div>-->
+<!--  <div class="layout__content">-->
+<!--    <router-outlet/>-->
+<!--  </div>-->
+<!--</div>-->
+
+<ng-template #auth>
+  <div class="auth p-page-wrapper">
+<!--    <p-auth></p-auth>-->
+  </div>
+</ng-template>
+
+
+<p-callback-modal (submitted)="openAlertModal()"/>
+<p-alert-modal title="Ваша заявка принята" subTitle="Наш менеджер свяжется с Вами в течение 15 минут" buttonText="Спасибо"></p-alert-modal>

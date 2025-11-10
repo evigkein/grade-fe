@@ -1,0 +1,42 @@
+<div
+  #outer
+  class="carousel-outer carousel-outer--scrollable hide-scrollbar">
+  <div
+    #inner
+    class="carousel-inner"
+    [style.gap.px]="gap"
+    swipe
+    isDesktopSwipe
+    (swipeLeft)="move(SCROLL_DIRECTION.Backward)"
+    (swipeRight)="move(SCROLL_DIRECTION.Forward)">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<div
+  *ngIf="hasButtons"
+  class="buttons">
+  <button
+    *ngIf="isArrowBackShown"
+    class="buttons__backward"
+    (click)="move(SCROLL_DIRECTION.Backward)">
+    <p-icon icon="angleLeft"></p-icon>
+  </button>
+  <button
+    *ngIf="isArrowForwardShown"
+    class="buttons__forward"
+    (click)="move(SCROLL_DIRECTION.Forward)">
+    <p-icon icon="angleRight"></p-icon>
+  </button>
+</div>
+
+
+<div
+  *ngIf="dots && dotsCount() > 1"
+  class="carousel-dots">
+  <div
+    *ngFor="let dot of [].constructor(dotsCount()); let i = index; trackBy: trackBy"
+    class="carousel-dots__dot"
+    [class.carousel-dots__dot--active]="i === currentPage()">
+  </div>
+</div>

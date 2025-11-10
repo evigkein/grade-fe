@@ -1,0 +1,168 @@
+<p-input-label *ngIf="label" [label]="label" [labelType]="labelType" [labelSize]="labelSize" [alignLabel]="alignLabel" [tooltipText]="tooltipText" [id]="id" role="label" [attr.for]="id" aria-label="{{ label | translate }}"></p-input-label>
+
+<div class="input__group"
+     [class.input__group--no-padding]="!hasPaddingBottom"
+     [class]="[
+           'input--' + mode
+     ]"
+     role="group"
+     [attr.aria-labelledby]="id">
+  <div class="input__group-prefix" #inputPrefix aria-hidden="true">
+    <div #prefixIconEl *ngIf="prefixIcon" stopEvents class="input__group-prefix-icon" role="img" aria-label="{{ prefixText || 'icon' }}">
+      <p-icon [icon]="prefixIcon"></p-icon>
+      <ng-content select="[prefix-icon]"></ng-content>
+    </div>
+    
+    <div *ngIf="prefixText" class="input__group-prefix-text" aria-hidden="true">
+      {{ prefixText }}
+    </div>
+  </div>
+  
+  <ng-container *ngIf="!isTextArea; else textAreaTemplate">
+    <ng-container *ngTemplateOutlet="input"></ng-container>
+  </ng-container>
+  
+  
+  <div class="input__group-append" #inputAppend>
+    <span *ngIf="suffixButton" #suffixButtonEl stopEvents class="input__group-button" role="button" tabindex="0" [attr.aria-label]="suffixButton | translate" (keydown.enter)="action.emit()" (keydown.space)="action.emit()">
+      <p-button (action)="action.emit()" type="primary" br="m" isMaxHeight>{{suffixButton | translate}}</p-button>
+    </span>
+    
+    <div #suffixEl *ngIf="suffixText" stopEvents class="input__group-suffix input__group-suffix--text" aria-hidden="true">
+      <span>{{ suffixText }}</span>
+      <ng-content select="[suffix]"></ng-content>
+    </div>
+    
+    <div #suffixIconEl *ngIf="suffixIcon" stopEvents class="input__group-suffix-icon" role="button" tabindex="0" [attr.aria-label]="suffixIcon" (click)="action.emit()" (keydown.enter)="action.emit()" (keydown.space)="action.emit()">
+      <p-icon [icon]="suffixIcon" [size]="suffixIconSize"></p-icon>
+      <ng-content select="[suffix-icon]"></ng-content>
+    </div>
+  </div>
+</div>
+<ng-content></ng-content>
+
+<div class="input__errors" [class.input__errors-padding]=hasPaddingBottom *ngIf="touched() && !valid() && errors()" role="alert" aria-live="assertive" id="{{ id }}-error">
+  <ng-container *ngIf="touched() && !valid() && errors()" class="form-error__container">
+    <ng-container *ngIf="errorRequired() && !customError()">
+      <span class="form-error__message"
+            animate.enter="fade-in"
+            animate.leave="fade-out">{{requiredError | translate}}</span>
+    </ng-container>
+    <ng-container *ngIf="customError() && !errorRequired()">
+      <span class="form-error__message"
+            animate.enter="fade-in"
+            animate.leave="fade-out">{{ customError() | translate }}</span>
+    </ng-container>
+    <ng-container *ngIf="!errorRequired() && !valid()">
+      <span class="form-error__message"
+            animate.enter="fade-in"
+            animate.leave="fade-out">{{ errorMsg }}</span>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #input>
+  <input
+    *ngIf="!nzAutocomplete; else autoc"
+    class="input"
+    [style.padding-left.px]="inputPrefixWidth() + prefixExtraWidth"
+    [style.padding-right.px]="inputAppendWidth() + suffixExtraWidth"
+    [style.cursor]="cursor"
+    inputInvalidFocus
+    [type]="type"
+    digitsOnly
+    [isDigitsOnlyEnabled]="isDigitsOnly"
+    [hasDecimal]="hasDecimal"
+    lettersOnly
+    [isLettersOnlyEnabled]="isLettersOnly"
+    noSymbols
+    [inputMask]="mask"
+    [isNoSymbolsEnabled]="noSymbols"
+    [autoFocus]="hasAutoFocus"
+    [autocomplete]="autocomplete"
+    [class]="[
+            'input--' + myClass,
+            'input--' + size,
+            'input--border-' + border,
+            'input--' + bg,
+            'input--align-' + align,
+            'input--font-' + font,
+    ]"
+    [maxLength]="maxLength"
+    [formControl]="formControl"
+    [placeholder]="placeholder | translate"
+    [id]="id"
+    [readonly]="readonly"
+    [attr.aria-invalid]="!valid()"
+    [attr.aria-describedby]="(touched() && !valid()) ? id + '-error' : null"
+    (input)="onInputChange($event)"
+    (focus)="focusEvent.emit()"
+    (blur)="onTouched(); blur.emit()"
+    (blurAction)="onBlur();"
+  />
+</ng-template>
+
+<ng-template #autoc>
+  <input
+    *ngIf="nzAutocomplete else input"
+    class="input"
+    [style.padding-left.px]="inputPrefixWidth() + 4"
+    [style.padding-right.px]="inputAppendWidth()"
+    inputInvalidFocus
+    [type]="type"
+    digitsOnly
+    [isDigitsOnlyEnabled]="isDigitsOnly"
+    [hasDecimal]="hasDecimal"
+    [nzAutocomplete]="nzAutocomplete"
+    lettersOnly
+    [isLettersOnlyEnabled]="isLettersOnly"
+    [autoFocus]="hasAutoFocus"
+    [autocomplete]="autocomplete"
+    [class]="[
+            'input--' + myClass,
+            'input--' + size,
+            'input--border-' + border,
+            'input--' + bg,
+    ]"
+    [maxLength]="maxLength"
+    [formControl]="formControl"
+    [placeholder]="placeholder | translate"
+    [id]="id"
+    [attr.aria-invalid]="!valid()"
+    [attr.aria-describedby]="(touched() && !valid()) ? id + '-error' : null"
+    (focus)="focusEvent.emit()"
+    (blur)="onTouched(); blur.emit()"
+    (blurAction)="onBlur();"
+  />
+</ng-template>
+
+<ng-template #textAreaTemplate>
+    <textarea
+      class="input input--area p-preformatted"
+      [class.textarea--focused]="isFocused()"
+      [style.min-height.px]="areaMinHeight"
+      [style.max-height.px]="areaMaxHeight"
+      [style.resize]="isNotResizable ? 'none' : 'vertical'"
+      inputInvalidFocus
+      [autoResizeTextArea]="autoResizeHeight"
+      [rows]="rows"
+      [autoFocus]="hasAutoFocus"
+      [class]="[
+              'input--' + myClass,
+              'input--' + size,
+              'input--t-' + sizeArea,
+              'input--border-' + border,
+              'input--' + bg,
+      ]"
+      [maxLength]="maxLength"
+      [formControl]="formControl"
+      [placeholder]="placeholder | translate"
+      [id]="id"
+      [readonly]="readonly"
+      [attr.aria-invalid]="!valid()"
+      [attr.aria-describedby]="(touched() && !valid()) ? id + '-error' : null"
+      (focus)="onFocus()"
+      (blur)="onTouched(); onBlur()"
+      (blurAction)="onBlur();"
+    ></textarea>
+</ng-template>

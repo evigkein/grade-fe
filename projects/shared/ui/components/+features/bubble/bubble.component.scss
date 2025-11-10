@@ -1,0 +1,40 @@
+
+:host {
+  position: absolute;
+  top: -13px;
+  right: -11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  height: 20px;
+  margin: 0;
+  //padding: 0 0.4rem;
+
+  border-radius: 50%;
+  border: 1px solid var(--first-2);
+  background-color: var(--red-1);
+  color: var(--first-2);
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.7rem;
+
+  z-index: 1;
+
+
+  &.animated {
+    animation: jump 0.5s ease-in-out 2;
+  }
+}
+
+@keyframes jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}

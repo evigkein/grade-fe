@@ -1,0 +1,21 @@
+<div
+  *ngIf="tags | func : transformLabels as items"
+  class="tags"
+  [class.tags_wrap]="hasWrap">
+  <ng-container *ngFor="let item of items">
+    <div class="tag"
+         [class]="[
+            'tag--' + color,
+            'tag--' + size,
+        ]">
+      <p-icon skipHydration class="tag__icon--prefix" *ngIf="item.icon" [icon]="item.icon"></p-icon>
+      <span>{{ (prefix ? prefix : '') + item.label | translate }} <span *ngIf="item.labelBold as bold"><strong>{{bold}}</strong></span></span>
+      <p-icon
+        *ngIf="isRemovable"
+        class="tag__icon-close"
+        stopEvents
+        icon="close"
+        (click)="onRemoveTag(item.value)"></p-icon>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,71 @@
+$tablet-width: 850px;
+
+.p-page-wrapper {
+  @media (max-width: $tablet-width) {
+    padding: 0;
+  }
+}
+
+.settings {
+  display: flex;
+  gap: 30px;
+
+  &__top {
+    padding-bottom: 1rem;
+    z-index: 5;
+    background: white;
+    position: sticky;
+    top: 0;
+
+    @media (min-width: $tablet-width) {
+      display: none;
+    }
+  }
+
+  &__menu {
+    width: 210px;
+    min-width: 180px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    &--mob {
+      width: 100%;
+
+      @media (min-width: $tablet-width) {
+        display: none;
+      }
+    }
+
+    @media (max-width: $tablet-width) {
+      display: none;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    //background: var(--content-bg-1);
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (max-width: $tablet-width) {
+      padding-top: 0;
+    }
+  }
+
+  //&__wrapper {
+  //  display: flex;
+  //  flex-direction: column;
+  //  gap: 1rem;
+  //}
+
+  &__menu-button {
+    width: 90%;
+    margin: 1rem auto 0;
+
+    @media (min-width: $tablet-width) {
+      display: none;
+    }
+  }
+}

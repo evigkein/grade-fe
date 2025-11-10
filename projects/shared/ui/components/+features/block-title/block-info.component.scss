@@ -1,0 +1,31 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    &__title {
+        margin-bottom: var(--m-content);
+    }
+
+    &__button {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    &__toggle-icon {
+        transition: transform 0.3s ease;
+        color: var(--first-1);
+        transform: rotate(180deg);
+    }
+
+    &__toggle-icon--expanded {
+        transform: rotate(0);
+    }
+}
+
+.content-container {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}

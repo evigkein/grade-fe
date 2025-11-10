@@ -1,0 +1,6 @@
+<div class="status"
+     [class]="['status--' + item.status]">
+    <p-fade-text
+        [text]="item!.value! | translate"
+        [isEnabled]="item.hasAutoEllipsis!"></p-fade-text>
+</div>

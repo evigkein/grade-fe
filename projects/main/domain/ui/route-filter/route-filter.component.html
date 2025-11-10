@@ -1,0 +1,40 @@
+<ng-container *ngIf="{
+  from: locationsFrom$ | async,
+  to: locationsTo$ | async
+} as ctx">
+
+<form class="route__filter">
+    <p-select
+      [formControl]="fromControl"
+      size="l"
+      placeholder="Откуда"
+      isMaxHeight
+      isSearchable
+      isServerSearch
+      [options]="ctx.from"
+      (search)="onSearchFrom($event)">
+    </p-select>
+    
+    <p-icon icon="doubleArrows" size="34"></p-icon>
+    
+    <p-select
+      [formControl]="toControl"
+      size="l"
+      placeholder="Куда"
+      isMaxHeight
+      isSearchable
+      isServerSearch
+      [options]="ctx.to"
+      (search)="onSearchTo($event)">
+    </p-select>
+    
+    <p-button
+      type="primary"
+      isHeightInherit
+      label="Показать"
+      size="m"
+      [isLoading]="isLoading"
+      (action)="onSubmit()">
+    </p-button>
+  </form>
+</ng-container>

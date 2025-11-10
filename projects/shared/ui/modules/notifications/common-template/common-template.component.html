@@ -1,0 +1,13 @@
+<div class="notification-template-container">
+  <div class="icon">
+    <p-icon *ngIf="icon" [icon]="icon"></p-icon>
+  </div>
+  <div class="content" [class]="['notification--' + type]">
+    <div class="notification__title">{{title! | translate}}</div>
+    <div class="notification__text">{{description! | translate}}</div>
+    <a *ngIf="linkUrl && linkLabel" [routerLink]="linkUrl" class="link">
+      {{ linkLabel | translate }}
+    </a>
+    <ng-content></ng-content>
+  </div>
+</div>

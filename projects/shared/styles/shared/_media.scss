@@ -1,0 +1,83 @@
+$xs: 576px;
+$sm: 768px;
+$md: 992px;
+$lg: 1320px;
+
+@mixin mobile() {
+  @media only screen and (min-width: $xs) {
+    @content;
+  }
+}
+
+@mixin xs() {
+  @media only screen and (min-width: $xs) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media only screen and (min-width: $sm) {
+    @content;
+  }
+}
+
+@mixin md() {
+  @media only screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin lg() {
+  @media only screen and (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin mobile-() {
+  @media only screen and (max-width: $xs - 0.02) {
+    @content;
+  }
+}
+
+@mixin sm-down() {
+  @media only screen and (max-width: $sm - 0.02) {
+    @content;
+  }
+}
+
+@mixin tablet-() {
+  @media only screen and (max-width: $md - 0.02) {
+    @content;
+  }
+}
+
+@mixin desktop-() {
+  @media only screen and (max-width: $lg - 0.02) {
+    @content;
+  }
+}
+
+@mixin tiny-landscape {
+  @media only screen and (min-width: $sm) and (max-height: 600px) {
+    @content;
+  }
+}
+
+@mixin resp($min: null, $max: null) {
+  @if $min != null and $max != null {
+    @media only screen and (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $min != null {
+    @media only screen and (min-width: $min) {
+      @content;
+    }
+  } @else if $max != null {
+    @media only screen and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+

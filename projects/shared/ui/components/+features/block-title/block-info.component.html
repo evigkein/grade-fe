@@ -1,0 +1,18 @@
+<p *ngIf="titleText" class="p-h4 info__title">{{titleText | translate}}</p>
+<div class="content-container" [ngStyle]="{ 'max-height': contentHeight() + 'px' }" #content>
+  <ng-content></ng-content>
+</div>
+<div class="info__button">
+  <p-button
+    *ngIf="needsExpandButton()"
+    stopEvents
+    type="transparent"
+    colorText="primary"
+    size=""
+    iconPrefixSize="16"
+    padding="none"
+    [iconPostfix]="isExpanded() ? 'angleDown' : 'angleUp'"
+    (click)="isExpanded() ? collapseContent() : expandContent()"
+    [label]="isExpanded() ? 'collapse' : 'extend'">
+  </p-button>
+</div>

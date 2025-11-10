@@ -1,0 +1,122 @@
+@mixin defaultButton() {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease, transform 0.25s ease;
+  z-index: 2;
+
+  &:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  p-icon {
+    width: 18px;
+    height: 18px;
+    color: #FF5100;
+  }
+}
+
+.buttons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+
+  &__backward,
+  &__forward {
+    @include defaultButton();
+    pointer-events: auto;
+    background: white;
+  }
+
+  &__backward { left: 8px; }
+  &__forward  { right: 8px; }
+
+  button.ng-leave,
+  button.ng-enter {
+    transition: opacity 0.3s ease;
+  }
+}
+
+
+:host {
+  position: relative;
+}
+
+.carousel-outer {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-inner {
+  display: inline-flex;
+  gap: 16px;
+  touch-action: pan-y !important;
+
+
+  > *[pCarouselItem] {
+    scroll-snap-align: start;
+
+    flex: 0 0 auto;
+  }
+}
+
+.buttons {
+  &--disabled { color: var(--hover-common); }
+  &__backward { @include defaultButton(); left: 0; }
+  &__forward  { @include defaultButton(); right: 8px; }
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  gap: 8px;
+  z-index: 2;
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #dcdcdc;
+    transform-origin: center center;
+    transition:
+            width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            background-image 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            border-radius 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1);
+    opacity: 0.8;
+
+
+    flex-shrink: 0;
+
+    &--active {
+      width: 16px;
+      border-radius: 6px;
+      background: linear-gradient(93.89deg, #ff9d00 0%, #ff5100 100%);
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+}
+
+.carousel-inner > *[pCarouselItem]:last-child {
+  scroll-snap-align: end;
+}

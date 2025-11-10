@@ -1,0 +1,14 @@
+<div class="expander"
+     [class.expander--expanded]="isOpened()">
+  <p-button class="fs s14 button-text" (action)="toggle()" padding="none" type="transparent">{{ displayText() | translate }}</p-button>
+  <p-icon *ngIf="hasToggle" class="expander__toggle-icon" size="13" icon="angleDown"></p-icon>
+</div>
+
+<!--<div class="wrapper" [class.wrapper&#45;&#45;opened]="isOpened()">-->
+<section @openClose *ngIf="isOpened()" class="expander__container">
+  <ng-content></ng-content>
+</section>
+<!--  <div class="content">-->
+<!--    <ng-content></ng-content>-->
+<!--  </div>-->
+<!--</div>-->

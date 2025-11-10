@@ -1,0 +1,13 @@
+.map-container {
+  width: 1500px;
+  height: 500px;
+
+  @media screen and (max-width: 1360px) {
+    width: 100%;
+  }
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+}

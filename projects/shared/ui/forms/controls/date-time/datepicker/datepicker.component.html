@@ -1,0 +1,172 @@
+<p-input-label
+  [label]="label"
+  [labelType]="labelType"
+  [labelSize]="labelSize"
+  [alignLabel]="alignLabel"
+  [id]="id"
+  role="label"
+  aria-label="Дата и время"
+  (click)="togglePopover(true)">
+</p-input-label>
+
+<p-popover
+  class="datepicker-popover"
+  type="withoutArrow"
+  stopEvents
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="id"
+  [template]="dateTimePickerTemplate"
+  [isVisible]="isVisible()"
+  (visibleChange)="popoverVisibleChange($event)"
+  (click)="togglePopover(true)">
+  
+  <div
+    *ngIf="isVisible()"
+    stopEvents
+    class="datepicker-backdrop"
+    aria-hidden="true"
+    (click)="togglePopover(false)">
+  </div>
+  
+  <p-input
+    class="datepicker-input"
+    [formControl]="inputViewControl"
+    [placeholder]="placeholder"
+    cursor="pointer"
+    suffixIcon="calendar"
+    suffixIconSize="32"
+    readonly
+    role="combobox"
+    aria-haspopup="dialog"
+    aria-expanded="{{isVisible()}}"
+    aria-controls="calendar-popup"
+    (action)="togglePopover(true)">
+  </p-input>
+</p-popover>
+
+<ng-template #dateTimePickerTemplate>
+  <div
+    *ngIf="hasTime; else dateOnly"
+    id="calendar-popup"
+    class="calendar-with-timepicker"
+    role="group"
+    aria-label="Выбор даты и времени"
+    (clickOutside)="togglePopover(false)"
+    isMouseDown>
+    
+    <ng-container *ngTemplateOutlet="calendarTemplate"></ng-container>
+    
+    <p-timepicker
+      [availableTimeSlots]="timeSlots()"
+      stopEvents
+      [isActive]="isSafeClose"
+      [locale]="locale"
+      [isAmPm]="isAmPmFormat"
+      selectFirstAvailable
+      [formControl]="timeControl"
+      aria-label="Выбор времени">
+    </p-timepicker>
+  </div>
+  
+  <ng-template #calendarTemplate>
+    <div
+      class="calendar"
+      disableBodyScroll
+      (clickOutside)="togglePopover(false)"
+      isMouseDown
+      role="application"
+      aria-label="Выбор даты">
+      
+      <div class="calendar-nav" role="navigation" aria-label="Навигация по месяцам">
+        <div class="calendar-nav-previous-month">
+          <p-button
+            class="button"
+            type="icon"
+            aria-label="Предыдущий месяц"
+            (click)="changeNavMonth(-1)"
+            [isDisabled]="!canChangeNavMonth(-1)">
+            <p-icon icon="angleLeft"></p-icon>
+          </p-button>
+        </div>
+        
+        <div>
+          <button
+            [class.button__active]="hasYear"
+            (click)="toggleYearSelection()"
+            aria-pressed="{{hasYear}}"
+            aria-label="Выбор года">
+            {{ moment.format('YYYY') }}
+          </button>
+          <button
+            [class.button__active]="hasMonth"
+            (click)="toggleMonthSelection()"
+            aria-pressed="{{hasMonth}}"
+            aria-label="Выбор месяца">
+            {{ moment.format('MMMM').toLowerCase() | translate }}
+          </button>
+        </div>
+        
+        <div class="calendar-nav-next-month">
+          <p-button
+            class="button"
+            type="icon"
+            aria-label="Следующий месяц"
+            (click)="changeNavMonth(1)"
+            [isDisabled]="!canChangeNavMonth(1)">
+            <p-icon icon="angleRight"></p-icon>
+          </p-button>
+        </div>
+      </div>
+      
+      <div *ngIf="isYearSelectionVisible()" class="year-selection" #yearSelectionContainer role="listbox" aria-label="Выбор года">
+        <div *ngFor="let year of getYearsArray()" stopEvents (click)="selectYear(year)">
+          <button role="option">{{ year }}</button>
+        </div>
+      </div>
+      
+      <div *ngIf="isMonthSelectionVisible()" class="month-selection" role="listbox" aria-label="Выбор месяца">
+        <div
+          *ngFor="let month of getMonthsArray()"
+          stopEvents
+          class="month-selection__button"
+          (click)="selectMonth(month.index)">
+          <button role="option">{{ month.name | translate }}</button>
+        </div>
+      </div>
+      
+      <ng-container *ngIf="!isYearSelectionVisible() && !isMonthSelectionVisible()">
+        <div class="calendar-container" role="grid" aria-label="Календарь">
+          <div class="calendar-header" role="row">
+            <div *ngFor="let day of weekDaysHeaderArr()" class="calendar-date" role="columnheader">
+              {{ day }}
+            </div>
+          </div>
+          <div class="calendar-body" role="rowgroup">
+            <div *ngFor="let day of gridArr()" class="calendar-date" [class.is-disabled]="!day.available" role="gridcell">
+              <button
+                *ngIf="day.value !== 0"
+                class="date-item"
+                [class.is-active]="isActive(day)"
+                (click)="selectDay(day, $event)"
+                [disabled]="!day.available"
+                [attr.aria-selected]="isActive(day)"
+                [attr.aria-disabled]="!day.available">
+                {{ day.value }}
+              </button>
+              <button *ngIf="day.value === 0" class="date-item" disabled aria-hidden="true"></button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="calendar-footer">
+          <button class="today-button" (click)="selectToday()" aria-label="Сегодня">{{ 'today' | translate }}</button>
+        </div>
+      </ng-container>
+    </div>
+  </ng-template>
+  
+  <ng-template #dateOnly>
+    <ng-container *ngTemplateOutlet="calendarTemplate"></ng-container>
+  </ng-template>
+</ng-template>

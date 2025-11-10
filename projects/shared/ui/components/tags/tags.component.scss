@@ -1,0 +1,54 @@
+:host {
+  overflow: scroll;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+
+  &_wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.tag {
+  $this: &;
+  white-space: nowrap;
+  align-items: center;
+  background-color: #F1F1F1;
+  border-radius: 14px;
+  color: var(--first-1);
+  display: inline-grid;
+  font-size: 12px;
+  grid-auto-flow: column;
+  grid-gap: 5px;
+  justify-content: center;
+  line-height: 14px;
+  padding: 8px 8px;
+  position: relative;
+
+  &__icon--prefix {
+    //margin-right: 8px;
+  }
+
+  &--teal {
+    font-weight: bold;
+    background: var(--teal-100);
+    color: var(--teal-800);
+    #{$this}__icon--prefix {
+      fill: var(--teal-500);
+    }
+  }
+
+  &--l {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  &__icon-close {
+    cursor: pointer;
+    fill: var(--second-1);
+    height: 12px;
+    width: 12px;
+  }
+}

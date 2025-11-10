@@ -1,0 +1,28 @@
+<div class="callback">
+<!--  <h3 class="callback__title">Обратный звонок</h3>-->
+  <p class="callback__subtitle">
+    Укажите контактные данные и наш менеджер свяжется с Вами в течение 15 минут.
+  </p>
+  
+  <form class="callback__form" [formGroup]="form">
+    <p-input
+      label="Укажите Ваше имя"
+      class="callback__input"
+      type="text"
+      formControlName="name"
+      placeholder="ФИО"
+    />
+    
+    <p-input
+      appRussianNumberMask
+      class="callback__input"
+      type="tel"
+      formControlName="phone"
+      prefixText="+7"
+      label="Номер телефона"
+      placeholder="(___) ___-__-__"
+    />
+    
+    <p-button class="callback__button" [isLoading]="isSubmitting$ | async" label="Заказать звонок" (action)="onSubmit()"></p-button>
+  </form>
+</div>

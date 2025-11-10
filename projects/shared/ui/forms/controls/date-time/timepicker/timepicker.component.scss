@@ -1,0 +1,117 @@
+@use '../datepicker/datepicker.component' as *;
+
+:host {
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+.timepicker {
+  padding: 0.7rem;
+  //border: 1px solid #dbdbdb;
+  height: 100%;
+  width: 160px;
+  border-radius: 12px;
+
+  .timepicker-header {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .timepicker-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0.25rem;
+    max-height: 270px;
+    overflow-y: auto;
+
+    .timepicker-time {
+      text-align: center;
+
+      .time-item {
+        @extend .date-item;
+        background-color: transparent;
+        border: none;
+        font-size: 1rem;
+        color: #363636;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:hover:not(:disabled) {
+          background-color: var(--brand-1-light);
+          color: #fff;
+        }
+
+        &.is-active {
+          background-color: var(--brand-1);
+          color: #fff;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          background-color: #f5f5f5;
+          color: #b5b5b5;
+        }
+      }
+    }
+
+    .time-divider {
+      height: 2px;
+      background-color: var(--brand-1);
+      margin: 8px 0;
+    }
+  }
+
+  .timepicker-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+
+    .calendar-nav-previous-month,
+    .calendar-nav-next-month {
+      color: var(--brand-1);
+
+      button {
+        background-color: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: #3273dc;
+
+        &:hover {
+          color: #275cb7;
+        }
+
+        &:disabled {
+          color: #b5b5b5;
+        }
+      }
+    }
+
+    div {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}
+
+.timepicker-input {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+
+  .time-input {
+    width: 80%;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-300, #ccc);
+    font-size: 16px;
+    text-align: center;
+  }
+}

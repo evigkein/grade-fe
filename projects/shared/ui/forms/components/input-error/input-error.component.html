@@ -1,0 +1,19 @@
+<div *ngIf="errors?.length || message"
+     class="input-error-container">
+  <ng-container
+    *ngIf="visible"
+    [ngTemplateOutlet]="errors?.length ? formErrorTemplate : defaultErrorTemplate"
+  ></ng-container>
+</div>
+
+<ng-template #formErrorTemplate>
+  <div *ngFor="let itemMessage of errors">
+    {{ itemMessage }}
+  </div>
+</ng-template>
+
+<ng-template #defaultErrorTemplate>
+  <div>
+    {{ message }}
+  </div>
+</ng-template>

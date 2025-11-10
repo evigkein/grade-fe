@@ -1,0 +1,10 @@
+<div
+  *ngIf="tooltip"
+  class="mark"
+  [class.mark--has-label]="label"
+  [tooltip]="tooltip"
+  placement="top"
+  [class]="['mark--margin-left-' + marginLeftType, 'mark--' + size ]"
+  overlayClass="question-tooltip">
+  ?
+</div>

@@ -1,0 +1,36 @@
+//:host {
+//  $default-icon-size: 20px;
+//
+//  display: inline-flex;
+//  //width: $default-icon-size;
+//  //height: $default-icon-size;
+//
+//  width: var(--size);
+//  height: var(--size);
+//  font-size: 0;
+//
+//  svg {
+//    display: inline-block;
+//    fill: currentColor;
+//    width: 100%;
+//    height: 100%;
+//  }
+//}
+//
+//:host-context(.button--with-icon) {
+//  display: flex;
+//}
+
+:host {
+  display: inline-flex;
+  width: var(--size, 20px);
+  min-width: var(--size, 20px);
+  //height: var(--size, 20px);
+  font-size: 0;
+}
+
+i {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}

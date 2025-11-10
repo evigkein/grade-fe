@@ -1,0 +1,16 @@
+<ng-template #templateRef>
+  <p-modal
+    [id]="modalId()"
+    [titleText]="title"
+    [submitButtonText]="buttonText"
+    submitButtonType="primary"
+    [iconClose]="true"
+    [isFlexibleWidth]="false"
+    [isMobileFullScreen]="true"
+    (submit)="close()">
+    <div class="confirm-content p-text-center">
+<!--      <p class="p-p4">{{ title }}</p>-->
+      <p class="p-p4">{{ subTitle }}</p>
+    </div>
+  </p-modal>
+</ng-template>

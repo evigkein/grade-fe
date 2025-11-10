@@ -1,0 +1,33 @@
+<p-file-input
+  [formArray]="formArray"
+  [maxAmount]="1"
+  [isPicOnly]="true"
+  (imageChangedEvent)="onImageChanged($event)"
+  (uploaded)="onFileUploaded($event)">
+</p-file-input>
+
+<div class="cropper-container">
+  <!--<div class="cropper-container" *ngIf="imageChangedEvent">-->
+  <p-modal-wrapper #cropModal
+                   title="Crop Image"
+                   submitText="Save"
+                   cancelText="Cancel"
+                   (submit)="saveCroppedImage()"
+                   (closed)="onCancel()"
+                   (cancel)="onCancel()">
+    <image-cropper
+      [imageChangedEvent]="imageEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="0.8"
+      [resizeToWidth]="resizeToWidth"
+      [format]="format"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()">
+    </image-cropper>
+  </p-modal-wrapper>
+  
+  <!--  <img [src]="croppedImagePreview" class="cropped-image-preview"/>-->
+  <!--  <img [img]="croppedImagePreview" class="cropped-image-preview"/>-->
+</div>

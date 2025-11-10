@@ -1,0 +1,54 @@
+.notification-template-container {
+  display: flex;
+}
+
+.content {
+  margin-left: 23px;
+  font-size: 14px;
+  color: #1e2028;
+}
+
+
+.notification {
+  $this: &;
+
+  &--error {
+    #{$this}__title {
+      color: var(--red-2);
+      //color: #7C2A31;
+    }
+    #{$this}__text {
+      //color: #7C2A31;
+    }
+  }
+
+  &--warn {
+    color: #866606
+  }
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    margin-top: -5px;
+  }
+}
+
+:host >>> a,
+a {
+  display: inline-block;
+  font-size: 12px;
+  color: #2778d0;
+  margin-top: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+:host >>> a:hover,
+a:hover {
+  color: #e32c4b;
+}
+
+:host >>> a:active,
+a:active {
+  color: #c22540;
+}

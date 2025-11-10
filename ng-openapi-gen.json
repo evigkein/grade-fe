@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "http://localhost:8000/api/v1/common/api-json",
+  "output": "projects/shared/domain/api/swagger/",
+  "ignoreUnusedModels": false,
+  "modelPrefix": "I",
+  "servicePrefix": "Api",
+  "removeStaleFiles": true,
+  "generateServices": true,
+  "includeTags": [
+    "Orders",
+    "Locations",
+    "Tariffs",
+    "Trips",
+    "Quotes",
+    "Reviews",
+    "FAQ",
+    "Forms_Callback"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "paths": {
+      "common": [
+        "./dist/common"
+      ],
+      "@core/*": [
+        "./projects/shared/core/*"
+      ],
+      "@ui/*": [
+        "./projects/shared/ui/*"
+      ],
+      "@shared/*": [
+        "./projects/shared/*"
+      ],
+      "@utils/*": [
+        "./projects/shared/utils/*"
+      ],
+    },
+    "plugins": [
+      {"name": "@angular/language-service"}
+    ],
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "useDefineForClassFields": false,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "suppressUnusedLocalDependencies": true,
+    "extendedDiagnostics": {
+      "checks": {
+        "unusedStandaloneImports": "suppress"
+      },
+      "defaultCategory": "suppress"
+    }
+  }
+}

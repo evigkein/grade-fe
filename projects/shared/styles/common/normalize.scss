@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box!important;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  address, dl, ol, p, ul, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    margin-bottom: 0;
+  }
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  user-select: none;
+}
+
+
+.ant-select-selection-search-input {
+  height: 100%!important;
+}
+
+::ng-deep .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  overflow: scroll!important;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+///// FOR EDITOR
+
+blockquote {
+  padding-left: 20px;
+  margin-left: 20px;
+  border-left: 2px solid #ccc;
+}
+
+.p-preformatted {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+
+
+a {
+  all: unset;
+  display: inline;
+  text-decoration: none;
+  cursor: default;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  //pointer-events: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  line-height: inherit;
+  white-space: normal;
+  text-align: inherit;
+  word-break: normal;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+
+/////////////// ZORRO ///////////////////
+.ant-dropdown-menu {
+  padding: 0!important;
+  border-radius: 12px!important;
+  overflow: hidden!important;
+}
+
+.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+  padding: 0!important;
+}
+
+.ant-menu-title-content {
+  width: 100%!important;
+}
+
+.p-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-ellipsis-3row {
+  @extend .p-ellipsis;
+  -webkit-line-clamp: 3;
+}

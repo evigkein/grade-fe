@@ -1,0 +1,44 @@
+<div class="network-selector">
+  <label for="network">Сеть:</label>
+<!--  <select [formControl]="networkControl" id="network">-->
+<!--    <option *ngFor="let option of options$ | async" [ngValue]="option.value">-->
+<!--      • {{ option.label }}-->
+<!--    </option>-->
+<!--  </select>-->
+  <p-select [formControl]="networkControl" id="network" [options]="options$ | async"></p-select>
+  
+  <div class="network-details" *ngIf="selectedNetwork$ | async as network">
+    <h2 class="label">{{ network.label }}</h2>
+    
+    <div class="content">
+      <p-icon [icon]="network.icon" size="100"></p-icon>
+<!--      <img [img]="network.icon" alt="{{ network.label }}" />-->
+      <div class="description">{{ network.description }}</div>
+    </div>
+    
+    <svg [style.max-width.px]="100" viewBox="0 0 33 33" width="128" height="128" fill="#000" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" version="1.1"><path transform="matrix(1,0,0,1,0,0)" d="M31,32h1v1h-1v-1zM29,32h1v1h-1v-1zM26,32h2v1h-2v-1zM23,32h2v1h-2v-1zM19,32h2v1h-2v-1zM17,32h1v1h-1v-1zM13,32h2v1h-2v-1zM8,32h4v1h-4v-1zM0,32h7v1h-7v-1zM30,31h1v1h-1v-1zM27,31h1v1h-1v-1zM25,31h1v1h-1v-1zM20,31h3v1h-3v-1zM16,31h1v1h-1v-1zM11,31h3v1h-3v-1zM9,31h1v1h-1v-1zM6,31h1v1h-1v-1zM0,31h1v1h-1v-1zM30,30h1v1h-1v-1zM26,30h1v1h-1v-1zM24,30h1v1h-1v-1zM20,30h2v1h-2v-1zM18,30h1v1h-1v-1zM10,30h6v1h-6v-1zM8,30h1v1h-1v-1zM6,30h1v1h-1v-1zM2,30h3v1h-3v-1zM0,30h1v1h-1v-1zM31,29h2v1h-2v-1zM28,29h1v1h-1v-1zM23,29h3v1h-3v-1zM18,29h3v1h-3v-1zM13,29h2v1h-2v-1zM8,29h3v1h-3v-1zM6,29h1v1h-1v-1zM2,29h3v1h-3v-1zM0,29h1v1h-1v-1zM24,28h6v1h-6v-1zM22,28h1v1h-1v-1zM12,28h7v1h-7v-1zM8,28h1v1h-1v-1zM6,28h1v1h-1v-1zM2,28h3v1h-3v-1zM0,28h1v1h-1v-1zM30,27h3v1h-3v-1zM28,27h1v1h-1v-1zM18,27h7v1h-7v-1zM16,27h1v1h-1v-1zM13,27h2v1h-2v-1zM8,27h4v1h-4v-1zM6,27h1v1h-1v-1zM0,27h1v1h-1v-1zM28,26h1v1h-1v-1zM26,26h1v1h-1v-1zM23,26h2v1h-2v-1zM20,26h2v1h-2v-1zM17,26h2v1h-2v-1zM14,26h2v1h-2v-1zM10,26h3v1h-3v-1zM0,26h7v1h-7v-1zM31,25h2v1h-2v-1zM28,25h1v1h-1v-1zM24,25h1v1h-1v-1zM21,25h2v1h-2v-1zM19,25h1v1h-1v-1zM12,25h1v1h-1v-1zM8,25h3v1h-3v-1zM32,24h1v1h-1v-1zM24,24h6v1h-6v-1zM14,24h7v1h-7v-1zM10,24h3v1h-3v-1zM8,24h1v1h-1v-1zM6,24h1v1h-1v-1zM4,24h1v1h-1v-1zM0,24h1v1h-1v-1zM30,23h3v1h-3v-1zM27,23h2v1h-2v-1zM19,23h3v1h-3v-1zM15,23h2v1h-2v-1zM13,23h1v1h-1v-1zM9,23h2v1h-2v-1zM7,23h1v1h-1v-1zM4,23h1v1h-1v-1zM2,23h1v1h-1v-1zM0,23h1v1h-1v-1zM31,22h1v1h-1v-1zM29,22h1v1h-1v-1zM27,22h1v1h-1v-1zM25,22h1v1h-1v-1zM20,22h2v1h-2v-1zM18,22h1v1h-1v-1zM13,22h4v1h-4v-1zM9,22h3v1h-3v-1zM5,22h3v1h-3v-1zM3,22h1v1h-1v-1zM0,22h1v1h-1v-1zM32,21h1v1h-1v-1zM30,21h1v1h-1v-1zM26,21h2v1h-2v-1zM23,21h2v1h-2v-1zM19,21h2v1h-2v-1zM12,21h2v1h-2v-1zM9,21h2v1h-2v-1zM7,21h1v1h-1v-1zM5,21h1v1h-1v-1zM2,21h1v1h-1v-1zM0,21h1v1h-1v-1zM28,20h2v1h-2v-1zM25,20h1v1h-1v-1zM22,20h1v1h-1v-1zM14,20h7v1h-7v-1zM11,20h2v1h-2v-1zM6,20h2v1h-2v-1zM2,20h3v1h-3v-1zM30,19h2v1h-2v-1zM26,19h3v1h-3v-1zM21,19h3v1h-3v-1zM15,19h1v1h-1v-1zM12,19h1v1h-1v-1zM10,19h1v1h-1v-1zM7,19h2v1h-2v-1zM3,19h2v1h-2v-1zM1,19h1v1h-1v-1zM30,18h2v1h-2v-1zM27,18h1v1h-1v-1zM24,18h2v1h-2v-1zM22,18h1v1h-1v-1zM20,18h1v1h-1v-1zM18,18h1v1h-1v-1zM13,18h4v1h-4v-1zM10,18h1v1h-1v-1zM5,18h4v1h-4v-1zM0,18h3v1h-3v-1zM32,17h1v1h-1v-1zM25,17h3v1h-3v-1zM22,17h2v1h-2v-1zM18,17h3v1h-3v-1zM8,17h1v1h-1v-1zM3,17h3v1h-3v-1zM0,17h2v1h-2v-1zM31,16h1v1h-1v-1zM28,16h2v1h-2v-1zM24,16h1v1h-1v-1zM15,16h3v1h-3v-1zM12,16h1v1h-1v-1zM8,16h2v1h-2v-1zM4,16h3v1h-3v-1zM0,16h3v1h-3v-1zM30,15h2v1h-2v-1zM27,15h1v1h-1v-1zM20,15h6v1h-6v-1zM18,15h1v1h-1v-1zM15,15h2v1h-2v-1zM12,15h1v1h-1v-1zM9,15h2v1h-2v-1zM4,15h1v1h-1v-1zM2,15h1v1h-1v-1zM0,15h1v1h-1v-1zM27,14h5v1h-5v-1zM24,14h1v1h-1v-1zM20,14h2v1h-2v-1zM13,14h6v1h-6v-1zM3,14h5v1h-5v-1zM0,14h1v1h-1v-1zM29,13h4v1h-4v-1zM25,13h2v1h-2v-1zM19,13h5v1h-5v-1zM15,13h1v1h-1v-1zM11,13h3v1h-3v-1zM5,13h1v1h-1v-1zM3,13h1v1h-1v-1zM1,13h1v1h-1v-1zM27,12h2v1h-2v-1zM24,12h1v1h-1v-1zM17,12h2v1h-2v-1zM14,12h1v1h-1v-1zM10,12h3v1h-3v-1zM4,12h5v1h-5v-1zM0,12h2v1h-2v-1zM29,11h3v1h-3v-1zM27,11h1v1h-1v-1zM21,11h4v1h-4v-1zM19,11h1v1h-1v-1zM15,11h1v1h-1v-1zM11,11h3v1h-3v-1zM7,11h1v1h-1v-1zM4,11h1v1h-1v-1zM30,10h2v1h-2v-1zM28,10h1v1h-1v-1zM24,10h2v1h-2v-1zM20,10h2v1h-2v-1zM12,10h5v1h-5v-1zM6,10h3v1h-3v-1zM4,10h1v1h-1v-1zM1,10h2v1h-2v-1zM32,9h1v1h-1v-1zM29,9h2v1h-2v-1zM26,9h1v1h-1v-1zM21,9h4v1h-4v-1zM19,9h1v1h-1v-1zM16,9h2v1h-2v-1zM12,9h3v1h-3v-1zM9,9h1v1h-1v-1zM7,9h1v1h-1v-1zM5,9h1v1h-1v-1zM26,8h5v1h-5v-1zM17,8h4v1h-4v-1zM11,8h3v1h-3v-1zM2,8h5v1h-5v-1zM0,8h1v1h-1v-1zM24,7h1v1h-1v-1zM18,7h5v1h-5v-1zM16,7h1v1h-1v-1zM11,7h2v1h-2v-1zM8,7h2v1h-2v-1zM26,6h7v1h-7v-1zM24,6h1v1h-1v-1zM22,6h1v1h-1v-1zM20,6h1v1h-1v-1zM18,6h1v1h-1v-1zM16,6h1v1h-1v-1zM14,6h1v1h-1v-1zM12,6h1v1h-1v-1zM10,6h1v1h-1v-1zM8,6h1v1h-1v-1zM0,6h7v1h-7v-1zM32,5h1v1h-1v-1zM26,5h1v1h-1v-1zM21,5h2v1h-2v-1zM18,5h1v1h-1v-1zM14,5h1v1h-1v-1zM12,5h1v1h-1v-1zM8,5h1v1h-1v-1zM6,5h1v1h-1v-1zM0,5h1v1h-1v-1zM32,4h1v1h-1v-1zM28,4h3v1h-3v-1zM26,4h1v1h-1v-1zM19,4h6v1h-6v-1zM14,4h3v1h-3v-1zM12,4h1v1h-1v-1zM10,4h1v1h-1v-1zM8,4h1v1h-1v-1zM6,4h1v1h-1v-1zM2,4h3v1h-3v-1zM0,4h1v1h-1v-1zM32,3h1v1h-1v-1zM28,3h3v1h-3v-1zM26,3h1v1h-1v-1zM23,3h1v1h-1v-1zM20,3h1v1h-1v-1zM17,3h2v1h-2v-1zM15,3h1v1h-1v-1zM8,3h3v1h-3v-1zM6,3h1v1h-1v-1zM2,3h3v1h-3v-1zM0,3h1v1h-1v-1zM32,2h1v1h-1v-1zM28,2h3v1h-3v-1zM26,2h1v1h-1v-1zM24,2h1v1h-1v-1zM18,2h5v1h-5v-1zM14,2h1v1h-1v-1zM12,2h1v1h-1v-1zM10,2h1v1h-1v-1zM8,2h1v1h-1v-1zM6,2h1v1h-1v-1zM2,2h3v1h-3v-1zM0,2h1v1h-1v-1zM32,1h1v1h-1v-1zM26,1h1v1h-1v-1zM24,1h1v1h-1v-1zM21,1h1v1h-1v-1zM15,1h1v1h-1v-1zM9,1h4v1h-4v-1zM6,1h1v1h-1v-1zM0,1h1v1h-1v-1zM26,0h7v1h-7v-1zM22,0h3v1h-3v-1zM19,0h1v1h-1v-1zM14,0h1v1h-1v-1zM9,0h2v1h-2v-1zM0,0h7v1h-7v-1z"></path></svg>
+    
+    
+    <div class="amount">
+      <p-input label="Сумма RUB" [formControl]="amountControl"></p-input>
+      <p-button label="Оплатить" size="m" type="primary" (click)="pay()"></p-button>
+    </div>
+    <div class="min">Минимум: {{ network.min }}</div>
+  </div>
+</div>
+
+<!--<div class="address">Address: {{address$ | async}}</div>-->
+
+<!--<s-payment></s-payment>-->
+
+<ng-template #paymentModal>
+  <p-modal
+    [id]="paymentModalId()"
+    [iconClose]="true"
+    [isFlexibleWidth]="false"
+    [isMobileFullScreen]="true"
+    (submit)="onPaymentSubmit()"
+    (cancel)="onPaymentCancel()">
+    <s-payment />
+  </p-modal>
+</ng-template>

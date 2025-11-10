@@ -1,0 +1,16 @@
+.budge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--p-items);
+    border-radius: 12px;
+    color: var(--first-2);
+
+    &--mentor {
+        background: var(--purple-1);
+    }
+
+    &--supervisor {
+        background: var(--purple-1);
+    }
+}

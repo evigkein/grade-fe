@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  margin-bottom: 12px;
+
+  p-accordion {
+    width: 100%;
+  }
+
+  .p-p1[title] {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 140%;
+    color: #444;
+  }
+}

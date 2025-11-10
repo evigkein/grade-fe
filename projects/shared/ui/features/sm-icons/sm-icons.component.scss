@@ -1,0 +1,29 @@
+.sm-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--s {
+    gap: 12px;
+  }
+
+  &--m {
+    gap: 24px;
+  }
+}
+
+.sm-icons__item {
+  cursor: pointer;
+  border-radius: 50%;
+  background: #f2f2f2;
+  padding: 8px;
+  max-width: 40px;
+  max-height: 40px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+  }
+}

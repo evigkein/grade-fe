@@ -1,0 +1,12 @@
+<div
+  class="popover"
+  nz-popover
+  [nzPopoverPlacement]="position"
+  [nzPopoverVisible]="isVisible"
+  [nzPopoverContent]="template"
+  [nzPopoverOverlayClassName]="popoverClassName"
+  [nzPopoverArrowPointAtCenter]="isPopoverArrowPointAtCenter"
+  [nzPopoverTrigger]="trigger"
+  (nzPopoverVisibleChange)="visibleChange.emit($event)">
+  <ng-content></ng-content>
+</div>

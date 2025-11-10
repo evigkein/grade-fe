@@ -1,0 +1,23 @@
+<ng-template #galleryModal>
+  <p-modal
+    [id]="modalId()"
+    [isFullScreen]="fullScreen()"
+    [titleText]="title()"
+    [submitButtonText]="submitText()"
+    [cancelButtonText]="cancelText()"
+    [submitButtonType]="submitType"
+    [cancelButtonType]="cancelType"
+    [iconClose]="true"
+    (submit)="onSubmit()"
+    (closed)="onClosed()">
+    <div class="gallery">
+      <img
+        *ngIf="images().length"
+        [img]="images()[0]"
+        [width]="imgWidth"
+        [height]="imgHeight"
+        [forceLoad]="true"
+      />
+    </div>
+  </p-modal>
+</ng-template>

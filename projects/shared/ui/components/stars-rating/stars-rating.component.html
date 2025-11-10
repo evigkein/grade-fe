@@ -1,0 +1,16 @@
+<div class="stars" [class.interactive]="isControl">
+  <ng-container *ngFor="let star of [].constructor(maxStars); let i = index">
+    <span
+      class="star"
+      [class.filled]="i < (hoveredStar || rating)"
+      (mouseenter)="onHover(i + 1)"
+      (mouseleave)="onLeave()"
+      (click)="setRating(i + 1)"
+    >★</span>
+  </ng-container>
+</div>
+
+<div *ngIf="hasRating" class="rating">{{ rating }}</div>
+<div *ngIf="hasCount" class="reviews">
+  ({{ reviewsCount }} {{ 'reviews' | translate }})
+</div>

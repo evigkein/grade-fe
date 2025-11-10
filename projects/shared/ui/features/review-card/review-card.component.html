@@ -1,0 +1,17 @@
+<div class="review-post">
+  <div class="review-post__header">
+    <p class="review-post__name">{{ review.name }}</p>
+    <div class="review-post__stars">
+      <p-stars-rating [rating]="review.rating" />
+    </div>
+  </div>
+  
+  <p class="review-post__text">
+    {{ review.text }}
+  </p>
+  
+  <div class="review-post__footer">
+    <span class="review-post__date">{{ review.date | date : 'dd.MM.y' }}</span>
+    <span class="review-post__route">{{ review.route }}</span>
+  </div>
+</div>

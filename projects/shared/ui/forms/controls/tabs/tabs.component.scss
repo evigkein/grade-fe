@@ -1,0 +1,112 @@
+:host {
+    display: flex;
+    width: 100%;
+}
+
+.tabs {
+    width: 100%;
+    display: inline-flex;
+    gap: 8px;
+    overflow: scroll;
+    flex-wrap: wrap;
+
+    &--col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--tag {}
+
+    &--button {
+        background: var(--gray-4);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        padding: 4px;
+        border-radius: 12px;
+
+        & > * {
+            flex-grow: 1;
+            flex-basis: 0;
+            width: max-content;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &--button > * {
+        flex: 1;
+    }
+}
+
+.tab {
+    $this: &;
+    box-sizing: border-box;
+    background-color: transparent;
+    padding: 10px 21px;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none!important;
+    transition: var(--transition-common);
+    display: flex;
+    align-items: center;
+
+    &__text {
+        z-index: 1;
+    }
+
+    &__icon {
+        margin-right: 8px;
+        z-index: 1;
+    }
+
+    &--button {
+        white-space: nowrap;
+        border-radius: 12px;
+        border-bottom: none!important;
+    }
+
+    &--tag {
+        font-size: 14px;
+        white-space: nowrap;
+        align-items: center;
+        background-color: var(--tags-bg);
+        border-radius: 14px;
+        color: var(--first-1);
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-gap: 5px;
+        justify-content: center;
+        line-height: 14px;
+        padding: 8px 8px;
+        position: relative;
+    }
+
+    &--link {
+        font-weight: 600;
+    }
+
+    &--active {
+        font-weight: bold;
+        background-color: transparent;
+        border-bottom: 2px solid var(--brand-1);
+        color: var(--brand-1);
+
+        &.tab--button {
+            background: var(--brand-1);
+            color: var(--first-2);
+        }
+    }
+
+    &:hover, &:focus {}
+}
+
+.tabs--tag {
+    .tab--active {
+        background: var(--brand-1);
+        color: var(--first-2);
+        border-bottom: none;
+    }
+}

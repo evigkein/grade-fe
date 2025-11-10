@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  &-text {
+    margin-right: 12px;
+    user-select: none;
+  }
+
+  &--align {
+    &-center {
+      margin: 0 auto;
+    }
+  }
+}
+
+p-tooltip-help {
+  margin-left: 6px;
+}
+
+.input__label-text {
+  color: #7C7C7C;
+}

@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+
+    &--bg {
+        &-red {
+            background: rgba(var(--red-1-rgb), 0.12);
+            padding: 10px 20px;
+            color: var(--red-1);
+        }
+
+        &-warn {
+            background: var(--yellow-3);
+            padding: 10px 20px;
+        }
+    }
+
+    &__icon {
+        color: gray;
+        margin-right: 16px;
+
+        &--sm {
+            width: 24px;
+        }
+    }
+
+    &__message {
+        font-size: 14px;
+
+        &--sm {
+            font-size: 12px;
+        }
+    }
+}

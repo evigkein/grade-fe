@@ -1,0 +1,26 @@
+<ng-container *ngIf="actions.length">
+  <a
+    [(nzVisible)]="visible"
+    [nzClickHide]="false"
+    [nzDropdownMenu]="menu"
+    class="menu"
+    nz-dropdown
+    nzPlacement="bottomRight"
+    nzTrigger="click">
+    <div [ngClass]="{ active: active }" class="dots-menu-dropdown-button">
+      <div class="dots-menu-dropdown-button__dot"></div>
+      <div class="dots-menu-dropdown-button__dot"></div>
+      <div class="dots-menu-dropdown-button__dot"></div>
+    </div>
+  </a>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul *ngIf="actions" class="menu" nz-menu>
+      <ng-container *ngFor="let action of actions">
+        <!--        <li nz-menu-divider *ngIf="action.value === 'delete'"></li>-->
+        <li (click)="handleClick(action.action)" class="menu__item" nz-menu-item>
+          <p-button [label]="action.label" padding="side-r-0" size="xl" type="transparent" [iconPrefix]="action.iconPrefix" [iconPostfix]="action.iconPostfix" align="left"></p-button>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-container>

@@ -1,0 +1,41 @@
+<ul class="menu">
+  <ng-container *ngFor="let option of options">
+    <li class="menu__item-container">
+      <ng-container *ngTemplateOutlet="menuItem; context: { $implicit: option }"></ng-container>
+      <ul *ngIf="option.subMenu && option.subMenu.length > 0" class="submenu" [@openClose]="option.isOpen ? 'open' : 'closed'">
+        <ng-container *ngFor="let subOption of option.subMenu">
+          <li class="submenu__item">
+            <ng-container *ngTemplateOutlet="menuItem; context: { $implicit: subOption }"></ng-container>
+            <ul *ngIf="subOption.subMenu && subOption.subMenu.length > 0" class="submenu" [@openClose]="subOption.isOpen ? 'open' : 'closed'">
+              <ng-container *ngFor="let subSubOption of subOption.subMenu">
+                <li class="submenu__item">
+                  <ng-container *ngTemplateOutlet="menuItem; context: { $implicit: subSubOption }"></ng-container>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ng-container>
+</ul>
+
+<ng-template #menuItem let-option>
+  <a *ngIf="option.url || option.action" class="menu__item"
+     [routerLink]="option.url"
+     routerLinkActive="menu__item--active"
+     stopEvents
+     [href]="option.url"
+     (click)="option.subMenu ? toggleSubMenu($event, option) : onAction(option)">
+    <p-icon class="menu__icon" [icon]="option.icon || ''" [size]="option.iconSize || '26'"></p-icon>
+    <span class="menu__item-title">{{ option.title | translate }}</span>
+    <p-icon *ngIf="option.subMenu" class="menu__icon-toggle" [class.menu__icon-toggle--opened]="option.isOpen" size="12" icon="angleDown"></p-icon>
+  </a>
+  <ng-container *ngIf="!option.url && !option.action">
+    <span class="menu__item" (click)="option.subMenu ? toggleSubMenu($event, option) : onAction(option)">
+      <p-icon class="menu__icon" [icon]="option.icon || ''" [size]="option.iconSize || '26'"></p-icon>
+      <span class="menu__item-title">{{ option.title | translate }}</span>
+      <p-icon *ngIf="option.subMenu" class="menu__icon-toggle" [class.menu__icon-toggle--opened]="option.isOpen" size="12" icon="angleDown"></p-icon>
+    </span>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,11 @@
+<label class="switch" role="switch" [attr.aria-checked]="formControl.value" [attr.aria-label]="label | translate">
+    <input [formControl]="formControl"
+           class="switch__input"
+           type="checkbox"
+           (click)="onAction()"
+           [id]="id"
+           [attr.aria-checked]="formControl.value"
+           [attr.aria-describedby]="id + '-desc'">
+    <span class="slider round" [ngClass]="{'rotate': formControl.value}" aria-hidden="true"></span>
+    <span class="switch__label" [ngClass]="{'left': labelPosition === 'left'}" id="{{ id }}-desc">{{ label | translate }}</span>
+</label>

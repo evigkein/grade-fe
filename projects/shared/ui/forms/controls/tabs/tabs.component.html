@@ -1,0 +1,41 @@
+<div class="tabs" [class.tabs--col]="isCol" [class]="['tabs--' + type]">
+    <ng-container *ngFor="let tab of options">
+        <ng-container *ngIf="tab.url; else simpleTabTpl">
+            <ng-container *ngTemplateOutlet="urlTabTpl; context: {$implicit: tab}"></ng-container>
+        </ng-container>
+        
+        <ng-template #urlTabTpl let-tab>
+            <a *ngIf="!tab.isExternalLink; else linkTpl"
+               [class.tab--active]="isTabActive(tab.value)"
+               [href]="tab.url"
+               [routerLinkActiveOptions]="{ exact: true }"
+               [routerLink]="tab.url"
+               (click)="tabAction(tab.value)"
+               class="tab"
+               routerLinkActive="tab--active">
+                <p-icon *ngIf="tab.iconPrefix" class="tab__icon" [icon]="tab.iconPrefix" [size]="tab.iconPrefixSize!"></p-icon>
+                <span class="tab__text">{{tab.label | translate}}</span>
+            </a>
+            
+            <ng-template #linkTpl>
+                <a [class.tab--active]="isTabActive(tab.value)"
+                   [href]="tab.url"
+                   class="tab__title text__body">
+                    <p-icon *ngIf="tab.iconPrefix" class="tab__icon" [icon]="tab.iconPrefix" [size]="tab.iconPrefixSize!"></p-icon>
+                    <span>{{tab.label | translate}}</span>
+                </a>
+            </ng-template>
+        </ng-template>
+        
+        <ng-template #simpleTabTpl>
+            <span
+              class="tab"
+              [class]="['tab--' + type]"
+              [class.tab--active]="isTabActive(tab.value)"
+              (click)="tabAction(tab.value)">
+                <p-icon *ngIf="tab.iconPrefix" class="tab__icon" [icon]="tab.iconPrefix" [size]="tab.iconPrefixSize!"></p-icon>
+                <span>{{ tab.label | translate }}</span>
+            </span>
+        </ng-template>
+    </ng-container>
+</div>

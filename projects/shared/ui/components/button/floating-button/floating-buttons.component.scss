@@ -1,0 +1,14 @@
+$footer-height: 33px;
+
+.floating-buttons-container {
+  right: 15px;
+  bottom: calc($footer-height + 15px);
+  z-index: 200;
+  position: fixed;
+
+  ::ng-deep .menu-helper {
+    position: absolute;
+    top: calc(50% - 35px);
+    left: -10px;
+  }
+}

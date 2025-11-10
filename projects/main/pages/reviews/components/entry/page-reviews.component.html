@@ -1,0 +1,64 @@
+<div class="p-page-wrapper">
+  <div class="booking__head">
+    <h3 class="booking__title">Отзывы</h3>
+  </div>
+  
+  <ng-container *ngIf="reviewsService.isLoading(); else reviewsContent">
+    <p-skeleton-grid
+      [rows]="5"
+      [columns]="1"
+      [gapSizeInPx]="16"
+      [itemHeight]="140"
+      [itemWidth]="'100%'"
+      [template]="reviewSkeleton">
+    </p-skeleton-grid>
+    
+    <ng-template #reviewSkeleton>
+      <div class="skeleton-review"></div>
+    </ng-template>
+  </ng-container>
+  
+  <ng-template #reviewsContent>
+    <div class="faqs">
+      <div class="faqs__list">
+        <p-review-card
+          *ngFor="let i of reviews$() | slice : 0 : visibleCount()"
+          animate.enter="fade-in"
+          animate.leave="fade-out"
+          [review]="i"/>
+      </div>
+      
+      <p-button
+        label="Показать еще"
+        (action)="showMore(reviews$().length)">
+      </p-button>
+    </div>
+  </ng-template>
+  
+  <h4 class="reviews__h">
+    <p-icon icon="orangeReview" size="24"/>
+    Оставьте свой отзыв
+  </h4>
+  
+  <div class="review-form" [formGroup]="form">
+    <div class="review-form__row">
+      <p-input formControlName="name" label="Имя и фамилия" placeholder="ФИО"></p-input>
+      <p-input formControlName="route" label="Направление трансфера" placeholder="Сочи - Краснодар"></p-input>
+      <p-input formControlName="phone" label="Номер телефона" type="tel" prefixText="+7" appRussianNumberMask placeholder="(___) ___-__-__"></p-input>
+    </div>
+    
+    <div class="review-form__row">
+      <p-input formControlName="text" isTextArea mode="noOutline" areaMinHeight="120" areaMaxHeight="180" label="Здесь вы можете написать свой отзыв:" placeholder="Ваш отзыв"></p-input>
+    </div>
+    
+    <div class="review-form__row">
+      <p-stars-rating formControlName="rating" isControl></p-stars-rating>
+    </div>
+    
+    <div class="review-form__actions">
+      <p-button label="Оставить отзыв" type="primary" size="l" (action)="submit()"></p-button>
+    </div>
+  </div>
+  
+  <p-call-us title="Остались вопросы?"/>
+</div>

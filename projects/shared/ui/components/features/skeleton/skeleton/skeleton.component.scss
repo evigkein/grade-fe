@@ -1,0 +1,30 @@
+:host {
+  position: relative;
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-color: var(--skeleton-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  padding: 12px;
+  animation: movingGradient 2s linear infinite;
+  background: linear-gradient(90deg, var(--skeleton-bg) 0%, var(--skeleton-gradient) 100%);
+}
+
+@keyframes movingGradient {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
