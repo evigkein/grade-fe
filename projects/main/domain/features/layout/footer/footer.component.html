@@ -1,63 +1,6 @@
-<footer *ngIf="currentWidth() > 1023; else footer" class="p-header">
-  <div class="p-header__left">
-    <div class="p-header__logo" (click)="onNavigate('')">
-      <p-icon icon="mainLogo" size="68"></p-icon>
-      <div class="p-header__desc">
-        <span class="p-header__title">СОЮЗ ТРАНСФЕР</span>
-        <span class="p-header__subtitle">Поездки и доставка по регионам России</span>
-      </div>
-    </div>
-    
-    <nav class="p-header__nav">
-      <a class="p-header__link" stopEvents (click)="onNavigate('faq')">Поддержка</a>
-      <a class="p-header__link" stopEvents (click)="onNavigate('reviews')">Отзывы</a>
-    </nav>
-  </div>
-  
-  <div class="p-header__right">
-    <p-header-right [currentWidth]="currentWidth()" (navigate)="onNavigate($event)" (openCallbackModal)="onCallClick()"/>
-  </div>
-</footer>
+<footer class="p-footer">
 
-<ng-template #footer>
-  <div class="footer2">
-    <div class="footer2-top">
-      <div class="p-header__logo" (click)="onNavigate('')">
-        <p-icon icon="mainLogo" size="68"></p-icon>
-        <div class="p-header__desc">
-          <span class="p-header__title">СОЮЗ ТРАНСФЕР</span>
-          <span class="p-header__subtitle">Поездки и доставка по регионам России</span>
-        </div>
-      </div>
-      
-      <div class="footer2-call1">
-        <div class="p-header-right__phone">
-          <p-phone-link phone="+7 968 561-98-98" />
-          <span class="p-header-right__worktime">Работаем 24/7</span>
-        </div>
-        
-        <p-button label="Заказать звонок" type="primary" padding="icon" size="l" (action)="onCallClick()"/>
-      </div>
-    </div>
-    
-    <div class="footer2-row">
-      <nav class="p-header__nav">
-        <a class="p-header__link" stopEvents (click)="onNavigate('faq')">Поддержка</a>
-        <a class="p-header__link" stopEvents (click)="onNavigate('reviews')">Отзывы</a>
-      </nav>
-      <p-sm-icons size="s" isFooter/>
-    </div>
-    
-    <div class="footer2-call2">
-      <div class="p-header-right__phone">
-        <p-phone-link phone="+7 968 561-98-98"/>
-        <span class="p-header-right__worktime">Работаем 24/7</span>
-      </div>
-      
-      <p-button label="Заказать звонок" type="primary" padding="icon" size="l" (action)="onCallClick()"/>
-    </div>
-  </div>
-</ng-template>
+</footer>
 
 <ng-template #login>
   <div class="header__link" (click)="onOpenLoginModal()">Login</div>

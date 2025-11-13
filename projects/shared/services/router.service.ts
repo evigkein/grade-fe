@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import { Router, ActivatedRoute, QueryParamsHandling, Params, NavigationEnd } from '@angular/router';
 import { Observable, startWith } from 'rxjs';
 import { filter, map, share, shareReplay, tap } from 'rxjs/operators';
-import { ERoute } from '../../main/domain/constants/route.enum';
+import { ERoute } from '../domain/main/constants/route.enum';
 
 export function _ROUTE(): ActivatedRoute {
   return inject(ActivatedRoute)

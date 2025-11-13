@@ -1,286 +1,48 @@
-.home {
-  &__banner {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 0;
-    margin-top: 20px;
-
-    @media (max-width: 950px) {
-      align-items: flex-start;
-      flex-direction: column;
-      flex-basis: 100%;
-      gap: 24px;
-      margin-top: 0;
-    }
-  }
-
-  &__tariffs {
-    display: flex;
-    flex-direction: column;
-    padding-top: 60px;
-    gap: 24px;
-
-    @media (max-width: 1200px) {
-      padding-top: 32px;
-    }
-
-    @media (max-width: 900px) {
-      padding: 0;
-    }
-  }
-
-  &__features {
-    margin-top: 32px;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 40px 32px;
-    align-items: start;
-
-    @media (max-width: 1200px) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    @media (max-width: 640px) {
-      grid-template-columns: 1fr;
-      gap: 28px 24px;
-    }
-  }
-
-  &__popular {
-    margin-top: 32px;
-  }
+.faq-section {
+  background: linear-gradient(
+                  180deg,
+                  rgba(25, 25, 35, 0.85) 0%,
+                  rgba(32, 32, 45, 0.95) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(100, 120, 255, 0.12);
+  padding: 3rem;
+  color: var(--first-2);
+  max-width: 900px;
+  margin: 5rem auto;
 }
 
-.banner {
-  &__left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-basis: 100%;
-    //padding: 0 20px;
-
-    @media (min-width: 1130px) {
-      padding-left: 40px;
-    }
-
-    @media (max-width: 950px) {
-      width: 100%;
-      padding: 0;
-    }
-  }
-
-  &__right {
-    position: relative;
-    flex-basis: 55%;
-
-    img {
-      display: block;
-      width: 100%;
-      //max-width: 520px;
-      height: auto;
-      object-fit: contain;
-    }
-
-    @media (max-width: 1250px) {
-      top: 40px;
-    }
-
-    @media (max-width: 950px) {
-      align-self: center;
-      top: 0;
-      max-width: 400px;
-    }
-  }
-
-  &__title {
-    font-weight: 900;
-    font-size: 16px;
-    text-transform: uppercase;
-    background: linear-gradient(93.89deg, #FF9D00 0%, #FF5100 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  &__subtitle {
-    font-weight: 700;
-    font-size: 36px;
-    color: #111;
-    line-height: 1.2;
-
-    @media (max-width: 560px) {
-      font-size: 30px;
-    }
-
-    @media (max-width: 470px) {
-      font-size: 24px;
-    }
-  }
-
-  &__description {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    gap: 16px;
-    font-weight: 500;
-    font-size: 14px;
-    color: #7C7C7C;
-
-    @media (max-width: 570px) {
-      flex-direction: column;
-      gap: 4px;
-    }
-  }
-
-  &__filter {
-    width: 100%;
-    max-width: 650px;
-    display: flex;
-    gap: 8px;
-    //height: 60px;
-    margin-top: 20px;
-
-    p-button {
-      margin-left: 4px;
-    }
-
-    @media (max-width: 500px) {
-      flex-direction: column;
-      height: auto;
-
-      p-button {
-        margin-left: 0;
-        width: 100%;
-      }
-    }
-  }
+.faq-title {
+  font-size: 2rem;
+  color: #e6e9f8;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-.tariffs {
-  &__cars {
-    --tile-min: 110px;
-    --img-max: 64px;
-    --img-min: 40px;
-
-    background-color: #F8F8F8;
-    border-radius: 20px;
-    padding: 24px 16px;
-
-    display: grid;
-    gap: 20px;
-
-    /* максимум 2 ряда */
-    grid-template-rows: repeat(2, auto);
-
-    /* кол-во колонок подбирается само; уменьшает плитки до --tile-min */
-    grid-template-columns: repeat(auto-fit, minmax(var(--tile-min), 1fr));
-    align-items: start;
-  }
-
-  &__car {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    img, .tariff-image {
-      width: clamp(var(--img-min), 12vw, var(--img-max));
-      height: auto;
-      display: block;
-    }
-
-    /* текстовые подписи */
-    .tariff-name   { font-weight: 700; font-size: 14px; line-height: 1.2; text-align: center; }
-    .tariff-price  { font-size: 12px; color: #7a7a7a; text-align: center; }
-  }
-
-  @media (max-width: 1200px) {
-    &__cars { --tile-min: 96px;  --img-max: 56px; }
-  }
-  @media (max-width: 820px) {
-    &__cars { --tile-min: 84px;  --img-max: 52px; }
-  }
-  @media (max-width: 650px) {
-    &__cars { --tile-min: 72px;  --img-max: 48px; }
-  }
-  @media (max-width: 480px) {
-    &__cars { --tile-min: 64px;  --img-max: 44px; --img-min: 36px; }
-  }
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
-.tariffs {
-  &__h {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 100%;
-  }
+.faq-question {
+  color: #e4e6fa;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.tariff__name {
-  margin-top: 6px;
-  white-space: nowrap;
+.faq-question:hover {
+  color: #8aa1ff;
 }
 
-.feature {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-
-  &__icon-wrap {
-    width: 64px;
-    height: 64px;
-    flex: 0 0 64px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(120% 120% at 0% 0%, #fff4e8 0%, #ffe7d1 60%, #fff 100%);
-    box-shadow:
-            0 1px 1px rgba(0,0,0,0.04),
-            0 8px 24px rgba(0,0,0,0.05);
-  }
-
-  &__icon {
-    width: 28px;
-    height: 28px;
-    display: block;
-    object-fit: contain;
-  }
-
-  &__text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    @media (max-width: 1200px) {
-      justify-items: center;
-      align-items: center;
-    }
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.2;
-    color: #121212;
-    letter-spacing: 0.2px;
-  }
-
-  &__desc {
-    font-size: 14px;
-    line-height: 1.45;
-    color: #7a7a7a;
-    max-width: 420px;
-  }
-
-  @media (max-width: 1200px) {
-    justify-items: center;
-    align-items: center;
-  }
+.faq-answer {
+  color: #b4b8c9;
+  line-height: 1.6;
+  margin-top: 0.5rem;
 }
 
-.trip-cards {
-  margin-top: 30px;
-}
+
+
+

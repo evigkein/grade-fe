@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
 import {
-  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+  computed,
+  effect,
+  input,
+  model,
+  output,
   signal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
 import { OpenCloseAnimation, slideInOutTopAnimationForHidden } from '@utils/angular/animation/slide-in-out.animation';
+
+export type TAccordionSize = '' | 'l'
+export type TAccordionPadding = '' | 'm' | 'l'
 
 @Component({
   selector: 'p-accordion',
@@ -22,36 +25,44 @@ import { OpenCloseAnimation, slideInOutTopAnimationForHidden } from '@utils/angu
   imports: [CommonModule, SvgIconComponent, TranslateModule],
   animations: [OpenCloseAnimation, slideInOutTopAnimationForHidden]
 })
-export class AccordionComponent implements OnInit {
-  @Input() label = '';
-  @Input({transform: booleanAttribute}) isOpened = false;
-  @Input({transform: booleanAttribute}) isBlockView = false;
-  @Input({transform: booleanAttribute}) isSeeMore = false;
-  @Input({transform: booleanAttribute}) isTitleBold = false;
-  @Input() useNgIf = true;
-  @Input() seeMoreLabels = ['See more...', 'See less...'];
-  @Input() toggleIcon = 'corner-up-icon';
-  @Input() hasToggle = true;
-  @Input() type: 'primary' | 'primary-filled' = 'primary';
-  @Input() icon!: string;
-  @Output() openChanges: EventEmitter<boolean> = new EventEmitter();
+export class AccordionComponent {
+  // === INPUT SIGNALS ===
+  label = input('');
+  isOpened = model(false);
+  isBlockView = input(false);
+  isSeeMore = input(false);
+  isTitleBold = input(false);
+  useNgIf = input(true);
+  seeMoreLabels = input(['See more...', 'See less...']);
+  toggleIcon = input('corner-up-icon');
+  size = input('');
+  hasToggle = input(true);
+  paddingSize = input<TAccordionPadding>('m');
+  type = input<'primary' | 'primary-filled'>('primary');
+  icon = input<string | undefined>(undefined);
+
+  openChanges = output<boolean>();
 
   animationFinished = signal(false);
 
-  ngOnInit() {
-    if (this.isSeeMore) {
-      // this.hasToggle = false;
-    }
+  isExpandedClass = computed(() => this.isOpened());
+  isBlockClass = computed(() => this.isBlockView());
+  isSeeMoreClass = computed(() => this.isSeeMore());
+  isPrimaryFilled = computed(() => this.type() === 'primary-filled');
+
+  constructor() {
+    effect(() => {
+      if (this.isSeeMore()) {
+      }
+    });
   }
 
   toggle(): void {
-    this.isOpened = !this.isOpened;
-    this.openChanges.emit(this.isOpened);
+    this.isOpened.update(v => !v);
+    this.openChanges.emit(this.isOpened());
   }
 
   animationDone(event: any) {
     this.animationFinished.set(event.toState === 'closed');
   }
 }
-
-

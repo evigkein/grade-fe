@@ -1,5 +1,5 @@
 <div class="layout">
-  <p-header (openLoginModal)="openLoginModal()" (logOut)="logout()" (navigate)="navigate($event)" (openCallbackModal)="openCallbackModal()"></p-header>
+  <p-header></p-header>
   
   <main class="layout__main">
     <div class="layout__content">
@@ -7,7 +7,7 @@
     </div>
   </main>
   
-  <p-footer class="layout__footer" (navigate)="navigate($event)" (openCallbackModal)="openCallbackModal()"></p-footer>
+  <p-footer class="layout__footer"></p-footer>
 </div>
 
 <!--<div *ngIf="user$ | async; else auth" class="main p-page-wrapper">-->
@@ -26,5 +26,5 @@
 </ng-template>
 
 
-<p-callback-modal (submitted)="openAlertModal()"/>
-<p-alert-modal title="Ваша заявка принята" subTitle="Наш менеджер свяжется с Вами в течение 15 минут" buttonText="Спасибо"></p-alert-modal>
+<!--<p-callback-modal (submitted)="openAlertModal()"/>-->
+<!--<p-alert-modal title="Ваша заявка принята" subTitle="Наш менеджер свяжется с Вами в течение 15 минут" buttonText="Спасибо"></p-alert-modal>-->

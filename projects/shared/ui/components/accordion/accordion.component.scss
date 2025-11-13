@@ -62,7 +62,7 @@
     width: 100%;
     cursor: pointer;
     border-radius: 8px;
-    color: #000000;
+    color: var(--first-1);
     font-size: 14px;
     display: flex;
     justify-content: space-between;
@@ -85,9 +85,32 @@
   &__see-more-button {
     //margin-left: auto;
   }
+
+
+  /// SIZED
+  &--l {
+    #{$this}__title {
+      font-size: 20px;
+    }
+  }
+
+  /// PADDINGS
+  &--p-m {
+    #{$this}__button {
+      padding: 20px 0;
+    }
+  }
 }
 
 .title--bold {
   font-weight: 600;
   font-size: 18px;
+}
+
+.accordion {
+  &--l {
+    .accordion__title {
+      font-size: 20px;
+    }
+  }
 }

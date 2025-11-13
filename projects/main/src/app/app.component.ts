@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   }
 
   private initUser(): void {
-    this.lang.setLanguage('ru');
+    this.lang.setLanguage('en');
     // const user = this.userService.user();
     // if (user) {
     //   user.user.lang && this.lang.setLanguage(user.user.lang);

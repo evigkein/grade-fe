@@ -1,20 +1,11 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component, ElementRef,
-  EventEmitter,
-  Input,
-  Output, signal, TemplateRef, ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, ViewChild, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CallbackFormComponent } from '@shared/features/call-us/call-us-modal/callback-form.component';
 import { _RS } from '@shared/services/router.service';
-import { CallbackModalComponent } from '@ui/modals/callback/callback-modal.component';
 import { AlertModalComponent } from '@ui/modals/alert/alert-modal.component';
+import { CallbackModalComponent } from '@ui/modals/callback/callback-modal.component';
 import { _MODAL } from '@ui/modules/modals/modals/modal.service';
 import { ModalsModule } from '@ui/modules/modals/modals/modal/modals.module';
 import { destroy } from '@utils/libs/rxjs';
-import { settingsMenu } from './constants/main-menu-options';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -28,13 +19,7 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     RouterOutlet,
     HeaderComponent,
-    AsyncPipe,
-    NgIf,
     ModalsModule,
-    CallbackFormComponent,
-    CallbackModalComponent,
-    AlertModalComponent,
-    // ModalsModule
   ],
 })
 export class LayoutComponent {
@@ -61,7 +46,7 @@ export class LayoutComponent {
   }
 
   navigate(route: string): void {
-    this.router.router.navigate([`/${route}`])
+    this.router.router.navigate([`/${route}`]);
   }
 
   openCallbackModal(isClose = false): void {
@@ -75,6 +60,4 @@ export class LayoutComponent {
   openAlertModal(): void {
     this.alertModal.open();
   }
-
-  readonly settingsMenu = settingsMenu;
 }

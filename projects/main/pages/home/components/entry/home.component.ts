@@ -1,15 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
-import { IFindLocationsItemDto } from '@shared/domain/api/swagger/models/i-find-locations-item-dto';
-import { IFindTariffsItemDto } from '@shared/domain/api/swagger/models/i-find-tariffs-item-dto';
-import { ApiQuotesService } from '@shared/domain/api/swagger/services/api-quotes.service';
-import { ApiTariffsService } from '@shared/domain/api/swagger/services/api-tariffs.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { _SEO, ISeo } from '@shared/services';
-import { _DEVICE, DeviceService } from '@shared/services/device/device.service';
 import { _RS } from '@shared/services/router.service';
 import { destroy } from '@shared/utils/libs/rxjs';
-import { map, Observable, tap } from 'rxjs';
-import { homeFeatures } from '../../const/features';
-import { TRIP_CARD_MOCKS } from '../../const/popular-trips';
+import { faqList } from '../../const/faq';
 
 @Component({
   selector: 'p-page-home',
@@ -19,26 +12,12 @@ import { TRIP_CARD_MOCKS } from '../../const/popular-trips';
   standalone: false,
 })
 export class PageHomeComponent implements OnInit {
-  apiTariffs = inject(ApiTariffsService);
-  apiQuotes = inject(ApiQuotesService);
   private seo = _SEO();
-
-  // apiOrder = inject(ApiOrdersService)
   destroy$ = destroy();
 
+  faqList = faqList;
+
   private router = _RS();
-
-  // locations$ = this.initLocations();
-  tariffs$ = this.initAutopark();
-
-  deviceService = _DEVICE();
-  isDesktopImg = computed(() => this.deviceService.currentWidth() > 950);
-
-  // locationsFrom$ = this.initLocations(this.fromControl);
-  // locationsTo$ = this.initLocations(this.toControl);
-
-  homeFeatures = homeFeatures;
-  popularTrips = TRIP_CARD_MOCKS;
 
   ngOnInit() {
     this.seo.updateSeo(SEO());
@@ -46,25 +25,6 @@ export class PageHomeComponent implements OnInit {
     // scrollToTop(0);
   }
 
-  onPickRoute(e?: IFindLocationsItemDto[]): void {
-    const body = {from: e[0].slug, to: e[1].slug};
-    if(!e?.[0]?.slug || !e?.[0]?.slug) return;
-
-    this.router.router.navigate([`/taxi/${e[0].slug}_${e[1].slug}`])
-
-    // this.apiQuotes.quotesControllerRoute({body}).pipe(
-    //   tap(v => {
-    //     console.log(v, 'VV');
-    //   }),
-    //   this.destroy$(),
-    // ).subscribe();
-  }
-
-  private initAutopark(): Observable<IFindTariffsItemDto[]> {
-    return this.apiTariffs.tariffsApiControllerFind().pipe(
-      map(v => v.data.map(i => ({...i, price: 444}))),
-    );
-  }
 }
 
 
@@ -96,5 +56,5 @@ SouzTransfer подходит как для индивидуальных пое�
     url: 'https://souztransfer.ru',
     image: 'https://souztransfer.ru/assets/og-image.jpg',
     type: 'website',
-  }
+  };
 }

@@ -1,21 +1,23 @@
-<header class="p-header">
-  <div class="p-header__left">
-    <div class="p-header__logo" (click)="onNavigate('')">
-      <p-icon icon="mainLogo" size="68"></p-icon>
-      <div class="p-header__desc">
-        <span class="p-header__title">СОЮЗ ТРАНСФЕР</span>
-        <span class="p-header__subtitle">Поездки и доставка по регионам России</span>
-      </div>
-    </div>
-    
-    <nav class="p-header__nav">
-      <a class="p-header__link" stopEvents (click)="onNavigate('faq')">Поддержка</a>
-      <a class="p-header__link" stopEvents (click)="onNavigate('reviews')">Отзывы</a>
-    </nav>
+<header class="header">
+  <div class="header__left">
+<!--    <div class="header__logo">-->
+      <p-icon icon="mainLogo" size="44"/>
+<!--    </div>-->
+    <div class="header__name p3 noSelect">A Grade</div>
   </div>
   
-  <div class="p-header__right">
-    <p-header-right isHeader [currentWidth]="currentWidth()" (navigate)="onNavigate($event)" (openCallbackModal)="onCallClick()"/>
+  <div class="header__right">
+    <div *ngIf="headerLinks()?.length" class="header__links">
+      @for (link of headerLinks(); track link) {
+        <a
+          [href]="link.url"
+          [routerLink]="link.url ? link.url : null"
+          (click)="action(link?.action)"
+          class="header__link link--def p-a-reset p4 noSelectU">
+          {{ link.title | translate }}
+        </a>
+      }
+    </div>
   </div>
 </header>
 

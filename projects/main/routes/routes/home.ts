@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ERoute } from '../../domain/constants/route.enum';
+import { ERoute } from '@shared/domain/main/constants/route.enum';
 
 export const homeRoute: Route = {
   path: ERoute.Main,

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ApiLocationsService } from '@shared/domain/api/swagger/services/api-locations.service';
 import { ILocationSchema } from '@shared/domain/api/swagger/models/i-location-schema';
-import { ETransferState } from '../../constants/transfer-state';
+import { ETransferState } from '@shared/domain/main/constants/transfer-state';
 
 @Injectable({ providedIn: 'root' })
 export class LocationsApiService {

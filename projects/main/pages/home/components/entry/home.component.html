@@ -1,74 +1,19 @@
 <div class="p-page-wrapper">
-  <div class="home__banner">
-    <div class="banner__left">
-      <div class="banner__title">Ваш комфорт — в один клик!</div>
-      <div class="banner__subtitle">Добирайтесь без стресса</div>
-      <form class="banner__filter">
-        <p-route-filter skipHydration (pickRoute)="onPickRoute($event)"></p-route-filter>
-<!--        <p-select [formControl]="fromControl" size="l" [placeholder]="'Откуда'" isMaxHeight isSearchable [options]="locationsFrom$ | async"/>-->
-<!--        <p-icon icon="doubleArrows" size="34"></p-icon>-->
-<!--        <p-select [formControl]="toControl" size="l" [placeholder]="'Очко'" isMaxHeight isSearchable [options]="locationsTo$ | async"/>-->
-<!--        <p-button type="primary" isMaxHeight label="Показать очко" (action)="onPickRoute()"></p-button>-->
-<!--                <p-select formControlName="to" [options]="locations$ | async"/>-->
-      </form>
-    </div>
-    <div class="banner__right">
-      <img *ngIf="isDesktopImg()" [img]="'home/home-banner.png'">
-      <img *ngIf="!isDesktopImg()" [img]="'home/homeBanner2.png'">
-    </div>
-  </div>
   
-  <div class="home__benefits">
+  <p-home-features/>
   
-  </div>
-  
-  <div class="home__tariffs">
-    <h4 class="tariffs__h">
-      <p-icon icon="wheel" size="24"/>
-      Наш автопарк
-    </h4>
+  <section class="faq-section">
+    <h2 class="faq-title">Часто задаваемые вопросы</h2>
     
-    <div class="tariffs__cars">
-      <div *ngFor="let car of tariffs$ | async" class="tariffs__car">
-        <img [img]="'cars/' + car.image + '.png'">
-        <p class="tariff__name">{{car.name}}</p>
-      </div>
+    <div class="faq-list">
+      @for (item of faqList; track item.question) {
+        <div class="faq-item">
+          <p-accordion [label]="item.question" size="l">
+            <p class="faq-answer">{{ item.answer }}</p>
+          </p-accordion>
+        </div>
+      }
     </div>
-  </div>
+  </section>
   
-  <div class="home__features">
-    <div class="feature" *ngFor="let f of homeFeatures">
-      <div class="feature__icon-wrap">
-        <p-icon class="feature__icon" [icon]="f.image"/>
-      </div>
-      
-      <div class="feature__text">
-        <div class="feature__title">{{ f.title }}</div>
-        <div class="feature__desc">{{ f.description }}</div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="home__popular">
-    <h4 class="tariffs__h">
-      <p-icon icon="heartBubble" size="24"/>
-      Популярные маршруты
-    </h4>
-    
-    <div class="trip-cards">
-      
-      <p-carousel gap="16" minItemWidth="240" itemWidth="300" dots>
-        <p-trip-card
-          *ngFor="let i of popularTrips"
-          pCarouselItem
-          [from]="i.from"
-          [to]="i.to"
-          [priceFrom]="i.priceFrom"
-          [imageUrl]="i.imageUrl"
-          (select)="onPickRoute()">
-        </p-trip-card>
-      </p-carousel>
-    </div>
-  </div>
 </div>

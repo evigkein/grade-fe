@@ -10,7 +10,26 @@
   flex-direction: column;
   flex-grow: 1;
   min-height: 100vh;
-  background-color: #fff;
+  //background-color: #fff;
+  background: #0f0f10;
+
+
+
+  background: var(--bg-main);
+          //radial-gradient(
+          //                circle at 25% 30%,
+          //                rgba(255, 255, 255, 0.06) 0%,
+          //                rgba(255, 255, 255, 0) 40%
+          //),
+          //radial-gradient(
+          //                circle at 80% 70%,
+          //                rgba(255, 255, 255, 0.04) 0%,
+          //                rgba(255, 255, 255, 0) 45%
+          //),
+          //var(--bg-main);
+
+  filter: brightness(1.05) contrast(1.05);
+  transition: background 0.3s ease;
 
   &__main {
     flex: 1 0 auto;

@@ -1,20 +1,10 @@
-import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component, computed,
-  EventEmitter,
-  Output
-} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { StopEventsDirective } from '@shared/directives/utils';
-import { SkipHydrationDirective } from '@shared/directives/utils/skip-hydration.directive';
+import { TranslatePipe } from '@ngx-translate/core';
 import { _DEVICE } from '@shared/services/device/device.service';
-import { ButtonComponent } from '@ui/components/button/button.component';
-import { ActionsMenuComponent } from '@ui/components/features/actions-menu/actions-menu.component';
-import { PhoneLinkComponent } from '@ui/features/phone-call/phone.component';
-import { SmIconsComponent } from '@ui/features/sm-icons/sm-icons.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
-import { HeaderRightComponent } from './right/empty/header-right.component';
+import { headerLinks } from '../constants/header-links';
 
 @Component({
   selector: 'p-header',
@@ -25,16 +15,8 @@ import { HeaderRightComponent } from './right/empty/header-right.component';
   imports: [
     CommonModule,
     RouterLink,
-    NgIf,
-    AsyncPipe,
-    ButtonComponent,
+    TranslatePipe,
     SvgIconComponent,
-    PhoneLinkComponent,
-    SmIconsComponent,
-    StopEventsDirective,
-    ActionsMenuComponent,
-    SkipHydrationDirective,
-    HeaderRightComponent,
   ],
 })
 export class HeaderComponent {
@@ -43,9 +25,7 @@ export class HeaderComponent {
   @Output() navigate = new EventEmitter<string>();
   @Output() openCallbackModal = new EventEmitter();
 
-  deviceService = _DEVICE();
-  currentWidth = this.deviceService.currentWidth;
-  isDesktopImg = computed(() => this.deviceService.currentWidth() > 950);
+  headerLinks = signal(headerLinks);
 
   onOpenLoginModal(): void {
     this.openLoginModal.emit();
@@ -59,11 +39,11 @@ export class HeaderComponent {
   }
 
   onCallClick(): void {
-    this.openCallbackModal.emit()
+    this.openCallbackModal.emit();
   }
 
   onNavigate(route: string): void {
-    this.navigate.emit(route)
+    this.navigate.emit(route);
   }
 
   onHeaderMenuAction(e: any): void {

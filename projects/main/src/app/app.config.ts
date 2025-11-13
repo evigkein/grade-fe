@@ -1,5 +1,10 @@
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+  provideZonelessChangeDetection
+} from '@angular/core';
 
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -20,7 +25,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       AppModule
     ]),
-    provideZoneChangeDetection({eventCoalescing: true}),
+    provideZonelessChangeDetection(),
+    // provideZoneChangeDetection({eventCoalescing: true}),
     routerConfigProviders(),
     provideClientHydration(
       withEventReplay(),

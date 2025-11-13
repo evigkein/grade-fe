@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
-  Input,
+  HostBinding, input,
+  Input, numberAttribute,
 } from '@angular/core';
 import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
 
@@ -11,8 +11,8 @@ import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
     styleUrls: ['./svg-icon.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-    <i nz-icon [nzType]="icon"></i>
-<!--    <i nz-icon [nzType]="icon" [nzTheme]="iconTheme"></i>-->
+    <i nz-icon [nzType]="icon()"></i>
+<!--    <i nz-icon [nzType]="icon()" [theme]="iconTheme()"></i>-->
   `,
   standalone: true,
   imports: [
@@ -21,11 +21,11 @@ import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
   ],
 })
 export class SvgIconComponent {
-  @Input({required: true}) icon!: string;
-  @Input() iconTheme: 'fill' | 'outline' | 'twotone' = 'outline';
-  @Input() size = '20';
+  icon = input.required<string>();
+  iconTheme = input<'fill' | 'outline' | 'twotone'>('outline');
+  size = input(20, {transform: numberAttribute});
 
   @HostBinding('style.--size') get iconSize(): string {
-    return (this.size?.toString() ?? '18') + 'px';
+    return (this.size()?.toString() ?? '18') + 'px';
   }
 }

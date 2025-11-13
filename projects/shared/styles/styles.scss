@@ -2,6 +2,7 @@
 @use "../styles/common/index" as *;
 @use "../styles/common/body-blur" as *;
 @use "../styles/fonts/import" as *;
+@forward "./uikit";
 
 .p-page-wrapper {
   display: block;
@@ -24,8 +25,9 @@
 body {
   //@include textFont;
   height: 100vh;
-  //font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', Helvetica, Arial, sans-serif;
+  font-feature-settings: "ss01" on, "liga" on;
+  -webkit-font-smoothing: antialiased;
   font-style: normal;
   font-weight: normal;
   color: var(--first-1);
@@ -68,10 +70,11 @@ body {
 }
 
 .p-a-reset {
+  cursor: pointer;
+
   all: unset;
   display: inline;
   text-decoration: none;
-  cursor: default;
   color: inherit;
   background: none;
   border: none;
@@ -90,6 +93,10 @@ body {
   }
 }
 
+.noSelectU {
+  user-select: none;
+}
+
 .noSelect {
   user-select: none;
   pointer-events: none;
@@ -98,4 +105,24 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+
+
+.p1 {
+
+}
+
+.p2 {
+
+}
+
+.p3 {
+  font-size: 20px;
+  color: var(--first-1);
+}
+
+.p4 {
+  font-size: 16px;
+  color: var(--first-2);
 }

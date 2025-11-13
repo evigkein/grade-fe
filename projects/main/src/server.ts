@@ -44,8 +44,6 @@ app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
     .then((response) => {
-      console.log('SSR render for', req.url);
-      console.log(response?.body);
       return response ? writeResponseToNodeResponse(response, res) : next();
     })
     .catch(next);

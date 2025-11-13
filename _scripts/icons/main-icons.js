@@ -3,10 +3,10 @@ const path = require('path');
 
 const rootDir = process.cwd();
 
-const svgDir = path.join(rootDir, 'projects', 'main', 'src', 'app', 'icons', 'svg');
-const outputDir = path.join(rootDir, 'projects', 'main', 'src', 'app', 'icons', 'definitions');
+const svgDir = path.join(rootDir, 'projects', 'main', 'icons', 'svg');
+const outputDir = path.join(rootDir, 'projects', 'main', 'icons', 'definitions');
 const indexFile = path.join(outputDir, 'index.ts');
-const iconsModuleFile = path.join(rootDir, 'projects', 'main', 'src', 'app', 'icons', 'icons.module.ts');
+const iconsModuleFile = path.join(rootDir, 'projects', 'main', 'icons', 'icons.module.ts');
 
 // Создание директории outputDir, если она не существует
 if (!fs.existsSync(outputDir)) {

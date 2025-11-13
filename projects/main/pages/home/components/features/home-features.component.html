@@ -1,0 +1,26 @@
+<section class="why-us-section overlap">
+  <div class="why-us-wrapper">
+    
+    <div class="why-us-image banner parallax-img">
+      <img [img]="'home/home1.jpg'" alt="A Grade Technologies" />
+    </div>
+    
+    <div class="why-us-content overlap-content">
+      <h2 class="why-us-title fade-in">{{ 'home.features.title' | translate | uppercase }}</h2>
+      
+      <div class="why-us-list">
+        @for (item of featuresList(); track item.title) {
+          <div class="why-us-item fade-up">
+            <h3 class="why-us-item-title">
+              <p-icon [icon]="item.icon"/>
+              {{ item.title | translate | uppercase }}
+            </h3>
+            
+            <p class="why-us-item-desc">{{ item.desc | translate }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  
+  </div>
+</section>

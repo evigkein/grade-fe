@@ -1,41 +1,89 @@
+// https://app.unpkg.com/@fontsource-variable/manrope@5.0.19/files/files
+
+
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat/Montserrat-VariableFont_wght.woff2') format('woff2-variations'),
-  url('/assets/fonts/montserrat/Montserrat-Regular.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Space Grotesk';
+  src: url('/assets/fonts/SpaceGrotesk.woff2') format('woff2-variations');
+  font-weight: 300 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'),
-  url('/assets/fonts/montserrat/Montserrat-Italic.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: italic;
+  font-family: 'Manrope';
+  src: url('/assets/fonts/manrope-cyrillic.woff2') format('woff2-variations');
+  font-weight: 300 800;
+  font-style: normal;
   font-display: swap;
+  unicode-range: U+0400-04FF, U+0500-052F;
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat/Montserrat-Bold.woff2') format('woff2');
-  font-weight: 700;
+  font-family: 'Manrope';
+  src: url('/assets/fonts/manrope-latin-wght.woff2') format('woff2-variations');
+  font-weight: 300 800;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122;
 }
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat/Montserrat-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat/Montserrat-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+
+///* Variable Font (основной универсальный вариант) */
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src:
+//          url('/assets/fonts/spaceg/SpaceGrotesk-VariableFont_wght.woff2') format('woff2-variations'),
+//          url('/assets/fonts/spaceg/SpaceGrotesk-Regular.woff2') format('woff2');
+//  font-weight: 100 700; /* поддерживает диапазон от Light до Bold */
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+///* Если хочешь явно указать ключевые веса (опционально) */
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src: url('/assets/fonts/spaceg/SpaceGrotesk-Light.woff2') format('woff2');
+//  font-weight: 300;
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src: url('/assets/fonts/spaceg/SpaceGrotesk-Regular.woff2') format('woff2');
+//  font-weight: 400;
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src: url('/assets/fonts/spaceg/SpaceGrotesk-Medium.woff2') format('woff2');
+//  font-weight: 500;
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src: url('/assets/fonts/spaceg/SpaceGrotesk-SemiBold.woff2') format('woff2');
+//  font-weight: 600;
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+//@font-face {
+//  font-family: 'Space Grotesk';
+//  src: url('/assets/fonts/spaceg/SpaceGrotesk-Bold.woff2') format('woff2');
+//  font-weight: 700;
+//  font-style: normal;
+//  font-display: swap;
+//}
+//
+///* Применяем как основную гарнитуру */
+//body {
+//  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+//  font-feature-settings: "ss01" on, "liga" on;
+//  -webkit-font-smoothing: antialiased;
+//}

@@ -1,0 +1,226 @@
+
+.why-us-section {
+  background: var(--bg-main, linear-gradient(180deg, #0f0f10 0%, #1a1a25 100%));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(100, 120, 255, 0.12);
+  padding: 0;
+  margin: 5rem auto;
+  max-width: 1200px;
+  overflow: hidden;
+
+  * {
+    font-family: 'Manrope';
+  }
+}
+
+.why-us-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.why-us-image {
+  width: 400px;
+  min-width: 180px;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+  }
+}
+
+.why-us-content {
+  width: 82%;
+  padding: 3rem;
+  color: #b4b8c9;
+}
+
+.why-us-title {
+  font-size: 2rem;
+  color: #e6e9f8;
+  font-weight: 600;
+  margin-bottom: 2rem;
+
+  @media (max-width: 900px) {
+    text-align: center;
+  }
+}
+
+.why-us-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.why-us-item-title {
+  color: var(--first-1, #e5e8ea);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+
+  p-icon {
+    position: relative;
+    top: 1px;
+    color: var(--stroke);
+    fill: transparent!important;
+    margin-right: 4px;
+  }
+}
+
+.why-us-item-desc {
+  color: #b4b8c9;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .why-us-wrapper {
+    flex-direction: column;
+  }
+
+  .why-us-image.banner {
+    width: 100%;
+    height: 220px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .why-us-content {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .why-us-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* 3D split panel */
+.why-us-section.overlap {
+  perspective: 1400px;
+  position: relative;
+}
+
+.why-us-wrapper {
+  position: relative;
+  display: flex;
+  transform-style: preserve-3d;
+}
+
+.why-us-image {
+  transform: translateZ(0) scale(1.12);
+  filter: brightness(0.82) saturate(1.1);
+  position: relative;
+  z-index: 1;
+}
+
+/* CONTENT CARD — foreground plane */
+.overlap-content {
+  position: relative;
+  z-index: 5;
+
+  /* Glass-overlap feeling */
+  background: rgba(20,20,28,0.45);
+  backdrop-filter: blur(14px);
+  box-shadow:
+          0 0 40px rgba(100,120,255,0.16),
+          0 0 80px rgba(30,40,60,0.25);
+  border-left: 1px solid rgba(255,255,255,0.05);
+}
+
+/* MOBILE RESET */
+@media (max-width: 900px) {
+  .why-us-image {
+    transform: none;
+    filter: brightness(1);
+  }
+
+  .overlap-content {
+    background: transparent;
+    backdrop-filter: none;
+    border-left: none;
+    box-shadow: none;
+  }
+}
+
+/* Fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.7s ease-out forwards;
+}
+
+/* Fade-up stagger (items) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s cubic-bezier(.17,.67,.34,1.02) forwards;
+}
+
+.why-us-item:nth-child(1) { animation-delay: .10s; }
+.why-us-item:nth-child(2) { animation-delay: .20s; }
+.why-us-item:nth-child(3) { animation-delay: .30s; }
+.why-us-item:nth-child(4) { animation-delay: .40s; }
+
+/* Icon glowing enter */
+.why-us-item-title p-icon {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeIcon .6s ease-out forwards;
+  animation-delay: .25s;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIcon {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: drop-shadow(0 0 6px rgba(120,140,255,0.35));
+  }
+}
+
+
+
+/* ———————————————————————————————
+   PARALLAX SPLIT (desktop only)
+——————————————————————————————— */
+
+.parallax-img {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.08s linear;
+}
+
+@media (max-width: 900px) {
+  .parallax-img {
+    transform: none !important;
+  }
+}
