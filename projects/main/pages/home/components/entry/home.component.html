@@ -1,5 +1,25 @@
 <div class="p-page-wrapper">
   
+  <section class="home-main-section">
+    <div class="home-main-bg">
+      <img [img]="'home/homeBanner.jpg'" alt="A Grade Technologies" />
+    </div>
+    
+    <div class="home-main-content">
+      <h1 class="home-main-title motion-up delay-3">
+        {{ 'home.main.title' | translate }}
+      </h1>
+      
+      <p class="home-main-desc motion-up delay-5">
+        {{ 'home.main.desc1' | translate }}
+      </p>
+      
+      <p class="home-main-desc motion-up delay-5">
+        {{ 'home.main.desc2' | translate }}
+      </p>
+    </div>
+  </section>
+  
   <p-home-features/>
   
   <section class="faq-section">

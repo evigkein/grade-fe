@@ -7,10 +7,15 @@
 
 
   "/////////////////////////////// HOME //////////////////////////": "",
+  "home.main.title": "A digital team that treats your platform like its own",
+  "home.main.desc": "We deliver systems worthy of your ambition — enhancing clarity, transparency, and full ownership at every stage",
+  "home.main.desc1": "We deliver systems worthy of your ambition",
+  "home.main.desc2": "Enhancing clarity, transparency, and full ownership at every stage",
+
   "home.features.title": "Why us",
   "home.features.b1.title": "Enterprise-grade digital engineering",
   "home.features.b1.desc": "We build resilient and scalable digital cores with clear architecture, clean code, and predictable delivery.",
-  "home.features.b2.title": "Advanced fintech & web3 integration",
+  "home.features.b2.title": "Advanced fintech & web3 solutions",
   "home.features.b2.desc": "We specialize in financial platforms and digital-asset products — payments, transfers, blockchain infrastructure, secure data flows, and high-reliability services.",
   "home.features.b3.title": "Value-driven delivery for ambitious ecosystems",
   "home.features.b3.desc": "We care about clarity, reliability, transparent processes, and long-term impact. Every project is built like a system meant to grow, evolve, and withstand real-world load.",

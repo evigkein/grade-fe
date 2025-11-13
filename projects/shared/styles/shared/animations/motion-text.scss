@@ -1,0 +1,52 @@
+/* === Base motion primitives === */
+
+/* Slight fade + lift */
+.motion-fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: motionFade 0.7s ease-out forwards;
+}
+
+/* Stronger fade + lift (больше смещение) */
+.motion-up {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: motionUp 0.9s cubic-bezier(.17,.67,.34,1.02) forwards;
+}
+
+/* Icon glow enter */
+.motion-icon {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: motionIcon 0.6s ease-out forwards;
+}
+
+/* === Keyframes === */
+
+@keyframes motionFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motionUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motionIcon {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: drop-shadow(0 0 6px rgba(120,140,255,0.35));
+  }
+}
+
+.delay-1 { animation-delay: .10s; }
+.delay-2 { animation-delay: .20s; }
+.delay-3 { animation-delay: .30s; }
+.delay-4 { animation-delay: .40s; }
+.delay-5 { animation-delay: .50s; }
