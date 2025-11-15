@@ -1,0 +1,85 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*", "**/*/package.json"],
+  "plugins": ["@nx", "import", "@typescript-eslint"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "no-prototype-builtins": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@angular-eslint/directive-selector": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "indent": ["error", 2],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "comma-dangle": ["error", "always-multiline"],
+        "camelcase": ["error", { "properties": "always" }],
+        "import/no-unused-imports": "error",
+        "no-multiple-empty-lines": "error",
+        "no-unused-vars": "error",
+        "no-undef": "error",
+        "import/no-cycle": "error",
+        "no-prototype-builtins": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/explicit-function-return-type": ["error", {
+          "allowExpressions": true
+        }],
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              ["^@angular"],
+              ["^rxjs"],
+              ["^@app", "^@shared", "^@core"],
+              ["^@"],
+              ["^[a-zA-Z]"],
+              ["^[./]"],
+              ["^.*$"]
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
