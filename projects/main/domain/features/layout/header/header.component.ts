@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, EventEmitter, Output, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
 import { StopEventsDirective } from '@shared/directives/utils';
@@ -24,6 +24,7 @@ import { headerLinks } from '../constants/header-links';
     ButtonComponent,
     ChangeLanguageComponent,
     CustomImageDirective,
+    RouterLinkActive,
   ],
 })
 export class HeaderComponent {

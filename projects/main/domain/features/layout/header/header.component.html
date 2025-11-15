@@ -19,10 +19,12 @@
     <div *ngIf="headerLinks()?.length" class="header__links">
       @for (link of headerLinks(); track link) {
         <a
+          class="header__link link--def p-a-reset p4 noSelectU"
           [href]="link.url"
           [routerLink]="link.url ? link.url : null"
-          (click)="action(link?.action)"
-          class="header__link link--def p-a-reset p4 noSelectU">
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="action(link?.action)">
           {{ link.title | translate }}
         </a>
       }

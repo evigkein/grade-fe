@@ -29,7 +29,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build -- --base-href "/grade-fe/"
+        run: pnpm build-git
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
