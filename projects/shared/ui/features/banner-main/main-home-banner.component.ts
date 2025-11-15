@@ -1,7 +1,7 @@
 import { UpperCasePipe } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
+import { CustomImageDirective } from '../../../directives/ui/img/priority.directive';
 
 @Component({
   selector: 'p-home-banner-main',

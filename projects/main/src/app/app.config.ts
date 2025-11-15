@@ -17,6 +17,7 @@ import {
 } from '@angular/router';
 import { langInitializer } from '@core/modules/translate/initializer/translate-bootstrap';
 import { provideHammer } from '@core/services/hammer';
+import { githubInterceptor } from '@shared/interceptors/cdn.interceptor';
 import { routes } from '../../routes/app.routes';
 import { AppModule } from './app.module';
 
@@ -63,6 +64,7 @@ function routerConfigProviders(): any {
 
 function provideHttp(): any {
   return provideHttpClient(withFetch(), withInterceptors([
+    githubInterceptor,
     // tokenInterceptor,
     // errorsInterceptor,
   ]));

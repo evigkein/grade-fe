@@ -16,7 +16,7 @@ import { CallbackModalComponent } from '@ui/features/call-us/callback-modal/call
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { PageHomeComponent } from './components/entry/home.component';
 import { HomeFeaturesComponent } from './components/features/home-features.component';
-import { MainHomeBannerComponent } from './components/main-banner/main-home-banner.component';
+import { MainHomeBannerComponent } from '@ui/features/banner-main/main-home-banner.component';
 
 import { HomeRoutingModule } from './home-routing.module';
 

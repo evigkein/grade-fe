@@ -15,14 +15,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:browser",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/main",
             "index": "projects/main/src/index.html",
             "browser": "projects/main/src/main.ts",
             "tsConfig": "projects/main/tsconfig.app.json",
-            "baseHref": "/grade-fe/",
-            "deployUrl": "/grade-fe/",
             "inlineStyleLanguage": "scss",
             "assets": [
               {

@@ -6,7 +6,7 @@ import { CasePreviewComponent } from '@shared/features/case-preview/case-preview
 import {
   ScrollToTopButtonComponent
 } from '@ui/components/+features/sctoll-to-top-button/scroll-to-top-button.component';
-import { MainHomeBannerComponent } from '../home/components/main-banner/main-home-banner.component';
+import { MainHomeBannerComponent } from '@ui/features/banner-main/main-home-banner.component';
 // import { AppTranslateModule } from '@core/modules/translate';
 import { PortfolioComponent } from './components/entry/portfolio.component';
 
