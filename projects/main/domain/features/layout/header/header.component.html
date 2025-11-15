@@ -1,5 +1,10 @@
 <header class="header">
   <div class="header__left">
+    <div></div>
+<!--    <p-button label="home.action.action" (action)="onCallClick()"></p-button>-->
+  </div>
+  
+  <div class="header__right">
     <a class="header__logo noDraggable"
        href="/"
        routerLink="/"
@@ -7,9 +12,9 @@
       <p-icon icon="logo" size="44"/>
       <div class="header__name p3 noSelect">Grade Technologies</div>
     </a>
-    <p-change-language class="header__lang"/>
   </div>
   
+<!--  <div class="header__call">-->
   <div class="header__right">
     <div *ngIf="headerLinks()?.length" class="header__links">
       @for (link of headerLinks(); track link) {
@@ -24,10 +29,8 @@
         </a>
       }
     </div>
-  </div>
-  
-  <div class="header__call">
-    <p-button label="home.action.action" (action)="onCallClick()"></p-button>
+    
+    <p-change-language class="header__lang"/>
   </div>
 </header>
 
