@@ -19,6 +19,10 @@
   p, h1 {
     font-family: 'Manrope';
   }
+
+  @media (max-width: 650px) {
+    min-height: 650px;
+  }
 }
 
 .home-main_bg {

@@ -35,14 +35,12 @@ jobs:
 
       - name: Build Angular
         run: |
-          pnpm exec ng build main:browser-only --configuration production
-#
-#          pnpm exec ng build main \
-#            --configuration production \
-#            --source-map=false \
-#            --named-chunks=false \
-#            --base-href "/grade-fe/" \
-#            --deploy-url "/grade-fe/"
+          pnpm exec ng build main \
+            --configuration production \
+            --source-map=false \
+            --named-chunks=false \
+            --base-href "/grade-fe/" \
+            --deploy-url "/grade-fe/"
 
       - name: Rename index.csr → index.html
         run: |
