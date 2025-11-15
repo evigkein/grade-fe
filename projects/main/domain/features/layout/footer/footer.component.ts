@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { MainLogoComponent } from '@ui/features/logo/main-logo.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 
 @Component({
@@ -8,7 +9,8 @@ import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    SvgIconComponent
+    SvgIconComponent,
+    MainLogoComponent
   ],
 })
 export class FooterComponent {

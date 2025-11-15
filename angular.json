@@ -21,6 +21,8 @@
             "index": "projects/main/src/index.html",
             "browser": "projects/main/src/main.ts",
             "tsConfig": "projects/main/tsconfig.app.json",
+            "baseHref": "/grade-fe/",
+            "deployUrl": "/grade-fe/",
             "inlineStyleLanguage": "scss",
             "assets": [
               {

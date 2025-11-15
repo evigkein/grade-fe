@@ -6,6 +6,7 @@ import { CustomImageDirective } from '@shared/directives/ui/img/priority.directi
 import { StopEventsDirective } from '@shared/directives/utils';
 import { ButtonComponent } from '@ui/components/button/button.component';
 import { ChangeLanguageComponent } from '@ui/features/choose-lang/change-language.component';
+import { MainLogoComponent } from '@ui/features/logo/main-logo.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { headerLinks } from '../constants/header-links';
 
@@ -25,6 +26,7 @@ import { headerLinks } from '../constants/header-links';
     ChangeLanguageComponent,
     CustomImageDirective,
     RouterLinkActive,
+    MainLogoComponent,
   ],
 })
 export class HeaderComponent {
