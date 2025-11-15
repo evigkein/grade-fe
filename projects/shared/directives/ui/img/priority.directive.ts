@@ -1,4 +1,5 @@
 import { booleanAttribute, Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { transformGithubAssetsUrl } from '../../../interceptors/cdn.interceptor';
 import { isBrowser } from '../../../utils/helpers/browser/is-browser.util';
 import { ISimpleChanges } from '../../../utils/types';
 
@@ -111,12 +112,29 @@ export class CustomImageDirective implements OnInit, OnChanges {
     this.renderer.setAttribute(this.el.nativeElement, 'src', src);
   }
 
-  private getImageUrl(url): string {
-    if (url.startsWith('http')) return url;
-    if (!this.isAsset) return `${this.cdnPrefix}${this.img}`;
-    if (this.isAsset) {
-      if (!url.startsWith(this.imageUrlStart)) return `${this.imageUrlStart}${url}`;
+  private getImageUrl(url: string): string {
+    let finalUrl: string;
+
+    if (url.startsWith('http')) {
+      finalUrl = url;
+    } else if (!this.isAsset) {
+      finalUrl = `${this.cdnPrefix}${this.img}`;
+    } else {
+      finalUrl = url.startsWith(this.imageUrlStart)
+        ? url
+        : `${this.imageUrlStart}${url}`;
     }
+
+    return transformGithubAssetsUrl(finalUrl);
   }
+
+
+  // private getImageUrl(url): string {
+  //   if (url.startsWith('http')) return url;
+  //   if (!this.isAsset) return `${this.cdnPrefix}${this.img}`;
+  //   if (this.isAsset) {
+  //     if (!url.startsWith(this.imageUrlStart)) return `${this.imageUrlStart}${url}`;
+  //   }
+  // }
 }
 

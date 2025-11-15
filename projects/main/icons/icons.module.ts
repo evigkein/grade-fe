@@ -30,6 +30,7 @@ import { enterprise } from './definitions/enterprise';
 import { layers } from './definitions/layers';
 import { shield } from './definitions/shield';
 import { target } from './definitions/target';
+import { home } from './definitions/home';
 import { clocks } from './definitions/clocks';
 import { roadSign } from './definitions/roadSign';
 import { tagBag } from './definitions/tagBag';
@@ -79,6 +80,7 @@ import { usdt } from './definitions/usdt';
   layers,
   shield,
   target,
+  home,
   clocks,
   roadSign,
   tagBag,

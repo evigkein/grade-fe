@@ -27,6 +27,7 @@ export * from './enterprise';
 export * from './layers';
 export * from './shield';
 export * from './target';
+export * from './home';
 export * from './clocks';
 export * from './roadSign';
 export * from './tagBag';
