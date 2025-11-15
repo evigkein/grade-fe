@@ -8,7 +8,7 @@
      role="group"
      [attr.aria-labelledby]="id">
   <div class="input__group-prefix" #inputPrefix aria-hidden="true">
-    <div #prefixIconEl *ngIf="prefixIcon" stopEvents class="input__group-prefix-icon" role="img" aria-label="{{ prefixText || 'icon' }}">
+    <div #prefixIconEl *ngIf="prefixIcon" stopEvents class="input__group-prefix-icon" role="img">
       <p-icon [icon]="prefixIcon"></p-icon>
       <ng-content select="[prefix-icon]"></ng-content>
     </div>
