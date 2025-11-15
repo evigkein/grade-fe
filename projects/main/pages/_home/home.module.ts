@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
+import { CustomImageDirective } from '@shared/directives/ui/img/img.directive';
 import { PageHomeComponent } from './components/entry/home.component';
 
 import { HomeRoutingModule } from './home-routing.module';

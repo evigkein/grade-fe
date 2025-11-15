@@ -6,7 +6,7 @@ import { ButtonComponent } from '@ui/components/button/button.component';
 import { TagsComponent } from '@ui/components/tags/tags.component';
 import { ITag } from '@ui/components/tags/tags.interface';
 import { TariffToTagsPipe } from '../../../main/pages/route/pipes/tariff-to-tags';
-import { CustomImageDirective } from '../../directives/ui/img/priority.directive';
+import { CustomImageDirective } from '../../directives/ui/img/img.directive';
 import { ITariffPriceItemDto } from '../../domain/api/swagger/models/i-tariff-price-item-dto';
 import { ITariffSchema } from '../../domain/api/swagger/models/i-tariff-schema';
 

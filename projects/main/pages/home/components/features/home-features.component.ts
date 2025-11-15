@@ -1,7 +1,7 @@
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
+import { CustomImageDirective } from '@shared/directives/ui/img/img.directive';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 
 @Component({

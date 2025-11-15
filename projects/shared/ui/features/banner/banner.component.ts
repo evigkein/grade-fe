@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CustomImageDirective } from '../../../directives/ui/img/priority.directive';
+import { CustomImageDirective } from '../../../directives/ui/img/img.directive';
 import { StopEventsDirective } from '../../../directives/utils';
 
 export type TBannerAlign = 'left' | 'center' | 'right';

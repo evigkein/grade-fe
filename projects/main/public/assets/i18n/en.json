@@ -102,5 +102,21 @@
   "september": "September",
   "october": "October",
   "november": "November",
-  "december": "December"
+  "december": "December",
+
+
+  "/////////////////////////////// RELATIVE //////////////////////////": "",
+  "relative.just_now": "Just now",
+  "relative.yesterday": "Yesterday",
+
+  "relative.seconds_ago": "{{count}} seconds ago",
+  "relative.minutes_ago": "{{count}} minutes ago",
+  "relative.hours_ago": "{{count}} hours ago",
+  "relative.days_ago": "{{count}} days ago",
+
+  "relative.s_short": "{{count}}s",
+  "relative.m_short": "{{count}}m",
+  "relative.h_short": "{{count}}h",
+  "relative.d_short": "{{count}}d"
+
 }

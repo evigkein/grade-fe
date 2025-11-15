@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
+import { CustomImageDirective } from '@shared/directives/ui/img/img.directive';
 import { CasePreviewComponent } from '@shared/features/case-preview/case-preview.component';
 import {
   ScrollToTopButtonComponent

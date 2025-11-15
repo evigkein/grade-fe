@@ -3,10 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { getStorageItem, setStorageItem } from '@utils/helpers/storage';
 import moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { availableLangCodes, defaultLanguage } from '../constants/const';
 
-import { availableLanguageCodes } from '../constants/available-language-codes';
-import { availableLanguageList } from '../constants/available-language-list';
-import { defaultLanguage } from '../constants/default-language.constant';
 import { momentLocales } from '../constants/moment';
 
 export type TLang = 'en' | 'es' | 'ru';
@@ -30,8 +28,7 @@ export class TranslateFacade {
   private _currentLanguage$ = new BehaviorSubject<TLang>(defaultLanguage);
   currentLanguage$ = this._currentLanguage$.asObservable();
 
-  availableLanguageCodes: TLang[] = availableLanguageCodes;
-  availableLanguageList: string[] = availableLanguageList;
+  availableLanguageCodes: TLang[] = availableLangCodes;
 
   constructor(
     public ngxTranslate: TranslateService,
@@ -58,13 +55,11 @@ export class TranslateFacade {
   }
 
   setLanguage(lang: TLang): void {
-    console.log(lang);
     if (!this.availableLanguageCodes.includes(lang)) {
       return this._setLanguage(defaultLanguage);
     }
     setStorageItem('lang', lang);
     const localLang = getStorageItem('lang');
-    console.log(localLang, 'SET');
     this._setLanguage(lang);
   }
 
@@ -72,7 +67,7 @@ export class TranslateFacade {
     return this.ngxTranslate.get(key, variables ?? {});
   }
 
-  translate(key: string, variables?: { [key: string]: string }): string {
+  translate(key: string, variables?: { [key: string]: string | number }): string {
     return this.ngxTranslate.instant(key, variables || []);
   }
 

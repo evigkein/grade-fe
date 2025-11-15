@@ -12,7 +12,11 @@
 <!--  <router-outlet />-->
 </main>
 
-<!--<p-modal></p-modal>-->
-<p-modals-container></p-modals-container>
-<p-notifications-container></p-notifications-container>
-<p-image-gallery-modal></p-image-gallery-modal>
+@defer (on idle) {
+  <p-modals-container></p-modals-container>
+  <p-notifications-container></p-notifications-container>
+  <p-image-gallery-modal></p-image-gallery-modal>
+  <p-hot-keys-global></p-hot-keys-global>
+} @placeholder {
+  <div style="display: none"></div>
+}

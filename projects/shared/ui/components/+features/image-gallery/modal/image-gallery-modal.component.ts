@@ -7,7 +7,7 @@ import {
   ViewChild, inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomImageDirective } from '../../../../../directives/ui/img/priority.directive';
+import { CustomImageDirective } from '../../../../../directives/ui/img/img.directive';
 import { _MODAL } from '../../../../modules/modals/modals/modal.service';
 import { ModalsModule } from '../../../../modules/modals/modals/modal/modals.module';
 import { TButtonType } from '../../../button/button.component';

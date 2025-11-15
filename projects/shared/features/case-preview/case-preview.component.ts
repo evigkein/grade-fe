@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonComponent } from '@ui/components/button/button.component';
 import { _NOTIFY } from '@ui/modules/notifications/notification.service';
-import { CustomImageDirective } from '../../directives/ui/img/priority.directive';
+import { CustomImageDirective } from '../../directives/ui/img/img.directive';
 import { StopEventsDirective } from '../../directives/utils';
 
 export type TCaseAlign = 'left' | 'right';
