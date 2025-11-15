@@ -1,9 +1,12 @@
 // https://app.unpkg.com/@fontsource-variable/manrope@5.0.19/files/files
+//
+//
 
+$asset-prefix: "/grade-fe";
 
 @font-face {
   font-family: 'Space Grotesk';
-  src: url('/assets/fonts/SpaceGrotesk.woff2') format('woff2-variations');
+  src: url('#{$asset-prefix}/assets/fonts/SpaceGrotesk.woff2') format('woff2-variations');
   font-weight: 300 700;
   font-style: normal;
   font-display: swap;
@@ -11,7 +14,7 @@
 
 @font-face {
   font-family: 'Manrope';
-  src: url('/assets/fonts/manrope-cyrillic.woff2') format('woff2-variations');
+  src: url('#{$asset-prefix}/assets/fonts/manrope-cyrillic.woff2') format('woff2-variations');
   font-weight: 300 800;
   font-style: normal;
   font-display: swap;
@@ -20,7 +23,7 @@
 
 @font-face {
   font-family: 'Manrope';
-  src: url('/assets/fonts/manrope-latin-wght.woff2') format('woff2-variations');
+  src: url('#{$asset-prefix}/assets/fonts/manrope-latin-wght.woff2') format('woff2-variations');
   font-weight: 300 800;
   font-style: normal;
   font-display: swap;

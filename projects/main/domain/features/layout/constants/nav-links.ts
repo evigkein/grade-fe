@@ -13,7 +13,7 @@ export const navLinks: INavLink[] = [
     url: [`/${ERoute.Main}`],
     label: 'header.link.home',
     icon: 'home',
-    iconSize: '32'
+    // iconSize: '32'
   },
   // {
   //   url: [`/${ERoute.Main}`],
@@ -23,7 +23,7 @@ export const navLinks: INavLink[] = [
     url: [`/${ERoute.Portfolio}`],
     label: 'header.link.work',
     icon: 'briefcase',
-    iconSize: '32'
+    // iconSize: '32'
   },
   // {
   //   url: [`/${ERoute.Main}`],
