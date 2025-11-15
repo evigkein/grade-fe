@@ -17,16 +17,20 @@
   min-width: 200px;
 
   @media (max-width: 780px) {
-    width: 50px;
+    min-width: 10px;
   }
+}
 
-  @media (max-width: 400px) {
-    width: 10px;
-  }
+.header__center {
+  display: flex;
 }
 
 .header__right {
   display: flex;
+
+  @media (max-width: 650px) {
+    display: none;
+  }
 }
 
 .header__links {
