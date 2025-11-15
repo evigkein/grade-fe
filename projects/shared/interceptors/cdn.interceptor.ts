@@ -11,9 +11,19 @@ export const githubInterceptor: HttpInterceptorFn = (req, next) => {
 
 export function transformGithubAssetsUrl(url: string): string {
   if (isSSR()) return url;
+
   const isGithub = window.location.hostname.includes('github.io');
   if (!isGithub) return url;
 
-  if (url.startsWith('/assets/')) return `/grade-fe${url}`;
-  return url;
+  let clean = url
+    .replace(/^(\.\.\/)/, '/')
+    .replace(/^(\.\/)/, '/')
+    .replace(/^assets\//, '/assets/');
+
+  if (!clean.startsWith('/assets/')) {
+    clean = `/assets${clean}`;
+  }
+
+  return `/grade-fe${clean}`;
 }
+

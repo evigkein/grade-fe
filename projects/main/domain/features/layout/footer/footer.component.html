@@ -1,5 +1,25 @@
 <footer class="footer">
   <p-main-logo/>
+  
+  <div class="mobile-nav">
+    @for (item of navLinks(); track item) {
+      <div class="mobile-nav-item"
+           [routerLink]="item.url"
+           routerLinkActive="active">
+        
+        <p-icon
+          class="nav-icon"
+          [icon]="item.icon"
+          [size]="item.iconSize || '30'">
+        </p-icon>
+        
+        <span class="nav-label">
+        {{ item.label | translate }}
+      </span>
+      </div>
+    }
+  </div>
+
 </footer>
 
 <ng-template #login>

@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MainLogoComponent } from '@ui/features/logo/main-logo.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
+import { navLinks } from '../constants/nav-links';
 
 @Component({
   selector: 'p-footer',
@@ -10,7 +13,10 @@ import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
   standalone: true,
   imports: [
     SvgIconComponent,
-    MainLogoComponent
+    MainLogoComponent,
+    RouterLink,
+    TranslatePipe,
+    RouterLinkActive
   ],
 })
 export class FooterComponent {
@@ -18,6 +24,8 @@ export class FooterComponent {
   @Output() openCallbackModal = new EventEmitter();
   @Output() logOut = new EventEmitter<void>();
   @Output() navigate = new EventEmitter<string>();
+
+  navLinks = signal(navLinks);
 
   onOpenLoginModal(): void {
     this.openLoginModal.emit();

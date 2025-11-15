@@ -2,13 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, EventEmitter, Output, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
-import { StopEventsDirective } from '@shared/directives/utils';
-import { ButtonComponent } from '@ui/components/button/button.component';
 import { ChangeLanguageComponent } from '@ui/features/choose-lang/change-language.component';
 import { MainLogoComponent } from '@ui/features/logo/main-logo.component';
-import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
-import { headerLinks } from '../constants/header-links';
+import { navLinks } from '../constants/nav-links';
 
 @Component({
   selector: 'p-header',
@@ -20,11 +16,7 @@ import { headerLinks } from '../constants/header-links';
     CommonModule,
     RouterLink,
     TranslatePipe,
-    SvgIconComponent,
-    StopEventsDirective,
-    ButtonComponent,
     ChangeLanguageComponent,
-    CustomImageDirective,
     RouterLinkActive,
     MainLogoComponent,
   ],
@@ -35,7 +27,7 @@ export class HeaderComponent {
   @Output() navigate = new EventEmitter<string>();
   @Output() openCallbackModal = new EventEmitter();
 
-  headerLinks = signal(headerLinks);
+  navLinks = signal(navLinks);
 
   onOpenLoginModal(): void {
     this.openLoginModal.emit();

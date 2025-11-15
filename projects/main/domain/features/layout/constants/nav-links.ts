@@ -1,17 +1,17 @@
 import { ERoute } from '@shared/domain/main/constants/route.enum';
 
 export interface INavLink {
-  title: string;
+  label: string;
   url?: string[];
   action?: string;
   icon?: string;
   iconSize?: string;
 }
 
-export const headerLinks: INavLink[] = [
+export const navLinks: INavLink[] = [
   {
     url: [`/${ERoute.Main}`],
-    title: 'header.link.home',
+    label: 'header.link.home',
     icon: 'home',
     iconSize: '32'
   },
@@ -21,7 +21,7 @@ export const headerLinks: INavLink[] = [
   // },
   {
     url: [`/${ERoute.Portfolio}`],
-    title: 'header.link.work',
+    label: 'header.link.work',
     icon: 'briefcase',
     iconSize: '32'
   },
