@@ -11,45 +11,13 @@ export default {
   },
   {
     "renderMode": 0,
-    "route": "/payment"
-  },
-  {
-    "renderMode": 0,
-    "route": "/account"
-  },
-  {
-    "renderMode": 0,
-    "route": "/account/transactions"
-  },
-  {
-    "renderMode": 0,
-    "route": "/taxi"
-  },
-  {
-    "renderMode": 0,
-    "route": "/taxi/*"
-  },
-  {
-    "renderMode": 0,
-    "route": "/booking"
-  },
-  {
-    "renderMode": 0,
-    "route": "/booking/*"
-  },
-  {
-    "renderMode": 0,
-    "route": "/reviews"
-  },
-  {
-    "renderMode": 0,
-    "route": "/faq"
+    "route": "/portfolio"
   }
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 4072, hash: 'e2efd7bb050a2c47e681d32fcb9da92b60492a84caf6a2042944d243ad461326', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 1511, hash: 'ba10c8bf8242edb5cba2a6e503e3ea56e1555d5acace9749dfeab9b4df242814', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'styles-ZR2TEJ2D.css': {size: 640087, hash: 'vudyp64lq64', text: () => import('./assets-chunks/styles-ZR2TEJ2D_css.mjs').then(m => m.default)}
+    'index.csr.html': {size: 3560, hash: '2d7ff4b64d06730bf777911eb3a21bedd22ceebb80d8e9e12a253893ab12cf90', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 1095, hash: '55748d0eb52ff969eaf36de13565a6a05f7e353144a284322dd17d08c378cc04', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'styles-6YLQLOXP.css': {size: 642541, hash: 'z8Cu6XhSbLQ', text: () => import('./assets-chunks/styles-6YLQLOXP_css.mjs').then(m => m.default)}
   },
 };

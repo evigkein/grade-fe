@@ -1,2 +1,0 @@
-import './polyfills.server.mjs';
-import{Ld as r}from"./chunk-3YBNO2ZJ.mjs";function s(t,o=!0){r()&&(o?window.open(t,"_blank"):window.location.href=t)}function f(){if(r())return location}function u(){if(r())return window.history}function a(t,o="/"){if(!r())return;let e=document.referrer,n=window.location?.hostname,i=window.history?.length??0;if(!e.includes(n)||!e){window.location.href=o;return}i>1?window.history.back():t.navigateByUrl(o)}export{s as a,f as b,u as c,a as d};

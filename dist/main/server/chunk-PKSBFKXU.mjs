@@ -1,2 +1,0 @@
-import './polyfills.server.mjs';
-function a(n,e=new WeakMap){if(n===null||typeof n!="object")return n;if(e.has(n))return e.get(n);if(n instanceof Date)return new Date(n.getTime());if(n instanceof Array){let t=n.map(s=>a(s,e));return e.set(n,t),t}if(n instanceof Object){let r={};e.set(n,r);for(let t in n)n.hasOwnProperty(t)&&(r[t]=a(n[t],e));return r}throw new Error("Unable to deep clone object")}export{a};
