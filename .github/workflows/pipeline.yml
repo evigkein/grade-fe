@@ -1,13 +1,18 @@
-name: Deploy to GitHub Pages
+name: Deploy Angular to GitHub Pages (PNPM)
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -28,8 +33,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
-        run: pnpm build-git
+      - name: Build Angular
+        run: pnpm exec ng build main --configuration production --source-map=false --named-chunks=false --base-href "/grade-fe/"
+
+      - name: Rename index.csr → index.html
+        run: |
+          cd dist/main/browser
+          mv index.csr.html index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -37,8 +47,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/main
+          path: dist/main/browser
 
-      - name: Deploy to GitHub Pages
-        id: deploy
+      - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v4
