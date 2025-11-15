@@ -32,6 +32,7 @@ export * from './roadSign';
 export * from './tagBag';
 export * from './tagHeart';
 export * from './tagSnow';
+export * from './logo';
 export * from './mainLogo';
 export * from './max';
 export * from './telegramm';

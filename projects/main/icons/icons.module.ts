@@ -35,6 +35,7 @@ import { roadSign } from './definitions/roadSign';
 import { tagBag } from './definitions/tagBag';
 import { tagHeart } from './definitions/tagHeart';
 import { tagSnow } from './definitions/tagSnow';
+import { logo } from './definitions/logo';
 import { mainLogo } from './definitions/mainLogo';
 import { max } from './definitions/max';
 import { telegramm } from './definitions/telegramm';
@@ -83,6 +84,7 @@ import { usdt } from './definitions/usdt';
   tagBag,
   tagHeart,
   tagSnow,
+  logo,
   mainLogo,
   max,
   telegramm,
