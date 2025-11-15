@@ -6,6 +6,11 @@
   align-items: center;
 
   padding: 4rem 2rem;
+
+  @media (max-width: 650px) {
+    padding: 2rem 1rem;
+  }
+
 }
 
 .case--right {

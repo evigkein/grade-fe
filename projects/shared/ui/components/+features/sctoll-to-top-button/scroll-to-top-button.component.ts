@@ -7,8 +7,6 @@ import {
   input, computed
 } from '@angular/core';
 
-import { fromEvent } from 'rxjs';
-import { auditTime, map, tap } from 'rxjs/operators';
 import { destroy } from '@utils/libs/rxjs';
 import { isSSR } from '@utils/helpers/browser/is-browser.util';
 import { scrollToTop } from '@utils/helpers/scroll-to.util';
@@ -31,6 +29,6 @@ export class ScrollToTopButtonComponent {
 
   scrollToTop(): void {
     if (isSSR()) return;
-    scrollToTop();
+    scrollToTop(1000);
   }
 }

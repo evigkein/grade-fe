@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { INavLink } from '../../../domain/main/constants/nav-links';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
+import { ChangeLanguageComponent } from '../choose-lang/change-language.component';
 
 @Component({
   selector: 'p-nav-mobile',
@@ -14,7 +15,8 @@ import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
     SvgIconComponent,
     RouterLink,
     RouterLinkActive,
-    TranslatePipe
+    TranslatePipe,
+    ChangeLanguageComponent
   ],
 })
 export class NavMobileComponent {

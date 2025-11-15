@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { map, distinctUntilChanged, tap } from 'rxjs/operators';
 import { EVENTS } from '../../../../services/events/native-event.service';
-import { isBrowser } from '../../../../utils/helpers/browser/is-browser.util';
-import { scrollToTitle } from '../../../../utils/helpers/scroll-to.util';
-import { destroy, skipEqual$ } from '../../../../utils/libs/rxjs';
+import { isBrowser } from '@utils/helpers/browser/is-browser.util';
+import { scrollToTitle } from '@utils/helpers/scroll-to.util';
+import { destroy, skipEqual$ } from '@utils/libs/rxjs';
 import { SvgIconComponent } from '../../../modules/svg-icon/svg-icon.component';
 
 @Component({

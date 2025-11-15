@@ -44,13 +44,15 @@ export function scrollTo(options: ScrollOptions): void {
 
 export function scrollToTop(duration = 500, container?: HTMLElement): void {
   if (!isBrowser()) return;
-  window.scrollTo(0, 0)
-  scrollTo({
-    element: document.body,
-    container: container,
-    duration: duration,
-    offset: 0,
-  });
+
+  animateWindowScrollTo(0, duration);
+  // window.scrollTo(0, 0)
+  // scrollTo({
+  //   element: document.body,
+  //   container: container,
+  //   duration: duration,
+  //   offset: 0,
+  // });
 }
 
 export function scrollToTitle(selector?: string, container?: HTMLElement): void {
@@ -75,4 +77,24 @@ export function scrollToTitle(selector?: string, container?: HTMLElement): void 
 
 function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function animateWindowScrollTo(target: number, duration: number) {
+  const start = window.scrollY || document.documentElement.scrollTop;
+  const distance = target - start;
+  const startTime = performance.now();
+
+  function animation(currentTime: number) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easing = easeInOutCubic(progress);
+
+    window.scrollTo(0, start + distance * easing);
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  requestAnimationFrame(animation);
 }
