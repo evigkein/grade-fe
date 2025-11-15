@@ -37,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/grade-fe
+          path: ./dist/main
 
       - name: Deploy to GitHub Pages
         id: deploy
