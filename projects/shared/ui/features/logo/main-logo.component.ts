@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { StopEventsDirective } from '../../../directives/utils';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
 
 @Component({
@@ -8,7 +10,9 @@ import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    SvgIconComponent
+    SvgIconComponent,
+    RouterLink,
+    StopEventsDirective
   ],
 })
 export class MainLogoComponent {
