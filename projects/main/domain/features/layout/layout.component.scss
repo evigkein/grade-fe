@@ -80,3 +80,9 @@ p-header{
 .layout__content {
   overflow: visible !important;
 }
+
+@media (max-width: 550px) {
+  .layout {
+    padding-bottom: 40px;
+  }
+}

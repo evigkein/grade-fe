@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, ViewChild, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { StickyDirective } from '@shared/directives/ui/sticky.directive';
+import { navLinks } from '@shared/domain/main/constants/nav-links';
 import { _RS } from '@shared/services/router.service';
 import {
   ScrollToTopButtonComponent
 } from '@ui/components/+features/sctoll-to-top-button/scroll-to-top-button.component';
 import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
-import { AlertModalComponent } from '@ui/modals/alert/alert-modal.component';
-import { CallbackModalComponent } from '@ui/features/call-us/callback-modal/callback-modal.component';
+import { NavMobileComponent } from '@ui/features/nav-mobile/nav-mobile.component';
 import { _MODAL } from '@ui/modules/modals/modals/modal.service';
 import { ModalsModule } from '@ui/modules/modals/modals/modal/modals.module';
 import { destroy } from '@utils/libs/rxjs';
@@ -27,6 +26,7 @@ import { HeaderComponent } from './header/header.component';
     ModalsModule,
     CallbackModalWrapperComponent,
     ScrollToTopButtonComponent,
+    NavMobileComponent,
   ],
 })
 export class LayoutComponent {
@@ -58,4 +58,6 @@ export class LayoutComponent {
   openCallbackModal(isClose = false): void {
     this.callbackModal.open();
   }
+
+  protected readonly navLinks = signal(navLinks);
 }

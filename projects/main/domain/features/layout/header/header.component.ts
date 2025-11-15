@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ChangeLanguageComponent } from '@ui/features/choose-lang/change-language.component';
 import { MainLogoComponent } from '@ui/features/logo/main-logo.component';
-import { navLinks } from '../constants/nav-links';
+import { navLinks } from '@shared/domain/main/constants/nav-links';
 
 @Component({
   selector: 'p-header',

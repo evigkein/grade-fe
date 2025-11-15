@@ -1,0 +1,19 @@
+<div class="mobile-nav">
+  @for (item of navLinks(); track item) {
+    <div class="mobile-nav-item"
+         [routerLink]="item.url"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+      
+      <p-icon
+        class="nav-icon"
+        [icon]="item.icon"
+        [size]="item.iconSize || '24'">
+      </p-icon>
+      
+      <span class="nav-label">
+        {{ item.label | translate }}
+      </span>
+    </div>
+  }
+</div>

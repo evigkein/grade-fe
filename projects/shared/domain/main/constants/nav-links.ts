@@ -1,4 +1,4 @@
-import { ERoute } from '@shared/domain/main/constants/route.enum';
+import { ERoute } from './route.enum';
 
 export interface INavLink {
   label: string;
