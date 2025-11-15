@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 
 @Component({
   selector: 'p-footer',
@@ -6,7 +7,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [
+    SvgIconComponent
+  ],
 })
 export class FooterComponent {
   @Output() openLoginModal = new EventEmitter();
