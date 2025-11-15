@@ -11,24 +11,18 @@
 
 }
 
-.header__logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.35s ease;
-
-  &:hover, focused, active {
-    background: linear-gradient(90deg, #64C2DB 13.89%, #7476ED 36.39%, #C994DF 59.2%, #E56F8C 88.89%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
 .header__left {
   display: flex;
   align-items: center;
   min-width: 200px;
+
+  @media (max-width: 780px) {
+    width: 50px;
+  }
+
+  @media (max-width: 400px) {
+    width: 10px;
+  }
 }
 
 .header__right {
