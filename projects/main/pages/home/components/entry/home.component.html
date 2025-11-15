@@ -1,39 +1,29 @@
+<p-home-banner-main
+  [title]="'home.main.title'"
+  [desc1]="'home.main.desc1'"
+  [desc2]="'home.main.desc2'"
+  [img]="'home/homeBanner.jpg'"
+></p-home-banner-main>
+
 <div class="p-page-wrapper">
-  
-  <section class="home-main-section">
-    <div class="home-main-bg">
-      <img [img]="'home/homeBanner.jpg'" alt="A Grade Technologies" />
-    </div>
-    
-    <div class="home-main-content">
-      <h1 class="home-main-title motion-up delay-3">
-        {{ 'home.main.title' | translate }}
-      </h1>
-      
-      <p class="home-main-desc motion-up delay-5">
-        {{ 'home.main.desc1' | translate }}
-      </p>
-      
-      <p class="home-main-desc motion-up delay-5">
-        {{ 'home.main.desc2' | translate }}
-      </p>
-    </div>
-  </section>
-  
   <p-home-features/>
   
-  <section class="faq-section">
-    <h2 class="faq-title">Часто задаваемые вопросы</h2>
+  <p-banner titleText="home.portfolio.title" linkText="home.portfolio.action" linkUrl="/portfolio"
+            imgUrl="home/homePortfolio.png"></p-banner>
+  
+  <section class="action-section">
+    <div class="action-container">
+      
+      <h2 class="action-title">{{ 'home.action.title' | translate }}</h2>
+      <p class="action-subtitle">{{ 'home.action.subt' | translate }}</p>
+      <button class="action-btn" (click)="openCallbackModal()">{{ 'home.action.action' | translate }}</button>
     
-    <div class="faq-list">
-      @for (item of faqList; track item.question) {
-        <div class="faq-item">
-          <p-accordion [label]="item.question" size="l">
-            <p class="faq-answer">{{ item.answer }}</p>
-          </p-accordion>
-        </div>
-      }
     </div>
   </section>
   
+  <p-faqs [items]="faqList()"/>
+
 </div>
+
+<p-callback-wrapper/>
+<p-scroll-to-top-button/>

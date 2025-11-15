@@ -3,7 +3,8 @@
   @nested
   class="p-notification__container">
   <div @shrink class="p-notification__card">
-    <div class="p-notification__card-content" [class]="'p-notification__card-content--' + notification.data.type">
+    <div class="p-notification__card-content"
+         [ngClass]="'p-notification__card-content--' + (notification.data.type || 'default')">
       <ng-container
         *ngComponentOutlet="
           notification.component;

@@ -1,0 +1,25 @@
+<div class="callback">
+<!--  <h3 class="callback__title">Обратный звонок</h3>-->
+  <p class="callback__subtitle">{{'modal.callback.subtitle' | translate}}</p>
+  
+  <form class="callback__form" [formGroup]="form">
+    <p-input
+      label="{{ 'modal.callback.name.label' | translate }}"
+      class="callback__input"
+      type="text"
+      formControlName="name"
+      placeholder="{{ 'modal.callback.name.placeholder' | translate }}"
+    />
+    
+    <p-input
+      phoneInputMask
+      class="callback__input"
+      type="tel"
+      formControlName="phone"
+      label="{{ 'modal.callback.phone.label' | translate }}"
+      placeholder="(___) ___-__-__"
+    />
+    
+    <p-button class="callback__button" [isLoading]="isSubmitting$ | async" width="max" label="{{ 'modal.callback.button' | translate }}" (action)="onSubmit()"></p-button>
+  </form>
+</div>

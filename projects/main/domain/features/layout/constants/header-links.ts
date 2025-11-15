@@ -10,22 +10,26 @@ export interface IHeaderLink {
 export const headerLinks: IHeaderLink[] = [
   {
     url: [`/${ERoute.Main}`],
-    title: 'header.link.services',
+    title: 'header.link.home',
   },
+  // {
+  //   url: [`/${ERoute.Main}`],
+  //   title: 'header.link.services',
+  // },
   {
-    url: [`/${ERoute.Main}`],
+    url: [`/${ERoute.Portfolio}`],
     title: 'header.link.work',
   },
-  {
-    url: [`/${ERoute.Main}`],
-    title: 'header.link.values',
-  },
-  {
-    url: [`/${ERoute.Main}`],
-    title: 'header.link.about',
-  },
-  {
-    url: [`/${ERoute.Main}`],
-    title: 'header.link.contact',
-  },
+  // {
+  //   url: [`/${ERoute.Main}`],
+  //   title: 'header.link.values',
+  // },
+  // {
+  //   url: [`/${ERoute.About}`],
+  //   title: 'header.link.about',
+  // },
+  // {
+  //   url: [`/${ERoute.Main}`],
+  //   title: 'header.link.contact',
+  // },
 ]

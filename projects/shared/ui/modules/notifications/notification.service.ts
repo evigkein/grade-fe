@@ -54,5 +54,15 @@ export class NotificationService {
       duration,
     })
   }
+
+  showWarning(description: string, title = 'warning', options?: INotificationOptions): void {
+    const duration = options?.duration || 8000;
+    const type = options?.type || 'warning';
+    this.show(ErrorNotificationComponent, {
+    // this.show(ErrorNotificationComponent, {
+      data: {title, description, type },
+      duration,
+    })
+  }
 }
 

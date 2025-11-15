@@ -22,6 +22,9 @@ import { tasks } from './definitions/tasks';
 import { transaction } from './definitions/transaction';
 import { user } from './definitions/user';
 import { bgNet } from './definitions/bgNet';
+import { en } from './definitions/en';
+import { es } from './definitions/es';
+import { ru } from './definitions/ru';
 import { briefcase } from './definitions/briefcase';
 import { enterprise } from './definitions/enterprise';
 import { layers } from './definitions/layers';
@@ -67,6 +70,9 @@ import { usdt } from './definitions/usdt';
   transaction,
   user,
   bgNet,
+  en,
+  es,
+  ru,
   briefcase,
   enterprise,
   layers,

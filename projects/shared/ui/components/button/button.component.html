@@ -1,38 +1,34 @@
-<button class="btn"
-        [class]="[
-            'btn--' + type,
-            'btn--' + color,
-            'btn--c-' + colorText,
-            'btn--' + size,
-            'btn--w-' + width,
-            'btn--align-' + align,
-            'btn--p-' + padding,
-            'btn--br-' + br,
-        ]"
-        [class.btn--without-padding]="withoutPadding"
-        [class.btn--h-max]="isMaxHeight"
-        [class.btn--h-inh]="isHeightInherit"
-        [class.btn--disabled]="isDisabled"
-        [class.btn--icon]="!label && (iconPrefix || iconPostfix)"
-        [disabled]="isDisabled">
-  <ng-container *ngIf="!isLoading; else loader">
-    <p-icon *ngIf="iconPrefix"
-            class="btn__icon-prefix"
-            [style.color]="iconPrefixColor"
-            [style.width.px]="iconPrefixSize"
-            [size]="iconPrefixSize"
-            [icon]="iconPrefix"
-    ></p-icon>
-    <ng-content/>
-    <ng-container *ngIf="label">{{label | translate}}</ng-container>
-    <p-icon *ngIf="iconPostfix"
-            class="btn__icon-postfix"
-            [size]="iconPostfixSize"
-            [icon]="iconPostfix"
-    ></p-icon>
-  </ng-container>
+<button [class]="classes()" [disabled]="isDisabled()">
+  @if (!isLoading()) {
+    
+    @if (iconPrefix()) {
+      <p-icon
+        class="btn__icon-prefix"
+        [size]="iconPrefixSize()"
+        [icon]="iconPrefix()"
+        [style.color]="iconPrefixColor()"
+      ></p-icon>
+    }
+    
+    <ng-content></ng-content>
+    
+    @if (label()) {
+      {{ label() | translate }}
+    }
+    
+    @if (iconPostfix()) {
+      <p-icon
+        class="btn__icon-postfix"
+        [size]="iconPostfixSize()"
+        [icon]="iconPostfix()"
+      ></p-icon>
+    }
+    
+  } @else {
+    <p-loader
+      class="btn__loader"
+      size="s"
+      [color]="spinnerColor()"
+    ></p-loader>
+  }
 </button>
-
-<ng-template #loader>
-  <p-loader class="btn__loader" size="s" [color]="spinnerColor"></p-loader>
-</ng-template>

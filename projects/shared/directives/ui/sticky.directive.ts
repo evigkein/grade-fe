@@ -3,67 +3,85 @@ import {
   ElementRef,
   Input,
   Renderer2,
-  OnInit,
-  OnDestroy,
   AfterViewInit,
-  NgZone,
-  numberAttribute
+  OnDestroy,
+  numberAttribute,
+  signal,
+  effect,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
-import { NativeEventService } from '../../services/events/native-event.service';
+import { isSSR } from '@utils/helpers/browser/is-browser.util';
 
-@Directive({ selector: '[sticky]', standalone: true })
+@Directive({
+  selector: '[sticky]',
+  standalone: true,
+})
 export class StickyDirective implements AfterViewInit, OnDestroy {
-  @Input({ alias: 'sticky', transform: numberAttribute }) offset: number = 0;
-  private initialTop!: number;
-  private initialLeft!: number;
-  private initialWidth!: number;
-  private initialPosition!: string;
-  private scrollSubscription!: Subscription;
+  @Input({ alias: 'sticky', transform: numberAttribute }) offset = 0;
+
+  // Signals (полностью вне Angular)
+  private scrollY = signal(0);
+  private ready = signal(false);
+
+  private initialTop = signal(0);
+  private initialLeft = signal(0);
+  private initialWidth = signal(0);
+  private initialPosition = signal<string>('static');
+
+  private removeScrollListener: (() => void) | null = null;
 
   constructor(
-    private el: ElementRef,
+    private el: ElementRef<HTMLElement>,
     private renderer: Renderer2,
-    private nativeEventService: NativeEventService,
-    private ngZone: NgZone,
   ) {}
 
   ngAfterViewInit() {
-    this.ngZone.runOutsideAngular(() => {
-      this.scrollSubscription = this.nativeEventService.scroll$.subscribe(() => this.onWindowScroll());
-    });
+    if(isSSR()) return;
+    // Инициализация метрик
     setTimeout(() => {
-      this.setupSticky();
-    }, 0);
+      this.setup();
+      this.ready.set(true);
+    });
+
+    // Zoneless: слушаем scroll НЕ через Angular
+    const handler = () => this.scrollY.set(window.scrollY);
+    window.addEventListener('scroll', handler, { passive: true });
+    this.removeScrollListener = () => window.removeEventListener('scroll', handler);
+
+    // sticky-эффект (реактивный, вне Angular CD)
+    effect(() => {
+      if (!this.ready()) return;
+
+      const scroll = this.scrollY();
+      const stickyPoint = this.initialTop() - this.offset;
+
+      if (scroll >= stickyPoint) {
+        this.renderer.setStyle(this.el.nativeElement, 'position', 'fixed');
+        this.renderer.setStyle(this.el.nativeElement, 'top', `${this.offset}px`);
+        this.renderer.setStyle(this.el.nativeElement, 'left', `${this.initialLeft()}px`);
+        this.renderer.setStyle(this.el.nativeElement, 'width', `${this.initialWidth()}px`);
+      } else {
+        this.renderer.setStyle(this.el.nativeElement, 'position', this.initialPosition());
+        this.renderer.removeStyle(this.el.nativeElement, 'top');
+      }
+    }, { allowSignalWrites: true });
   }
 
   ngOnDestroy() {
-    if (this.scrollSubscription) this.scrollSubscription.unsubscribe();
+    this.removeScrollListener?.();
   }
 
-  private setupSticky() {
+  private setup() {
     const rect = this.el.nativeElement.getBoundingClientRect();
-    this.initialTop = rect.top + window.scrollY;
-    this.initialLeft = rect.left + window.scrollX;
-    this.initialWidth = rect.width;
-    this.initialPosition = getComputedStyle(this.el.nativeElement).position;
 
-    this.renderer.setStyle(this.el.nativeElement, 'width', `${this.initialWidth}px`);
-    this.renderer.setStyle(this.el.nativeElement, 'left', `${this.initialLeft}px`);
-    this.onWindowScroll();
-  }
+    this.initialTop.set(rect.top + window.scrollY);
+    this.initialLeft.set(rect.left + window.scrollX);
+    this.initialWidth.set(rect.width);
 
-  private onWindowScroll() {
-    const windowScroll = window.scrollY;
-    const elementTop = this.initialTop - this.offset;
+    const comp = getComputedStyle(this.el.nativeElement);
+    this.initialPosition.set(comp.position);
 
-    if (windowScroll >= elementTop) {
-      this.renderer.setStyle(this.el.nativeElement, 'position', 'fixed');
-      this.renderer.setStyle(this.el.nativeElement, 'top', `${this.offset}px`);
-    } else {
-      this.renderer.setStyle(this.el.nativeElement, 'position', this.initialPosition);
-      this.renderer.removeStyle(this.el.nativeElement, 'top');
-    }
+    // Фиксируем ширину, чтобы при фиксации не прыгало
+    this.renderer.setStyle(this.el.nativeElement, 'width', `${rect.width}px`);
+    this.renderer.setStyle(this.el.nativeElement, 'left', `${rect.left + window.scrollX}px`);
   }
 }

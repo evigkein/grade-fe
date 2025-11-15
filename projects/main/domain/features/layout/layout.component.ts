@@ -1,8 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, ViewChild, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { StickyDirective } from '@shared/directives/ui/sticky.directive';
 import { _RS } from '@shared/services/router.service';
+import {
+  ScrollToTopButtonComponent
+} from '@ui/components/+features/sctoll-to-top-button/scroll-to-top-button.component';
+import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
 import { AlertModalComponent } from '@ui/modals/alert/alert-modal.component';
-import { CallbackModalComponent } from '@ui/modals/callback/callback-modal.component';
+import { CallbackModalComponent } from '@ui/features/call-us/callback-modal/callback-modal.component';
 import { _MODAL } from '@ui/modules/modals/modals/modal.service';
 import { ModalsModule } from '@ui/modules/modals/modals/modal/modals.module';
 import { destroy } from '@utils/libs/rxjs';
@@ -20,14 +25,15 @@ import { HeaderComponent } from './header/header.component';
     RouterOutlet,
     HeaderComponent,
     ModalsModule,
+    CallbackModalWrapperComponent,
+    ScrollToTopButtonComponent,
   ],
 })
 export class LayoutComponent {
   @Input() AAAA!: string;
   @Output() AAAA2 = new EventEmitter();
 
-  @ViewChild(CallbackModalComponent) callbackModal!: CallbackModalComponent;
-  @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
+  @ViewChild(CallbackModalWrapperComponent) callbackModal!: CallbackModalWrapperComponent;
 
   callbackModalId = signal<string>(null!);
   private modal = _MODAL();
@@ -51,13 +57,5 @@ export class LayoutComponent {
 
   openCallbackModal(isClose = false): void {
     this.callbackModal.open();
-    if (isClose) {
-      this.callbackModal.closeCallbackModal();
-      return;
-    }
-  }
-
-  openAlertModal(): void {
-    this.alertModal.open();
   }
 }

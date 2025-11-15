@@ -1,5 +1,5 @@
 <div class="layout">
-  <p-header></p-header>
+  <p-header (openCallbackModal)="openCallbackModal()"></p-header>
   
   <main class="layout__main">
     <div class="layout__content">
@@ -25,6 +25,5 @@
   </div>
 </ng-template>
 
-
-<!--<p-callback-modal (submitted)="openAlertModal()"/>-->
-<!--<p-alert-modal title="Ваша заявка принята" subTitle="Наш менеджер свяжется с Вами в течение 15 минут" buttonText="Спасибо"></p-alert-modal>-->
+<p-callback-wrapper/>
+<p-scroll-to-top-button/>

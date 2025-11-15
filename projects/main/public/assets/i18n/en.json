@@ -1,4 +1,5 @@
 {
+  "header.link.home": "Home",
   "header.link.services": "Services",
   "header.link.work": "Work",
   "header.link.values": "Values",
@@ -12,16 +13,77 @@
   "home.main.desc1": "We deliver systems worthy of your ambition",
   "home.main.desc2": "Enhancing clarity, transparency, and full ownership at every stage",
 
+  "home.portfolio.title": "Solutions that bring your vision to life",
+  "home.portfolio.action": "View our case studies",
+
   "home.features.title": "Why us",
   "home.features.b1.title": "Enterprise-grade digital engineering",
   "home.features.b1.desc": "We build resilient and scalable digital cores with clear architecture, clean code, and predictable delivery.",
   "home.features.b2.title": "Advanced fintech & web3 solutions",
-  "home.features.b2.desc": "We specialize in financial platforms and digital-asset products — payments, transfers, blockchain infrastructure, secure data flows, and high-reliability services.",
+  "home.features.b2.desc": "We specialize in financial platforms and digital-asset products — payments, transfers, blockchain infrastructure, secure data flows, and high-reliability services",
   "home.features.b3.title": "Value-driven delivery for ambitious ecosystems",
-  "home.features.b3.desc": "We care about clarity, reliability, transparent processes, and long-term impact. Every project is built like a system meant to grow, evolve, and withstand real-world load.",
+  "home.features.b3.desc": "We care about clarity, reliability, transparent processes, and long-term impact. Every project is built like a system meant to grow, evolve, and withstand real-world load",
   "home.features.b4.title": "Proven enterprise experience",
-  "home.features.b4.desc": "We use the experience gained by our key specialists in companies like Tinkoff, M.Video, Sberbank, and Rosbank — applying enterprise-level engineering culture to every solution we build.",
+  "home.features.b4.desc": "We use the experience gained by our key specialists in companies like Tinkoff, M.Video, Sberbank, and Rosbank — applying enterprise-level engineering culture to every solution we build",
 
+  "home.faq.title": "FAQ",
+  "home.faq.1.q": "What does our integrator do?",
+  "home.faq.1.a": "We build enterprise-grade digital ecosystems — from UX architecture and interfaces to microservice platforms and crypto-payment integrations. We combine aesthetics, strategy, and engineering precision to create systems that are stable, scalable, and strengthen your business model.",
+  "home.faq.2.q": "Why do corporations and crypto-focused companies choose us?",
+  "home.faq.2.a": "Because we combine the rigor of enterprise engineering with the agility of modern financial technologies. We design architectures where banking processes and crypto mechanics operate in harmony — from tokenization and digital wallets to integrations with traditional and decentralized payment systems.",
+  "home.faq.3.q": "Where does the project start?",
+  "home.faq.3.a": "We begin with deep diagnostics: analyzing product strategy, architecture, UX flows, and growth points. Based on this, we build a roadmap for integration and development. We create products where business goals, user experience, and technology operate as one coherent system.",
+  "home.faq.4.q": "Can we integrate multiple payment systems, including cryptocurrency?",
+  "home.faq.4.a": "Yes. We build robust payment infrastructures that unify banking gateways, Apple Pay, Stripe, PayPal, TON, Ethereum, and crypto solutions. Everything works as a single, coherent system — secure, convenient, and transparent for both users and corporate finance teams.",
+  "home.faq.5.q": "How do we ensure security and data protection?",
+  "home.faq.5.a": "Security is the foundation of every project. We implement multi-layered encryption, conduct code and smart-contract audits, enforce strict access protocols, and maintain continuous monitoring. Our architectures comply with enterprise and financial-industry standards, ensuring trust and long-term system stability.",
+  "home.faq.6.q": "What is our experience and proven expertise?",
+  "home.faq.6.a": "Our CTO carries forward the best engineering practices from Tinkoff, M.Video, and SberTech. We bring enterprise-grade development, analytics, and design quality into every project. Our team unites product strategists, architects, and designers who build solutions where business logic, user experience, and technology work as one organism.",
+
+  "home.action.title": "Your company deserves a strategic partner you can rely on",
+  "home.action.subt": "We bring clarity, discipline, and long-term thinking to every engagement — building digital platforms that support real operations and real growth",
+  "home.action.action": "Book your Free Strategy Call",
+
+  "work.title": "We bring ideas to life",
+  "work.subt": "A Grade Technologies brings together senior engineers and product leaders with enterprise backgrounds",
+  "work.desc1": "We build reliable digital platforms for finance, Web3, and large-scale operations",
+  "work.desc2": "With clarity, precision, and long-term value at the core",
+
+  "work.case.action": "Read more",
+
+  "work.case1.title": "AVO: RWA Marketplace",
+  "work.case1.subtitle": "Digital ownership with real business utility",
+  "work.case1.description": "We helped AVO turn RWA into a real business instrument: a marketplace where companies and creators can issue, sell, and manage digital assets in a transparent and scalable model. The solution opened a new sales channel, simplified asset operations, and increased user trust.",
+
+  "work.case2.title": "Blink Game AI",
+  "work.case2.subtitle": "Attention-driven user engagement",
+  "work.case2.description": "An application that gave the brand a new way to attract and retain users. Blink turns a short user action into a valuable interaction point, creating high engagement and fast organic growth without significant marketing costs.",
+
+  "work.case3.title": "BuyCoin",
+  "work.case3.subtitle": "Smarter token swaps, lower user costs",
+  "work.case3.description": "We developed a fault-tolerant token-swap engine that handles high peak loads and ensures predictable performance under any conditions. The architecture includes secure integrations with external blockchain and price providers through isolated services, route validation, protection from unreliable data, and transactional integrity at every stage. The system automatically selects the optimal swap route, reduces user costs, and maintains stable SLA even during traffic spikes.",
+
+  "work.case4.title": "Soyuz Transfer",
+  "work.case4.subtitle": "Corporate web presence built on trust",
+  "work.case4.description": "We delivered a clear, trustworthy corporate website that reflects the organization’s stability, long history, and status. The solution strengthens digital presence and improves overall brand perception.",
+
+
+
+  "about.title": "Built by specialists with deep experience in leading financial and technology companies.",
+  "about.subt": "We apply this expertise to create clear, stable, and scalable platforms for teams shaping the future of finance and digital ecosystems.",
+
+
+  "modal.callback.title": "Callback Request",
+  "modal.callback.subtitle": "Leave your contact details and our manager will contact you",
+  "modal.alert.title": "Your request has been received",
+  "modal.alert.subtitle": "Our manager will contact you",
+  "modal.alert.button": "Thank you",
+  "modal.callback.button": "Request a call",
+  "modal.callback.name.label": "Your name",
+  "modal.callback.name.placeholder": "Full name",
+  "modal.callback.phone.label": "Phone number",
+
+  "not.coming-soon": "Coming soon...",
 
   "/////////////////////////////// FORMS //////////////////////////": "",
   "forms.required": "This field is required",

@@ -6,4 +6,34 @@
 @forward "./fonts/import";
 
 
+.text-colored {
+  background: linear-gradient(90deg, #64C2DB 13.89%, #7476ED 36.39%, #C994DF 59.2%, #E56F8C 88.89%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
+
+
+
+:root {
+  view-transition-name: root;
+}
+
+::view-transition-old(page) {
+  animation: oldSlide 300ms cubic-bezier(.2,.8,.2,1);
+}
+
+::view-transition-new(page) {
+  animation: newSlide 300ms cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes oldSlide {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0.98; transform: translateX(-12px); }
+}
+
+@keyframes newSlide {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}

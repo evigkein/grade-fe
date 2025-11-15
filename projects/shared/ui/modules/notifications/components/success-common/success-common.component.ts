@@ -11,8 +11,7 @@ import { NotificationComponent } from '../notificaton.component'
       <p-notification-template
         [title]="config.title"
         [description]="config.description"
-        [icon]="config.icon!"
-      >
+        [icon]="config.icon!">
       </p-notification-template>`,
   styleUrls: ['./success-common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

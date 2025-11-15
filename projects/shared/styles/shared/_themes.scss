@@ -70,10 +70,50 @@
     --first-1: #e5e8ea;
     --first-2: #d9d9d9;
     --first-5: #d9d9d9;
+    --second-1: black;
+
+    --action: #4b5aff;
+    --action-hover: #5c6aff;
+    --action2: #ff7d6c;
+    --action2-active: #3e4de0;
 
     --bg-main: linear-gradient(180deg, #0f0f10 0%, #1a1a25 100%);
 
     --stroke: #f0a245; // icons
+
+
+    // UI KIT
+    --dropdown-bg: #1A1C24;
+    --dropdown-hover-bg: #22242E;
+    --dropdown-border: rgba(255, 255, 255, 0.08);
+
+
+    // TOAST
+    --toast-bg: rgba(25, 27, 35, 0.90);
+    --toast-border: rgba(255, 255, 255, 0.06);
+    --toast-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+    --toast-bg-error: rgba(60, 20, 26, 0.90);
+    --toast-border-error: rgba(255, 72, 88, 0.25);
+
+    --toast-bg-success: rgba(20, 40, 28, 0.90);
+    --toast-border-success: rgba(72, 255, 169, 0.18);
+
+    --toast-bg-info: rgba(22, 27, 40, 0.90);
+    --toast-border-info: rgba(88, 188, 255, 0.22);
+
+    // MODAL
+    --modal-bg: rgba(28, 30, 40, 0.92);
+    --modal-border: rgba(255, 255, 255, 0.08);
+    --modal-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+
+    --modal-header-bg: rgba(35, 38, 50, 0.95);
+    --modal-header-border: rgba(255, 255, 255, 0.10);
+
+    --input-bg: rgba(40, 43, 55, 0.80);
+    --input-border: rgba(255, 255, 255, 0.10);
+    --input-bg-focus: rgba(50, 54, 68, 0.95);
+    --input-border-focus: #4b5aff;
   }
 }
 

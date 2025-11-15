@@ -1,7 +1,7 @@
 <ng-template #templateRef>
   <p-modal
     [id]="modalId()"
-    [titleText]="title"
+    [titleText]="titleText"
     [submitButtonText]="buttonText"
     submitButtonType="primary"
     [iconClose]="true"
@@ -10,7 +10,7 @@
     (submit)="close()">
     <div class="confirm-content p-text-center">
 <!--      <p class="p-p4">{{ title }}</p>-->
-      <p class="p-p4">{{ subTitle }}</p>
+      <p class="p-p4">{{ subTitle | translate }}</p>
     </div>
   </p-modal>
 </ng-template>

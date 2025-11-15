@@ -1,0 +1,19 @@
+<p-home-banner-main
+  title="work.title"
+  subt="work.subt"
+  desc1="work.desc1"
+  desc2="work.desc2"
+  img="home/homeBanner.jpg"
+  isTitleColored
+/>
+
+<div class="p-page-wrapper">
+  @for (item of portfolio(); let i = $index; track item.id) {
+    <p-case-preview
+      [item]="item"
+      [align]="(i % 2 === 0) ? 'right' : 'left'"
+      buttonLabel="work.case.action"/>
+  }
+</div>
+
+<p-scroll-to-top-button/>

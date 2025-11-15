@@ -1,9 +1,15 @@
 <header class="header">
   <div class="header__left">
-<!--    <div class="header__logo">-->
+    <a class="header__logo noDraggable"
+       href="/"
+       routerLink="/"
+       stopEvents>
+      <!--    <div class="header__logo">-->
       <p-icon icon="mainLogo" size="44"/>
-<!--    </div>-->
-    <div class="header__name p3 noSelect">A Grade</div>
+      <!--    </div>-->
+      <div class="header__name p3 noSelect">A Grade</div>
+    </a>
+    <p-change-language class="header__lang"/>
   </div>
   
   <div class="header__right">
@@ -18,6 +24,10 @@
         </a>
       }
     </div>
+  </div>
+  
+  <div class="header__call">
+    <p-button label="home.action.action" (action)="onCallClick()"></p-button>
   </div>
 </header>
 

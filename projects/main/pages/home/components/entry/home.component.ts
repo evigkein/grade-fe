@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { _SEO, ISeo } from '@shared/services';
 import { _RS } from '@shared/services/router.service';
 import { destroy } from '@shared/utils/libs/rxjs';
+import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
+import { scrollToTop } from '@utils/helpers/scroll-to.util';
 import { faqList } from '../../const/faq';
 
 @Component({
@@ -15,16 +17,21 @@ export class PageHomeComponent implements OnInit {
   private seo = _SEO();
   destroy$ = destroy();
 
-  faqList = faqList;
+  @ViewChild(CallbackModalWrapperComponent) callbackModal!: CallbackModalWrapperComponent;
+
+  faqList = signal(faqList);
 
   private router = _RS();
 
   ngOnInit() {
+    scrollToTop(0);
     this.seo.updateSeo(SEO());
     this.seo.setSchemaOrganization();
-    // scrollToTop(0);
   }
 
+  openCallbackModal(isClose = false): void {
+    this.callbackModal.open();
+  }
 }
 
 

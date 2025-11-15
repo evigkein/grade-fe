@@ -2,10 +2,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CustomImageDirective } from '@shared/directives/ui/img/priority.directive';
+import { StopEventsDirective } from '@shared/directives/utils';
+import { FaqsComponent } from '@shared/features/faq/faqs.component';
+import {
+  ScrollToTopButtonComponent
+} from '@ui/components/+features/sctoll-to-top-button/scroll-to-top-button.component';
 import { AccordionComponent } from '@ui/components/accordion';
+import { ButtonComponent } from '@ui/components/button/button.component';
+import { BannerComponent } from '@ui/features/banner/banner.component';
+import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
+import { AlertModalComponent } from '@ui/modals/alert/alert-modal.component';
+import { CallbackModalComponent } from '@ui/features/call-us/callback-modal/callback-modal.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { PageHomeComponent } from './components/entry/home.component';
 import { HomeFeaturesComponent } from './components/features/home-features.component';
+import { MainHomeBannerComponent } from './components/main-banner/main-home-banner.component';
 
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -18,6 +29,15 @@ import { HomeRoutingModule } from './home-routing.module';
     TranslatePipe,
     SvgIconComponent,
     HomeFeaturesComponent,
+    ButtonComponent,
+    StopEventsDirective,
+    BannerComponent,
+    FaqsComponent,
+    ScrollToTopButtonComponent,
+    CallbackModalComponent,
+    AlertModalComponent,
+    CallbackModalWrapperComponent,
+    MainHomeBannerComponent,
   ],
   declarations: [PageHomeComponent],
   exports: [PageHomeComponent],

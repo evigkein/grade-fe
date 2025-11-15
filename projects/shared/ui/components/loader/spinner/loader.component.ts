@@ -11,7 +11,7 @@ import {
 
 export type TLoaderColor = 'default';
 export type TLoaderSize = 's' | 'm' | 'l' | 'xl';
-export type TSpinnerColor = 'primary' | 'button'; // Новый тип для цвета спиннера
+export type TSpinnerColor = 'primary' | 'button';
 
 const sizeMap: Record<TLoaderSize, number> = {
   s: 22,

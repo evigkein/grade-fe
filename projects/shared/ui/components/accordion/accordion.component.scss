@@ -56,6 +56,7 @@
 
   &__icon {
     margin-right: 10px;
+    color: var(--first-1)
   }
 
   &__button {
@@ -73,7 +74,8 @@
   &__toggle-icon {
     transform: rotate(180deg);
     transition: transform 150ms ease;
-    color: var(--first-1)
+    color: var(--first-1);
+    fill: var(--first-1);
   }
 
   &__container {

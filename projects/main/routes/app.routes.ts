@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '../domain/features/layout/layout.component';
 import { homeRoute } from './routes/home';
+import { portfolioRoute } from './routes/portfolio';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
 
     children: [
       homeRoute,
+      portfolioRoute,
     ]
   }
 ];

@@ -1,0 +1,32 @@
+<section class="home-main">
+  <div class="home-main_bg">
+    <img [img]="img()" alt="A Grade Technologies"/>
+  </div>
+  
+  <div class="home-main-content">
+    
+    <h1 class="home-main_title motion-up delay-3"
+        [class.text-colored]="isTitleColored()"
+        style="view-transition-name: work-title;">
+      {{ title() | translate | uppercase }}
+    </h1>
+    
+    <p class="home-main_desc motion-up delay-5"
+       style="view-transition-name: work-subt;">
+      {{ subt() | translate }}
+    </p>
+    
+    <br>
+    
+    <p class="home-main_desc motion-up delay-5"
+       style="view-transition-name: work-desc1;">
+      {{ desc1() | translate }}
+    </p>
+    
+    <p class="home-main_desc motion-up delay-5"
+       style="view-transition-name: work-desc2;">
+      {{ desc2() | translate }}
+    </p>
+  
+  </div>
+</section>

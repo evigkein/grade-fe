@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LocalCacheService } from '@core/modules/local-cache.service';
-import { TLang, TranslateFacade } from '@core/modules/translate';
+import { _TRANSLATE, TLang, TranslateFacade } from '@core/modules/translate';
 import { ThemeService } from '@core/services/theme.service';
 import { SeoService } from '@shared/services';
 import {
@@ -22,13 +22,15 @@ export class AppComponent implements OnInit {
   title = 'main';
 
   private theme = inject(ThemeService);
-  private lang = inject(TranslateFacade);
+  lang = _TRANSLATE();
   private seo = inject(SeoService);
 
-  ngOnInit() {
-    this.theme.setCurrentTheme('theme--dark')
-    this.initUser();
-
+  async ngOnInit() {
+    this.theme.setCurrentTheme('theme--dark');
+    // this.lang.setLanguage('en');
+    // this.initUser();
+    this.lang.initTranslate();
+    //
     this.seo.updateSeo({
       // this.lang.translate('seo.main.title')
       title: 'Поездки на такси по России',
@@ -37,7 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   private initUser(): void {
-    this.lang.setLanguage('en');
+    // this.lang.setLanguage('en');
     // const user = this.userService.user();
     // if (user) {
     //   user.user.lang && this.lang.setLanguage(user.user.lang);

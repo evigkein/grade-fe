@@ -126,7 +126,6 @@ export class TimepickerComponent extends CustomControlAccessor implements OnInit
   }
 
   onManualTimeInput(value: string): void {
-    console.log(value, '???');
     if (!value) return;
     const [hours, minutes] = value.split(':').map(Number);
     const newTime = moment().set({ hour: hours, minute: minutes, second: 0 });

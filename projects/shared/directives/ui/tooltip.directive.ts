@@ -2,8 +2,6 @@ import {
   Directive,
   Input,
   HostBinding,
-  ElementRef,
-  Renderer2,
   AfterViewInit,
   TemplateRef,
   ViewContainerRef, OnChanges, SimpleChanges, inject, ChangeDetectorRef

@@ -1,20 +1,31 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Output, input, computed } from '@angular/core';
 
-@Directive({selector: '[buttonClick]', standalone: true })
+@Directive({selector: '[buttonClick]', standalone: true})
 export class ButtonClickDirective {
-  @Input() @HostBinding('class.disabled') isDisabled? = false;
-  @Input() @HostBinding('class.loading') isLoading? = false;
+  isDisabled = input<boolean>(false);
+  isLoading = input<boolean>(false);
+  tabindex = input<number>(0);
 
-  @Input() tabindex = 0;
-
-  @HostBinding(`attr.tabindex`)
-  get tabindexAttr(): number {
-    return this.isDisabled ? -1 : this.tabindex;
+  @HostBinding('class.disabled')
+  get hostDisabled() {
+    return this.isDisabled();
   }
 
-  @Output() action: EventEmitter<Event> = new EventEmitter<Event>();
+  @HostBinding('class.loading')
+  get hostLoading() {
+    return this.isLoading();
+  }
 
-  // @HostBinding('attr.role') buttonRole = 'button';
+  readonly tabindexAttr = computed(() => {
+    return this.isDisabled() ? -1 : this.tabindex();
+  });
+
+  @HostBinding('attr.tabindex')
+  get hostTabIndex() {
+    return this.tabindexAttr();
+  }
+
+  @Output() action = new EventEmitter<Event>();
 
   @HostListener('click', ['$event'])
   @HostListener('keydown.enter', ['$event'])
@@ -23,7 +34,7 @@ export class ButtonClickDirective {
   onHostClick($event: Event): void {
     $event.preventDefault();
 
-    if (this.isDisabled || this.isLoading) {
+    if (this.isDisabled() || this.isLoading()) {
       $event.stopPropagation();
       $event.stopImmediatePropagation();
       return;

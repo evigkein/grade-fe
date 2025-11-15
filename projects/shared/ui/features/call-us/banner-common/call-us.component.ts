@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SmIconsComponent } from '@ui/features/sm-icons/sm-icons.component';
-import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
+import { SmIconsComponent } from '../../sm-icons/sm-icons.component';
+import { SvgIconComponent } from '../../../modules/svg-icon/svg-icon.component';
 
 @Component({
   selector: 'p-call-us',

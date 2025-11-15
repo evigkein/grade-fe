@@ -1,0 +1,32 @@
+<section class="banner"
+         [ngClass]="[
+           'banner--' + size(),
+           'banner--align-' + textAlign(),
+           'banner--bg-' + bg()
+         ]">
+  
+  @if (bg() === 'full') {
+    <div class="banner__bg">
+      <img [img]="imgUrl()" alt="" />
+    </div>
+  }
+  
+  <div class="banner__content">
+    <h2 class="banner__title">{{ titleText() | translate }}</h2>
+    
+    <a class="banner__link"
+       stopEvents
+       [routerLink]="linkUrl()"
+       routerLinkActive="banner__link--active"
+       [routerLinkActiveOptions]="{ exact: true }">
+      {{ linkText() | translate }}
+    </a>
+  </div>
+  
+  @if (bg() === 'side') {
+    <div class="banner__side-bg">
+      <img [img]="imgUrl()" alt="" />
+    </div>
+  }
+
+</section>

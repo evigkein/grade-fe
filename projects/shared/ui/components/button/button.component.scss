@@ -1,274 +1,164 @@
-:host {
-  display: flex;
-  width: fit-content;
-  height: inherit;
-}
-
-:host(.btn--wide) {
-  width: 100%;
-}
-
-@mixin buttonColor($color, $hoverColor: null, $textColor: var(--buttonText-1)) {
-  color: $textColor;
-  background-color: var(--#{$color});
-
-  $hoverVariableName: if($hoverColor, var(--#{$hoverColor}), var(--#{$color}-hover));
-
-  &:hover, &:focus, &:active {
-    background-color: $hoverVariableName;
-    color: $textColor;
-  }
-
-  &:active {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-}
-
+/* -------------------------------------
+   Core Button Element
+-------------------------------------- */
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
+
   position: relative;
-  font-size: 14px;
-  width: 100%;
-  height: 40px;
-  font-weight: 600;
   cursor: pointer;
-  gap: 6px;
-  transition: background-color 0.3s ease;
-  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  width: fit-content;
+  height: fit-content;
+
   border: none;
-  //width: 100%;
+  border-radius: 12px;
 
-  &--disabled {
-    color: var(--gray-3)!important;
+  gap: 6px;
+  padding: 0;
+
+  transition: background-color .25s ease, color .25s ease;
+}
+
+
+/* -------------------------------------
+   SIZES
+-------------------------------------- */
+
+.btn--size-s {
+  height: 36px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+
+.btn--size-m {
+  height: 44px;
+  padding: 8px 16px;
+}
+
+.btn--size-l {
+  height: 56px;
+  padding: 12px 22px;
+  font-size: 15px;
+}
+
+
+/* -------------------------------------
+   WIDTH
+-------------------------------------- */
+
+.btn--width-max {
+  width: 100%;
+}
+
+.btn--width-auto {
+  width: auto;
+}
+
+.btn--width-fixed {
+  width: fit-content;
+}
+
+
+/* -------------------------------------
+   TEXT ALIGN INSIDE BUTTON
+-------------------------------------- */
+
+.btn--align-left {
+  justify-content: flex-start;
+}
+
+.btn--align-center {
+  justify-content: center;
+}
+
+.btn--align-right {
+  justify-content: flex-end;
+}
+
+
+/* -------------------------------------
+   STATES
+-------------------------------------- */
+
+.btn--disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
+.btn--without-padding {
+  padding: 0 !important;
+}
+
+.btn--h-max {
+  height: 100% !important;
+}
+
+.btn--h-inherit {
+  height: inherit !important;
+}
+
+.btn--icon-only {
+  padding: 8px !important;
+}
+
+
+/* -------------------------------------
+   COLOR MIXIN
+-------------------------------------- */
+
+@mixin buttonColor($bg, $bg-hover: null, $text: #fff) {
+  background-color: var(--#{$bg});
+  color: $text;
+
+  $effective-hover: if($bg-hover, var(--#{$bg-hover}), var(--#{$bg}-hover));
+
+  &:hover,
+  &:focus {
+    background-color: $effective-hover;
+    color: $text;
   }
 
-  &--without-padding {
-    padding: 0!important;
+  &:active {
+    background-color: $effective-hover;
+    box-shadow: 0 4px 8px rgba(0,0,0,.18);
   }
+}
 
-  &--xs {
-    width: 56px;
-    height: 56px;
-  }
 
-  // SIZES
-  &--sm {
-    padding: 8px 12px;
-  }
+/* -------------------------------------
+   TYPES
+-------------------------------------- */
 
-  &--p {
-    &-sm {
-      padding: 8px 12px;
-    }
+.btn--type-primary {
+  @include buttonColor(action, action-hover, var(--first-1));
+  border-radius: 36px;
+}
 
-    &-icon {
-      padding: 10px!important;
-    }
+.btn--type-secondary {
+  @include buttonColor(action2, action2-active, var(--first-2));
+}
 
-    &-side-m {
-      padding: 0 10px!important;
-    }
 
-    &-none {
-      padding: 0!important;
-    }
+/* -------------------------------------
+   ICONS
+-------------------------------------- */
 
-    &-side-r-0 {
-      //padding-left: 24px!important;
-      padding-right: 0!important;
-    }
-  }
+.btn__icon-prefix {
+  color: inherit !important;
+}
 
-  &--c-inherit {
-    color: inherit!important;
-  }
+.btn__icon-postfix {
+  color: inherit !important;
+}
 
-  &--m {
-    min-width: 120px;
-    height: 60px;
-    padding: 8px 22px;
-  }
-
-  &--l {
-    width: 180px;
-    height: 44px;
-    padding: 16px 22px;
-  }
-
-  &--xl {
-    width: 180px;
-    height: 56px;
-    padding: 16px 36px;
-  }
-
-  &--w {
-    &-m {
-      width: 240px;
-    }
-
-    &-max {
-      width: 100%;
-    }
-  }
-
-  &--wide {
-    width: 100%;
-    padding: 16px 32px;
-  }
-
-  &--c {
-    &-primary {
-      //color: var(--blue-1)!important;
-      color: var(--blue-1)!important;
-    }
-  }
-
-  &--br {
-    &-m {
-      border-radius: 8px;
-    }
-  }
-
-  &--h-max {
-    height: 100%;
-  }
-
-  &--h-inh {
-    height: inherit!important;
-  }
-
-  // old
-  &--max {
-    width: 100%;
-    //height: 100%;
-    //width: inherit;
-    //min-width: inherit;
-    //height: inherit;
-  }
-
-  &--inherit {
-    width: inherit;
-    min-width: inherit;
-    height: inherit;
-  }
-
-  &--align {
-    &-left {
-      justify-content: start;
-    }
-  }
-
-  &--link {
-    background: transparent;
-    white-space: nowrap;
-    padding: 0;
-    font-weight: 600;
-    color: #0084ff!important;
-    border: none!important;
-  }
-
-  &--icon {
-    background: transparent;
-    white-space: nowrap;
-    padding: 0;
-    outline: none;
-    border-radius: 12px!important;
-    padding: 8px!important;
-  }
-
-  // COLORS
-  &--teal {
-    @include buttonColor(teal-1);
-  }
-
-  &--primary {
-    background: linear-gradient(93.89deg, #FF9D00 0%, #FF5100 100%)!important;
-    border-radius: 36px;
-    @include buttonColor(brand-1, brand-1-hover, var(--first-2));
-  }
-
-  &--warn {
-    @include buttonColor(red-button-bg);
-    color: var(--red-button)!important;
-    border: 1px solid var(--red-button);
-  }
-
-  &--red {
-    color: var(--red-4)!important;
-
-    &:hover {
-      color: var(--red-4-hover)!important;
-    }
-  }
-
-  &--green {
-    @include buttonColor(green-1);
-  }
-
-  &--yellow {
-    @include buttonColor(yellow-1);
-  }
-
-  &--gray {
-    @include buttonColor(gray-5, gray-4, --first-1);
-    color: var(--first-1)!important;
-  }
-
-  &--dark {
-    @include buttonColor(active-text);
-  }
-
-  &--pink-light {
-    color: #FFF;
-    background-color: var(--content-bg-2);
-    box-shadow: none;
-    border: none;
-
-    &:hover {
-      background-color: var(--content-bg-2--hover);
-    }
-  }
-
-  &--transparent {
-    background: transparent;
-
-    color: var(--secondary-1);
-    box-shadow: none;
-    //border: 1px solid var(--hover-common);
-
-    &:hover, &:focus, &:active {
-      color: var(--active-text)
-    }
-    //border: 2px solid rgba(var(--secondary-1-rgb), .15);
-  }
-
-  &--stroke {
-    @include buttonColor(transparent, null);
-    color: var(--secondary-1);
-    box-shadow: none;
-    border: 1px solid var(--hover-common);
-
-    &:hover, &:focus, &:active {
-      color: var(--active-text)
-    }
-    //border: 2px solid rgba(var(--secondary-1-rgb), .15);
-  }
-
-  &__icon-prefix {
-    color: inherit!important;
-    //width: 18px;
-  }
-
-  &__icon-postfix {
-    //width: 18px;
-  }
-
-  &__loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+.btn__loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

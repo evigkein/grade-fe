@@ -1,8 +1,7 @@
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
-  importProvidersFrom,
-  provideZoneChangeDetection,
+  importProvidersFrom, provideAppInitializer,
   provideZonelessChangeDetection
 } from '@angular/core';
 
@@ -12,10 +11,11 @@ import {
   PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
-  withEnabledBlockingInitialNavigation,
+  withEnabledBlockingInitialNavigation, withInMemoryScrolling,
   withPreloading,
-  withRouterConfig
+  withRouterConfig, withViewTransitions
 } from '@angular/router';
+import { langInitializer } from '@core/modules/translate/initializer/translate-bootstrap';
 import { provideHammer } from '@core/services/hammer';
 import { routes } from '../../routes/app.routes';
 import { AppModule } from './app.module';
@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     // provideZoneChangeDetection({eventCoalescing: true}),
     routerConfigProviders(),
     provideClientHydration(
-      withEventReplay(),
+      // withEventReplay(),
       // PIPELINE WAS FROZEN!!!!
       // withHttpTransferCacheOptions({
       //   includeHeaders: ['ETag', 'Cache-Control'],
@@ -38,6 +38,7 @@ export const appConfig: ApplicationConfig = {
       //   includeRequestsWithAuthHeaders: false,
       // }),
     ),
+    // provideAppInitializer(() => langInitializer()()),
     provideAnimations(),
     provideHammer(),
   ]
@@ -45,6 +46,11 @@ export const appConfig: ApplicationConfig = {
 
 function routerConfigProviders(): any {
   return provideRouter(routes,
+    withViewTransitions({skipInitialTransition: true}),
+    withInMemoryScrolling({
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled'
+    }),
     withRouterConfig({
       paramsInheritanceStrategy: 'always',
     }),

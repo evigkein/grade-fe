@@ -1,0 +1,13 @@
+<ng-template #templateRef>
+  <p-modal
+    [id]="modalId()"
+    [titleText]="titleText()"
+    [subTitleText]="subTitle()"
+    [iconClose]="true"
+    [isWithoutPadding]="true"
+    [isFlexibleWidth]="false"
+    [isMobileFullScreen]="true"
+    (cancel)="closeCallbackModal()">
+    <ng-content/>
+  </p-modal>
+</ng-template>

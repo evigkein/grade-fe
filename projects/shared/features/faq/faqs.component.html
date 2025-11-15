@@ -1,0 +1,13 @@
+<section class="faq-section">
+  <h2 class="faq-title">{{ 'home.faq.title' | translate }}</h2>
+  
+  <div class="faq-list">
+    @for (item of items(); track item.question) {
+      <div class="faq-item">
+        <p-accordion [label]="item.question | translate" size="l">
+          <p class="faq-answer">{{ item.answer | translate }}</p>
+        </p-accordion>
+      </div>
+    }
+  </div>
+</section>

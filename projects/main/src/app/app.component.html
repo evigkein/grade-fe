@@ -4,7 +4,12 @@
   <!--  <button (click)="test1('3')">TEST 1</button>-->
 </div>
 <main class="main">
-  <router-outlet />
+  @if (lang.initialized()) {
+    <router-outlet></router-outlet>
+  } @else {
+    <div class="app-loader"></div>
+  }
+<!--  <router-outlet />-->
 </main>
 
 <!--<p-modal></p-modal>-->

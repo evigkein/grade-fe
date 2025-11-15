@@ -1,4 +1,4 @@
-import { isBrowser } from './browser/is-browser.util';
+import { isBrowser, isSSR } from './browser/is-browser.util';
 
 interface ScrollOptions {
   element: HTMLElement;
@@ -44,6 +44,7 @@ export function scrollTo(options: ScrollOptions): void {
 
 export function scrollToTop(duration = 500, container?: HTMLElement): void {
   if (!isBrowser()) return;
+  window.scrollTo(0, 0)
   scrollTo({
     element: document.body,
     container: container,
@@ -53,7 +54,7 @@ export function scrollToTop(duration = 500, container?: HTMLElement): void {
 }
 
 export function scrollToTitle(selector?: string, container?: HTMLElement): void {
-  if (!isBrowser()) return;
+  if (isSSR()) return;
 
   if (!selector) {
     scrollToTop(undefined, container);

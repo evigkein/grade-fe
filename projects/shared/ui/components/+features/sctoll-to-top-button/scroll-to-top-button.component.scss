@@ -1,0 +1,50 @@
+.scrollTop {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+
+  width: 54px;
+  height: 54px;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: opacity .3s ease, transform .3s ease;
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+
+  z-index: 9999;
+}
+
+.scrollTop--visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scrollTop__icon {
+  font-size: 22px;
+  color: #fff;
+  user-select: none;
+}
+
+.scrollTop:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-3px);
+}
+
+.scrollTop:active {
+  transform: translateY(0);
+}

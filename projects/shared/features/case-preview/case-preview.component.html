@@ -1,0 +1,28 @@
+<section class="case" [ngClass]="['case--' + align()]">
+  
+  <div class="case__content">
+<!--    <h4 class="case__tag">{{ 'case.tag' | translate }}</h4>-->
+    
+    <h2 class="case__title">{{ item().title | translate }}</h2>
+    
+    <p class="case__subtitle">{{ item().subtitle | translate }}</p>
+    
+    <p class="case__desc">{{ item().description | translate }}</p>
+    
+    <a class="a-btn-link"
+       stopEvents
+       [routerLink]="'portfolio/' + item().id"
+       [href]="'portfolio/' + item().id"
+       (click)="seeMore()">
+      {{ buttonLabel() | translate }}
+    </a>
+  </div>
+  
+  <div class="case__image">
+    <img [img]="item().image" alt=""
+         [class.blink]="item().id === 'blink'"
+         [class.buycoin]="item().id === 'buycoin'"
+    />
+  </div>
+
+</section>

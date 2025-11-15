@@ -5,6 +5,7 @@ import {
   signal,
   TemplateRef, ViewChild
 } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { _MODAL } from '../../modules/modals/modals/modal.service';
 import { ModalsModule } from '../../modules/modals/modals/modal/modals.module';
 
@@ -15,11 +16,12 @@ import { ModalsModule } from '../../modules/modals/modals/modal/modals.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    ModalsModule
+    ModalsModule,
+    TranslatePipe
   ],
 })
 export class AlertModalComponent {
-  @Input() title = '';
+  @Input() titleText = '';
   @Input() subTitle = '';
   @Input() buttonText = '';
   // @Input() title = signal<string>('');

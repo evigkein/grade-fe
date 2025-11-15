@@ -1,0 +1,131 @@
+.case {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+
+  padding: 4rem 2rem;
+}
+
+.case--right {
+  grid-template-columns: 1fr 1fr;
+}
+
+.case--right .case__content {
+  order: 2;
+}
+
+.case--right .case__image {
+  order: 1;
+}
+
+.case--left .case__content {
+  order: 1;
+}
+
+.case--left .case__image {
+  order: 2;
+}
+
+.case__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.case__tag {
+  color: #999;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.case__title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.case__subtitle {
+  font-size: 1.2rem;
+  color: #d0d0d0;
+  max-width: 520px;
+}
+
+.case__desc {
+  color: #b8b8b8;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.case__image {
+  width: 100%;
+  height: 100%;
+}
+
+.case__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+  object-fit: fill;
+}
+
+@media (max-width: 992px) {
+  .case {
+    grid-template-columns: 1fr;
+  }
+
+  .case--right .case__content,
+  .case--right .case__image {
+    order: unset;
+  }
+}
+
+
+/* Link-button (как кнопка, но <a>) */
+.a-btn-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  max-width: 260px;
+
+  width: 100%;
+  height: 50px;
+
+  padding: 0 16px;
+  border-radius: 12px;
+
+  background: #4b5aff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition: background .25s ease, transform .2s ease;
+}
+
+.a-btn-link:hover {
+  background: #6572ff;
+}
+
+.a-btn-link:active {
+  transform: scale(0.97);
+}
+
+.a-btn-link--active {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+}
+
+.blink {
+  width: 270px!important;
+  max-height: 500px!important;
+  object-fit: fill!important;
+}
+
+.buycoin {
+  width: 360px!important;
+  height: 520px!important;
+}

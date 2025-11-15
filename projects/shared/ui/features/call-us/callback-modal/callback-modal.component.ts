@@ -2,16 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
+  EventEmitter, input,
   Input,
   Output, signal,
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import { CallbackFormComponent } from '../../../features/call-us/call-us-modal/callback-form.component';
-import { _MODAL } from '../../modules/modals/modals/modal.service';
-import { ModalsModule } from '../../modules/modals/modals/modal/modals.module';
-import { AlertModalComponent } from '../alert/alert-modal.component';
+import { _MODAL } from '../../../modules/modals/modals/modal.service';
+import { ModalsModule } from '../../../modules/modals/modals/modal/modals.module';
 
 @Component({
   selector: 'p-callback-modal',
@@ -20,12 +18,13 @@ import { AlertModalComponent } from '../alert/alert-modal.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CallbackFormComponent,
     ModalsModule,
-    AlertModalComponent
   ],
 })
 export class CallbackModalComponent {
+  titleText = input.required<string>();
+  subTitle = input('');
+
   @ViewChild('templateRef', { static: true }) templateRef!: TemplateRef<ElementRef>;
 
   @Output() submitted = new EventEmitter<void>();

@@ -1,0 +1,97 @@
+.lang {
+  $this: &;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+
+  &__title {
+    text-transform: capitalize;
+    font-size: 16px;
+    color: var(--first-1);
+    font-weight: 500;
+  }
+
+  /* MENU */
+  &__menu {
+    width: 220px;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+
+    background: #1A1C24;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  &__menu_header {
+    transform: translateX(-220px);
+    position: fixed;
+  }
+
+  &__menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    height: 48px;
+    gap: 12px;
+
+    font-size: 15px;
+    color: var(--first-1);
+    background: transparent;
+
+    cursor: pointer; /* ← добавлено */
+    transition: all 0.18s ease;
+
+    .lang__icon {
+      width: 32px;
+      height: 32px;
+      margin-right: 0;
+    }
+
+    /* hover */
+    &:hover {
+      background: #22242E;
+      transform: translateX(2px);
+    }
+
+    /* активный язык */
+    &.is-active {
+      background: rgba(255, 255, 255, 0.10);
+      border-left: 3px solid var(--action);
+      font-weight: 600;
+      transform: none;
+    }
+
+    &:first-child {
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+  }
+}

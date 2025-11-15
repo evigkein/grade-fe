@@ -1,5 +1,6 @@
 import { inject, Injectable, signal, TransferState } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { getStorageItem, setStorageItem } from '@utils/helpers/storage';
 import moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -17,6 +18,8 @@ export function _TRANSLATE(): TranslateFacade {
 
 @Injectable({ providedIn: 'root' })
 export class TranslateFacade {
+  initialized = signal(false);
+
   moment: moment.Moment = moment();
 
   // private ngxTranslate = inject(TranslateService);
@@ -31,24 +34,37 @@ export class TranslateFacade {
   availableLanguageList: string[] = availableLanguageList;
 
   constructor(
-    private ngxTranslate: TranslateService,
+    public ngxTranslate: TranslateService,
     private transferState: TransferState) {
-    this.initTranslate();
   }
 
   initTranslate(): void {
-    const browserLang = this.ngxTranslate.getBrowserLang()!;
-    const lang = browserLang && this.availableLanguageList.includes(browserLang) ? browserLang : defaultLanguage;
-
     this.ngxTranslate.addLangs(this.availableLanguageCodes);
+
+    const lang = this.getInitialLang();
+    const finalLang = this.availableLanguageCodes.includes(lang as TLang) ? lang : defaultLanguage;
+
     this.ngxTranslate.setDefaultLang(defaultLanguage);
-    this.ngxTranslate.use(lang);
+    this.ngxTranslate.use(finalLang);
+    this.initialized.set(true);
+  }
+
+  getInitialLang(): string {
+    const localLang = getStorageItem('lang');
+    if(localLang) return localLang;
+
+    const browserLang = this.ngxTranslate.getBrowserLang()!;
+    if(browserLang) return browserLang;
   }
 
   setLanguage(lang: TLang): void {
+    console.log(lang);
     if (!this.availableLanguageCodes.includes(lang)) {
       return this._setLanguage(defaultLanguage);
     }
+    setStorageItem('lang', lang);
+    const localLang = getStorageItem('lang');
+    console.log(localLang, 'SET');
     this._setLanguage(lang);
   }
 

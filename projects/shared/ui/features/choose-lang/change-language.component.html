@@ -1,0 +1,26 @@
+<p-popover
+  class="lang"
+  skipHydration
+  type="withoutArrow"
+  [template]="userMenu"
+  [isVisible]="isVisible()"
+  (click)="handler(true)"
+  (clickOutside)="handler(false)"
+>
+  <div class="lang__content">
+    <p-icon class="lang__icon" size="30" [icon]="currentLang()"></p-icon>
+    <span class="lang__title noDraggable">{{ currentLang() }}</span>
+  </div>
+</p-popover>
+
+<ng-template #userMenu>
+  <ul class="lang__menu" [class.lang__menu_header]="header()">
+    <li
+      *ngFor="let option of options"
+      (click)="setLang(option.action)"
+      class="lang__menu-item">
+      <p-icon class="lang__icon" [icon]="option.icon"></p-icon>
+      <span class="noDraggable">{{ option.title | translate }}</span>
+    </li>
+  </ul>
+</ng-template>

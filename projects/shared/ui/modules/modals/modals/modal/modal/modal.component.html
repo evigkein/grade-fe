@@ -1,107 +1,133 @@
 <div
-  #modal
-  class="modal-wrapper"
-  (keyup.enter)="submit.emit()"
-  stopEvents
-  [ngClass]="{
-    'modal-wrapper--bottom-popup': mobileBottomPopup,
-    'modal-wrapper--bottom-popup-background': mobileBottomPopupBackground,
-    'modal-wrapper--flex': isFlexLayout,
-    'modal-wrapper--rounded': isRoundedLayout,
-    'modal-wrapper--scroll-content': scrollContent,
-    'modal-wrapper--without-padding': isWithoutPadding,
-    'modal-wrapper--with-shadow': isAddShadow,
-    'modal-wrapper--flexible-heights': isFlexibleHeights,
-    'modal-wrapper--fullscreen': $isFullscreenMode(),
-    'modal-wrapper--snackbar': isSnackbar,
-    'modal-wrapper--left-fullHeight': isLeftFullHeight,
-    'modal-wrapper--right-fullHeight': isRightFullHeight,
-    'modal-wrapper--sticky-header': isModalHeaderSticky,
-    'modal-wrapper--content-fullHeight': isModalWrapperContentFullHeight,
-    'modal-wrapper--scrollbar-not-visible': scrollbarIsNotVisible,
-    'modal-open-animation': isOpen
-  }"
-  (scroll)="onScrollEvent()"
-  (mouseClickUpDown)="onBackgroundClick()"
+    #modal
+    class="modal-wrapper"
+    (keyup.enter)="submit.emit()"
+    stopEvents
+    [class.modal-open-animation]="isOpen()"
+    [class.modal-wrapper--bottom-popup]="mobileBottomPopup()"
+    [class.modal-wrapper--bottom-popup-background]="mobileBottomPopupBackground()"
+    [class.modal-wrapper--flex]="isFlexLayout()"
+    [class.modal-wrapper--rounded]="isRoundedLayout()"
+    [class.modal-wrapper--scroll-content]="scrollContent()"
+    [class.modal-wrapper--without-padding]="isWithoutPadding()"
+    [class.modal-wrapper--with-shadow]="isAddShadow()"
+    [class.modal-wrapper--flexible-heights]="isFlexibleHeights()"
+    [class.modal-wrapper--fullscreen]="$isFullscreenMode()"
+    [class.modal-wrapper--snackbar]="isSnackbar()"
+    [class.modal-wrapper--left-fullHeight]="isLeftFullHeight()"
+    [class.modal-wrapper--right-fullHeight]="isRightFullHeight()"
+    [class.modal-wrapper--sticky-header]="isModalHeaderSticky()"
+    [class.modal-wrapper--content-fullHeight]="isModalWrapperContentFullHeight()"
+    [class.modal-wrapper--scrollbar-not-visible]="scrollbarIsNotVisible()"
+    (scroll)="onScrollEvent()"
+    (mouseClickUpDown)="onBackgroundClick()"
 >
   <div
-    #wrapperContent
-    class="modal-wrapper__content"
-    [@mobileSlideAnimation]="isOpen"
-    stopEvents>
+      #wrapperContent
+      class="modal-wrapper__content"
+      [class.modal-open]="isOpen()"
+      [class.modal-closed]="!isOpen()"
+      stopEvents
+  >
+    
+    <!-- Sticky Header -->
     <div
-      *ngIf="isModalHeaderSticky"
+      *ngIf="isModalHeaderSticky()"
       class="modal-wrapper__sticky-header"
-      [class.modal-wrapper__sticky-header_shadowed]="isStickyHeaderShadowed$ | async"
-      stopEvents>
+      [class.modal-wrapper__sticky-header_shadowed]="isStickyHeaderShadowed()"
+      stopEvents
+    >
       <ng-container *ngTemplateOutlet="modalHeader"></ng-container>
       <ng-container *ngTemplateOutlet="modalClose"></ng-container>
     </div>
+    
+    <!-- Main layout -->
     <div
-      #layout
-      tabTrap
-      class="modal-layout"
-      stopEvents
-      [ngClass]="{
-        'modal-layout--without-title': !titleText,
-        'modal-layout--flexible-width': isFlexibleWidth,
-        'modal-layout--mobile-full-screen': isMobileFullScreen,
-        'modal-layout__push-close':
-          (!mobileBottomPopup || iconClose) && !titleText && !isContentFullWidth,
-        'modal-layout--text-white': backgroundColor || backgroundImage,
-        'modal-layout--content-centered':isContentCentered && $isFullscreenMode()
-      }"
-      [style.background-color]="backgroundColor"
-      [ngStyle]="{
-        'background-image': backgroundImage
-          ? 'url(' + backgroundImage + ')'
-          : ''
-      }"
+        #layout
+        tabTrap
+        class="modal-layout"
+        stopEvents
+        [class.modal-layout--without-title]="!titleText()"
+        [class.modal-layout--flexible-width]="isFlexibleWidth()"
+        [class.modal-layout--mobile-full-screen]="isMobileFullScreen()"
+        [class.modal-layout__push-close]="(!mobileBottomPopup() || iconClose()) && !titleText() && !isContentFullWidth()"
+        [class.modal-layout--text-white]="backgroundColor() || backgroundImage()"
+        [class.modal-layout--content-centered]="isContentCentered() && $isFullscreenMode()"
+        [style.background-color]="backgroundColor()"
+        [style.background-image]="backgroundImage() ? 'url(' + backgroundImage() + ')' : ''"
     >
-      <ng-container *ngIf="!isModalHeaderSticky">
+      
+      <!-- Header if not sticky -->
+      <ng-container *ngIf="!isModalHeaderSticky()">
         <ng-container *ngTemplateOutlet="modalHeader"></ng-container>
       </ng-container>
-
+      
+      <!-- CONTENT -->
       <div class="modal-layout__content">
         <ng-content></ng-content>
       </div>
-
-<!--      <ng-container *ngIf="!isModalHeaderSticky">-->
-        <ng-container *ngTemplateOutlet="modalBottom"></ng-container>
-<!--      </ng-container>-->
+      
+      <!-- Bottom buttons -->
+      <ng-container *ngTemplateOutlet="modalBottom"></ng-container>
     </div>
   </div>
 </div>
 
+
+<!-- HEADER TEMPLATE -->
 <ng-template #modalHeader>
   <h3
-    *ngIf="titleText"
+    *ngIf="titleText()"
     class="modal-layout__title p-h3"
-    [ngClass]="{
-      'modal-layout__title--small': titleSize === modalTitleSize.small,
-      'modal-layout__title--medium': titleSize === modalTitleSize.medium,
-      'modal-layout__title--large': titleSize === modalTitleSize.large
-    }">
-    {{ titleText | translate }}
+    [class.modal-layout__title--small]="titleSize() === modalTitleSize.small"
+    [class.modal-layout__title--medium]="titleSize() === modalTitleSize.medium"
+    [class.modal-layout__title--large]="titleSize() === modalTitleSize.large"
+  >
+    {{ titleText() | translate }}
   </h3>
 </ng-template>
 
-<ng-template #modalBottom>
-  <div *ngIf="submitButtonText || cancelButtonText" class="modal-layout__bottom action-buttons" [class.action-buttons--same]="isButtonsSame">
-    <p-button *ngIf="cancelButtonText" [type]="cancelButtonType" width="wide" (action)="onCancel(); closeModal()">{{cancelButtonText | translate}}</p-button>
-    <p-button *ngIf="submitButtonText" [type]="submitButtonType" width="wide" [isLoading]="isSubmitButtonLoading" (action)="onSubmit()">{{submitButtonText | translate}}</p-button>
-  </div>
-</ng-template>
 
+<!-- CLOSE TEMPLATE -->
 <ng-template #modalClose>
   <button
-    *ngIf="iconClose"
+    *ngIf="iconClose()"
     class="modal-layout__close"
     [class.modal-layout__close--full-screen]="$isFullscreenMode()"
-    [class.modal-layout__close--with-background]="iconCloseWithBackground"
+    [class.modal-layout__close--with-background]="iconCloseWithBackground()"
     (click)="closeModal()"
     (keydown.space)="closeModal()"
-    (keydown.enter)="closeModal()">
-    <p-icon class="modal-layout__close-icon" size="26" icon="close"> </p-icon>
+    (keydown.enter)="closeModal()"
+  >
+    <p-icon class="modal-layout__close-icon" size="26" icon="close"></p-icon>
   </button>
+</ng-template>
+
+
+<!-- BOTTOM TEMPLATE -->
+<ng-template #modalBottom>
+  <div
+    *ngIf="submitButtonText() || cancelButtonText()"
+    class="modal-layout__bottom action-buttons"
+    [class.action-buttons--same]="isButtonsSame()"
+  >
+    <p-button
+      *ngIf="cancelButtonText()"
+      [type]="cancelButtonType()"
+      width="max"
+      (action)="onCancel(); closeModal()"
+    >
+      {{ cancelButtonText() | translate }}
+    </p-button>
+    
+    <p-button
+      *ngIf="submitButtonText()"
+      [type]="submitButtonType()"
+      width="max"
+      [isLoading]="isSubmitButtonLoading()"
+      (action)="onSubmit()"
+    >
+      {{ submitButtonText() | translate }}
+    </p-button>
+  </div>
 </ng-template>

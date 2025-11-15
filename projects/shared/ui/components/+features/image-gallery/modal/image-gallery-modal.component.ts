@@ -9,8 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { CustomImageDirective } from '../../../../../directives/ui/img/priority.directive';
 import { _MODAL } from '../../../../modules/modals/modals/modal.service';
-import { TModalButton } from '../../../../modules/modals/modals/modal/modal/modal.component';
 import { ModalsModule } from '../../../../modules/modals/modals/modal/modals.module';
+import { TButtonType } from '../../../button/button.component';
 import { _IMAGE_GALLERY } from '../image-gallery.service';
 
 @Component({
@@ -32,8 +32,8 @@ export class ImageGalleryModalComponent {
   fullScreen = signal<boolean>(false);
   submitText = signal<string>('');
   cancelText = signal<string>('');
-  submitType: TModalButton = 'primary';
-  cancelType: TModalButton = 'warn';
+  submitType: TButtonType = 'primary';
+  cancelType: TButtonType = 'warn';
   imgWidth?: number;
   imgHeight?: number;
 

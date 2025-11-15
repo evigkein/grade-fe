@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, EventEmitter, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { _DEVICE } from '@shared/services/device/device.service';
+import { StopEventsDirective } from '@shared/directives/utils';
+import { ButtonComponent } from '@ui/components/button/button.component';
+import { ChangeLanguageComponent } from '@ui/features/choose-lang/change-language.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { headerLinks } from '../constants/header-links';
 
@@ -17,6 +19,9 @@ import { headerLinks } from '../constants/header-links';
     RouterLink,
     TranslatePipe,
     SvgIconComponent,
+    StopEventsDirective,
+    ButtonComponent,
+    ChangeLanguageComponent,
   ],
 })
 export class HeaderComponent {

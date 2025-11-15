@@ -2,13 +2,11 @@ import {isBrowser} from './browser/is-browser.util';
 
 export type TLS = 'lang' | 'auth_login'
 
-export function getStorageItem<T = string>(key: TLS, doParse = true): T | null | undefined {
-  if(!isBrowser()) return;
+export function getStorageItem<T = string>(key: TLS, doParse = false): T | null | undefined {
+  if(!isBrowser() || !localStorage) return;
   const value = localStorage?.getItem(key);
-
   if (value) {
     try {
-      if (value === null) return null;
       if (value === '') return value as unknown as T;
       if (doParse) return JSON.parse(value) as T;
       return value as unknown as T;
