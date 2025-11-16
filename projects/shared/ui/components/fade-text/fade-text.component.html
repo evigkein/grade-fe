@@ -1,42 +1,54 @@
-<ng-container *ngIf="isEnabled; else content">
-  <ng-container *ngIf="!isTooltipMode(); else tooltipContent">
-    <ng-container *ngIf="maxLines === 1; else multi">
-      <div class="main-text"
-           [class.fade-truncate]="isOverflowed()"
-           [tooltip]="tooltip ?? (isOverflowed() ? text : '')"
-           textOverflow
-           [maxLines]="maxLines"
-           [textOverflowDisabled]="!!tooltip || !isEnabled"
-           (overflowLines)="setLines($event)"
-           (textOverflowed)="enableTooltipMode($event)">
-        {{ text }}
+@let hasLines = this.lines().length > 0;
+
+@if (this.isEnabled(); as enabled) {
+  @if (!this.isTooltipMode(); as noTooltipMode) {
+    @if (this.maxLines() === 1) {
+      <div
+        class="main-text"
+        [class.fade-truncate]="this.isOverflowed()"
+        [tooltip]="this.tooltip() ?? (this.isOverflowed() ? this.text() : '')"
+        textOverflow
+        [maxLines]="this.maxLines()"
+        [textOverflowDisabled]="!!this.tooltip() || !enabled"
+        (overflowLines)="setLines($event)"
+        (textOverflowed)="enableTooltipMode($event)"
+      >
+        {{ this.text() }}
       </div>
-    </ng-container>
-  </ng-container>
-  
-  <ng-template #tooltipContent>
-    <div [tooltip]="tooltip ?? text" [class.fade-truncate]="isOverflowed()">{{ text }}</div>
-  </ng-template>
-</ng-container>
-
-<ng-template #content>
-  {{ text }}
-</ng-template>
-
-<ng-template #multi>
-  <div *ngIf="!lines().length; else linesRef"
-       class="main-text--hidden"
-       [class.fade-truncate]="isOverflowed()"
-       [tooltip]="tooltip ?? ''"
-       [autoEllipsis]="text"
-       isFade
-       [maxLines]="maxLines"
-       (isOverflowed)="overflow()"
-       (linesChanged)="setLines($event)">
-    {{ text }}
-  </div>
-</ng-template>
-
-<ng-template #linesRef>
-  <span *ngFor="let i of lines()" class="line" [tooltip]="tooltip ?? (isOverflowed() ? text : '')">{{i}}</span>
-</ng-template>
+    } @else {
+      @if (!hasLines) {
+        <div
+          class="main-text--hidden"
+          [class.fade-truncate]="this.isOverflowed()"
+          [tooltip]="this.tooltip() ?? ''"
+          [autoEllipsis]="this.text()"
+          isFade
+          [maxLines]="this.maxLines()"
+          (isOverflowed)="overflow()"
+          (linesChanged)="setLines($event)"
+        >
+          {{ this.text() }}
+        </div>
+      } @else {
+        <ng-container>
+          @for (line of this.lines(); track line; let i = $index) {
+            <span
+              class="line"
+              [tooltip]="this.tooltip() ?? (this.isOverflowed() ? this.text() : '')"
+            >
+              {{ line }}
+            </span>
+          }
+        </ng-container>
+      }
+    }
+  } @else {
+    <div
+      [tooltip]="this.tooltip() ?? this.text()"
+      [class.fade-truncate]="this.isOverflowed()">
+      {{ this.text() }}
+    </div>
+  }
+} @else {
+  {{ this.text() }}
+}

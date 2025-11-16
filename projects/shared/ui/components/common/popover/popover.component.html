@@ -1,12 +1,13 @@
 <div
-  class="popover"
+  [class]="classes()"
   nz-popover
-  [nzPopoverPlacement]="position"
-  [nzPopoverVisible]="isVisible"
-  [nzPopoverContent]="template"
+  [nzPopoverPlacement]="position()"
+  [nzPopoverVisible]="isVisible()"
+  [nzPopoverContent]="template()"
   [nzPopoverOverlayClassName]="popoverClassName"
-  [nzPopoverArrowPointAtCenter]="isPopoverArrowPointAtCenter"
-  [nzPopoverTrigger]="trigger"
-  (nzPopoverVisibleChange)="visibleChange.emit($event)">
+  [nzPopoverArrowPointAtCenter]="isPopoverArrowPointAtCenter()"
+  [nzPopoverTrigger]="trigger()"
+  (nzPopoverVisibleChange)="visibleChange.emit($event)"
+  [attr.tabindex]="tabindex()">
   <ng-content></ng-content>
 </div>

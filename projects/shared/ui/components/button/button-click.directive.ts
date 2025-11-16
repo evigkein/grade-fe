@@ -1,10 +1,19 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Output, input, computed } from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Output,
+  input,
+  computed,
+  booleanAttribute, numberAttribute
+} from '@angular/core';
 
 @Directive({selector: '[buttonClick]', standalone: true})
 export class ButtonClickDirective {
-  isDisabled = input<boolean>(false);
-  isLoading = input<boolean>(false);
-  tabindex = input<number>(0);
+  isDisabled = input(false, {transform: booleanAttribute});
+  isLoading = input(false, {transform: booleanAttribute});
+  tabindex = input(0, {transform: numberAttribute});
 
   @HostBinding('class.disabled')
   get hostDisabled() {

@@ -1,12 +1,15 @@
-<div class="notification"
-    [class]="['notification--bg-' + backgroundType]"
-    [class.notification--primary]="type === 'primary'">
+<div class="notification" [class]="this.classes()">
+  @if (this.icon()) {
     <p-icon
-        *ngIf="icon"
-        class="notification__icon"
-        [icon]="icon"
-        [size]="iconSize"></p-icon>
-    <span class="notification__message"
-          [class.notification__message--sm]="size === 'sm'"
-          [innerHTML]="message | translate"></span>
+      class="notification__icon"
+      [icon]="this.icon()"
+      [size]="this.iconSize()"
+    ></p-icon>
+  }
+  
+  <span
+    class="notification__message"
+    [class.notification__message--sm]="this.size() === 'sm'"
+    [innerHTML]="this.message() | translate"
+  ></span>
 </div>

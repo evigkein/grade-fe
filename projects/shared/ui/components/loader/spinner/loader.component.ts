@@ -1,13 +1,13 @@
-import {CommonModule} from '@angular/common';
 import {
-  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   HostBinding,
-  Input,
+  computed,
+  input,
+  booleanAttribute,
   numberAttribute,
-  OnInit
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 export type TLoaderColor = 'default';
 export type TLoaderSize = 's' | 'm' | 'l' | 'xl';
@@ -17,59 +17,47 @@ const sizeMap: Record<TLoaderSize, number> = {
   s: 22,
   m: 52,
   l: 70,
-  xl: 100
+  xl: 100,
 };
 
 const borderSizeMap: Record<TLoaderSize, number> = {
   s: 3,
   m: 4,
   l: 6,
-  xl: 8
+  xl: 8,
 };
 
 @Component({
-    selector: 'p-loader',
-    template: `
-    <div class="loader"
-         [class.loader--centered]="isCentered"
-         [style.min-height]="minHeight + 'px'">
-      <div
-        [style.width]="width + 'px'"
-        [style.height]="height + 'px'"
-        [style.border-width]="borderWidth + 'px'"
-        class="spinner"
-      ></div>
-    </div>
-  `,
-  styleUrls: ['./loader.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'p-loader',
   standalone: true,
-  imports: [CommonModule]
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.scss'],
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoaderComponent implements OnInit {
-  @Input() type: TLoaderColor = 'default';
-  @Input() size: TLoaderSize = 'm';
-  @Input() color: TSpinnerColor = 'primary';
-  @Input({transform: numberAttribute}) minHeight = 0;
-  @Input({transform: booleanAttribute}) isCentered = false;
+export class LoaderComponent {
+  type = input<TLoaderColor>('default');
+  size = input<TLoaderSize>('m');
+  color = input<TSpinnerColor>('primary');
 
-  width = 52;
-  height = 52;
-  borderWidth = 4;
+  minHeight = input(0, { transform: numberAttribute });
+  isCentered = input(false, { transform: booleanAttribute });
 
-  ngOnInit() {
-    this.width = sizeMap[this.size];
-    this.height = sizeMap[this.size];
-    this.borderWidth = borderSizeMap[this.size];
-  }
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
 
-  @HostBinding('style.--spinnerRGB') get spinnerColor(): string {
-    switch (this.color) {
-      case 'button': return '255, 255, 255';
-      // case 'primary': return '217, 91, 174';
-      case 'primary': return '255, 119, 0';
+  width = computed(() => sizeMap[this.size()]);
+  height = computed(() => sizeMap[this.size()]);
+  borderWidth = computed(() => borderSizeMap[this.size()]);
+
+  @HostBinding('style.--spinnerRGB')
+  get spinnerColor(): string {
+    switch (this.color()) {
+      case 'button':
+        return '255, 255, 255';
+      case 'primary':
+        return '255, 119, 0';
     }
     return '123,123,123';
   }
-
 }

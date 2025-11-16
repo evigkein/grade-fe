@@ -1,5 +1,13 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+  booleanAttribute,
+  numberAttribute,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { StarsRatingComponent } from '../../components/stars-rating/stars-rating.component';
 
 export interface IReviewCard {
@@ -7,10 +15,10 @@ export interface IReviewCard {
   text: string;
   date: string;
   route: string;
-  rating: number; // 1-5
+  rating: number;
   photos?: string[];
   carType?: string;
-  reply?: {                        // ответ компании
+  reply?: {
     text: string;
     date?: string;
   };
@@ -20,15 +28,28 @@ export interface IReviewCard {
   selector: 'p-review-card',
   templateUrl: './review-card.component.html',
   styleUrls: ['./review-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, StarsRatingComponent],
 })
 export class ReviewCardComponent {
-  @Input({ required: true }) review!: IReviewCard;
-  @Output() AAAA2 = new EventEmitter();
+  review = input.required<IReviewCard>();
 
-  runOutput(): void {
-    this.AAAA2.emit();
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
+
+  onRun = output<void>();
+
+  classes = computed(() => {
+    return [
+      'review-post',
+      this.isLoading() ? 'review-post--loading' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
+
+  runOutput() {
+    this.onRun.emit();
   }
 }

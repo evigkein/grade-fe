@@ -1,24 +1,27 @@
-import { CommonModule } from '@angular/common';
 import {
-  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   forwardRef,
-  Input,
+  input,
+  signal,
+  computed,
+  booleanAttribute,
   numberAttribute,
-  Output
+  Output,
+  effect,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'p-stars-rating',
+  standalone: true,
   templateUrl: './stars-rating.component.html',
   styleUrls: ['./stars-rating.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [CommonModule, TranslateModule, SvgIconComponent],
   providers: [
     {
@@ -29,44 +32,60 @@ import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
   ],
 })
 export class StarsRatingComponent implements ControlValueAccessor {
-  @Input() maxStars = 5;
-  @Input({ transform: numberAttribute }) rating = 5;
-  @Input({ transform: booleanAttribute }) hasRating = false;
-  @Input({ transform: booleanAttribute }) hasCount = false;
-  @Input({ transform: booleanAttribute }) isControl = false;
-  @Input({ transform: numberAttribute }) reviewsCount = 0;
+  maxStars = input(5, { transform: numberAttribute });
+  rating = input(5, { transform: numberAttribute });
+  hasRating = input(false, { transform: booleanAttribute });
+  hasCount = input(false, { transform: booleanAttribute });
+  isControl = input(false, { transform: booleanAttribute });
+  reviewsCount = input(0, { transform: numberAttribute });
 
   @Output() ratingChange = new EventEmitter<number>();
 
-  hoveredStar = 0;
+  hoveredStar = signal(0);
 
-  private onChange: (value: number) => void = () => {};
-  private onTouched: () => void = () => {};
+  private ratingState = signal(this.rating());
 
-  setRating(star: number): void {
-    if (!this.isControl) return;
-    this.rating = star;
+  constructor() {
+    effect(() => {
+      this.ratingState.set(this.rating());
+    });
+  }
+
+  stars = computed(() => Array.from({ length: this.maxStars() }));
+
+  ratingValue = computed(() => this.ratingState());
+
+  private onChange = (value: number) => {};
+  private onTouched = () => {};
+
+  setRating(star: number) {
+    if (!this.isControl()) return;
+    this.ratingState.set(star);
     this.ratingChange.emit(star);
     this.onChange(star);
     this.onTouched();
   }
 
-  onHover(star: number): void {
-    if (!this.isControl) return;
-    this.hoveredStar = star;
+  onHover(star: number) {
+    if (!this.isControl()) return;
+    this.hoveredStar.set(star);
   }
 
-  onLeave(): void {
-    this.hoveredStar = 0;
+  onLeave() {
+    this.hoveredStar.set(0);
   }
 
-  writeValue(value: number): void {
-    if (typeof value === 'number') this.rating = value;
+  writeValue(value: number) {
+    if (typeof value === 'number') {
+      this.ratingState.set(value);
+    }
   }
-  registerOnChange(fn: any): void {
+
+  registerOnChange(fn: any) {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+
+  registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
 }

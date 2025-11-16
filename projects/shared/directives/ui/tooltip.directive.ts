@@ -1,37 +1,52 @@
 import {
   Directive,
-  Input,
-  HostBinding,
-  AfterViewInit,
   TemplateRef,
-  ViewContainerRef, OnChanges, SimpleChanges, inject, ChangeDetectorRef
+  effect,
+  input,
+  computed,
+  inject, Input,
 } from '@angular/core';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 import { TranslateFacade } from '@core/modules/translate';
-import {NzTooltipDirective} from 'ng-zorro-antd/tooltip';
 
-@Directive({selector: '[tooltip]', standalone: true})
-export class TooltipDirective extends NzTooltipDirective implements AfterViewInit, OnChanges {
-  @Input({required: true}) tooltip!: string | TemplateRef<void>;
+@Directive({
+  selector: '[tooltip]',
+  standalone: true,
+})
+export class TooltipDirective extends NzTooltipDirective {
+  tooltip = input.required<string | TemplateRef<void>>();
   @Input() override placement: 'top' | 'left' | 'right' | 'bottom' = 'top';
   @Input() override trigger: 'click' | 'focus' | 'hover' = 'hover';
-  @Input() textAlign: 'center' | 'left' | 'right' | undefined;
-  @Input() overlayClass = '';
-  @Input() ex: 'center' | 'left' | 'right' | undefined;
-
-  @HostBinding('class') elementClass!: string;
+  textAlign = input<'center' | 'left' | 'right'>();
+  overlayClass = input('');
+  ex = input<'center' | 'left' | 'right'>();
 
   private translate = inject(TranslateFacade);
 
-  override ngAfterViewInit() {
-    const t = this.tooltip;
-    this.title = t ? this.getTitle(t) : t;
-    if (this.textAlign) {
-      this.overlayClassName = `tooltip-align--${this.textAlign}`; // Установка класса стилей
-    }
-    super.ngAfterViewInit();
-  }
+  translated = computed(() => {
+    const v = this.tooltip();
+    return typeof v === 'string' ? this.translate.translate(v) : v;
+  });
 
-  private getTitle(t: string | TemplateRef<void>): string | TemplateRef<void> {
-    return typeof t === 'string' ? this.translate.translate(t) : this.tooltip;
+  classes = computed(() => {
+    return [
+      this.overlayClass(),
+      this.textAlign() ? `tooltip-align--${this.textAlign()}` : '',
+      this.ex() ? `tooltip-ex--${this.ex()}` : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
+
+  constructor() {
+    super();
+
+    effect(() => {
+      const title = this.translated();
+      const cls = this.classes();
+
+      this.title = title;
+      this.overlayClassName = cls;
+    });
   }
 }

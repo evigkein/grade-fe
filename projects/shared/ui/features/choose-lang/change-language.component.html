@@ -3,23 +3,26 @@
   skipHydration
   type="withoutArrow"
   [template]="userMenu"
-  [isVisible]="isVisible()"
+  [isVisible]="this.isVisible()"
   (click)="handler(true)"
-  (clickOutside)="handler(false)">
+  (clickOutside)="handler(false)"
+>
   <div class="lang__content">
-    <p-icon class="lang__icon" size="30" [icon]="currentLang()"></p-icon>
-    <span class="lang__title noDraggable">{{ currentLang() }}</span>
+    <p-icon class="lang__icon" size="30" [icon]="this.currentLang()"></p-icon>
+    <span class="lang__title noDraggable">{{ this.currentLang() }}</span>
   </div>
 </p-popover>
 
 <ng-template #userMenu>
-  <ul class="lang__menu" [class.lang__menu_header]="header()">
-    <li
-      *ngFor="let option of options"
-      (click)="setLang(option.action)"
-      class="lang__menu-item">
-      <p-icon class="lang__icon" [icon]="option.icon"></p-icon>
-      <span class="noDraggable">{{ option.title | translate }}</span>
-    </li>
+  <ul class="lang__menu" [class.lang__menu_header]="this.header()">
+    @for (option of this.options; track option.action) {
+      <li
+        class="lang__menu-item"
+        (click)="setLang(option.action)"
+      >
+        <p-icon class="lang__icon" [icon]="option.icon"></p-icon>
+        <span class="noDraggable">{{ option.title | translate }}</span>
+      </li>
+    }
   </ul>
 </ng-template>

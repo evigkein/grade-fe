@@ -1,37 +1,60 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  numberAttribute,
+  signal,
+  booleanAttribute,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, numberAttribute, signal } from '@angular/core';
 import { TextOverflowDirective } from '../../../directives/ui/text-overflow.directive';
 import { AutoEllipsisDirective } from '../../../directives/ui/utils/auto-ellipsis.directive';
 import { SkipHydrationDirective } from '../../../directives/utils/skip-hydration.directive';
 import { TooltipDirective } from '../../modules/tooltip/tooltip.directive';
+import { isControlInvalid } from '@ui/forms/utils/is-control-valid';
 
 @Component({
   selector: 'p-fade-text',
+  standalone: true,
   templateUrl: './fade-text.component.html',
   styleUrls: ['./fade-text.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, TextOverflowDirective, TooltipDirective, SkipHydrationDirective, AutoEllipsisDirective]
+  imports: [
+    CommonModule,
+    TextOverflowDirective,
+    TooltipDirective,
+    SkipHydrationDirective,
+    AutoEllipsisDirective,
+  ],
 })
 export class FadeTextComponent {
-  @Input() text!: string;
-  @Input() tooltip?: string;
-  @Input({transform: numberAttribute}) maxLines: number = 1;
-  @Input() isEnabled = true;
+  text = input.required<string>();
+  tooltip = input<string>();
+  maxLines = input(1, { transform: numberAttribute });
+  isEnabled = input(true, { transform: booleanAttribute });
+
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
 
   isTooltipMode = signal(false);
   isOverflowed = signal(false);
   lines = signal<string[]>([]);
 
-  enableTooltipMode(isOverflowed: boolean) {
-    this.isTooltipMode.set(isOverflowed);
-    this.isOverflowed.set(isOverflowed);
+  constructor() {
+    this.initState();
   }
 
-  setLines(lines: string[]) {
-    this.lines.set(lines);
-    lines.length > 1 && this.isOverflowed.set(true);
-    // this.isTooltipMode.set(true)
+  private initState() {}
+
+  enableTooltipMode(isOv: boolean) {
+    this.isTooltipMode.set(isOv);
+    this.isOverflowed.set(isOv);
+  }
+
+  setLines(v: string[]) {
+    this.lines.set(v);
+    v.length > 1 && this.isOverflowed.set(true);
   }
 
   overflow() {

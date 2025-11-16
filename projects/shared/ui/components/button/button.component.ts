@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, HostBinding, input } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostBinding,
+  input,
+  numberAttribute
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { StopEventsDirective } from '../../../directives/utils';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
@@ -37,7 +45,7 @@ export class ButtonComponent extends ButtonClickDirective {
   spinnerColor = input<TSpinnerColor>('button');
 
   iconPrefix = input<string | undefined>(undefined);
-  iconPrefixSize = input<number>(18);
+  iconPrefixSize = input(18, {transform: numberAttribute});
   iconPrefixColor = input<string>('');
 
   iconPostfix = input<string | undefined>(undefined);

@@ -1,7 +1,15 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  computed,
+  input,
+  booleanAttribute,
+  numberAttribute,
+} from '@angular/core';
+import { TooltipDirective } from '../../../../../directives/ui/tooltip.directive';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
-import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
-import {TooltipDirective} from '../../../../../directives/ui/tooltip.directive';
 
 export type TooltipHelpMarginLeft = 'm' | 'xs' | 's' | 'none';
 export type TooltipHelpPosition = 'after' | 'before' | 'above' | 'below' | 'left' | 'right';
@@ -12,13 +20,25 @@ export type TooltipHelpPosition = 'after' | 'before' | 'above' | 'below' | 'left
   styleUrls: ['./tooltip-help.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TooltipDirective, TranslateModule, NgIf],
-  // host: {ngSkipHydration: 'true'}
+  imports: [TooltipDirective, TranslateModule],
 })
 export class TooltipHelpComponent {
-  @Input() tooltip!: string | TemplateRef<void> | undefined;
-  @Input() size: 's' | 'm' = 's';
-  @Input() position: TooltipHelpPosition = 'above';
-  @Input() marginLeftType: TooltipHelpMarginLeft = 'none';
-  @Input() label?: string;
+  tooltip = input.required<string | TemplateRef<void>>();
+  size = input<'s' | 'm'>('s');
+  position = input<TooltipHelpPosition>('above');
+  marginLeftType = input<TooltipHelpMarginLeft>('none');
+  label = input<string>();
+
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
+
+  classes = computed(() => {
+    return [
+      this.label() ? 'mark--has-label' : '',
+      `mark--margin-left-${this.marginLeftType()}`,
+      `mark--${this.size()}`,
+    ]
+      .filter(Boolean)
+      .join(' ');
+  });
 }

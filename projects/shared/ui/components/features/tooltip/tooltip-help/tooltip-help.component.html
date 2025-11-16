@@ -1,10 +1,11 @@
-<div
-  *ngIf="tooltip"
-  class="mark"
-  [class.mark--has-label]="label"
-  [tooltip]="tooltip"
-  placement="top"
-  [class]="['mark--margin-left-' + marginLeftType, 'mark--' + size ]"
-  overlayClass="question-tooltip">
-  ?
-</div>
+@if (this.tooltip()) {
+  <div
+    class="mark"
+    [class]="this.classes()"
+    [tooltip]="this.tooltip()"
+    [placement]="'top'"
+    overlayClass="question-tooltip"
+    [attr.tabindex]="this.tabindex()">
+    ?
+  </div>
+}

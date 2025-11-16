@@ -1,17 +1,17 @@
 <a
   class="p-phone-link p-a-reset"
-  [class.p-phone-link--small]="isSmallIcon"
-  [href]="telLink"
-  [attr.aria-label]="ariaLabel || 'Позвонить по номеру ' + phone"
-  [title]="ariaLabel || 'Позвонить по номеру ' + phone"
-  rel="nofollow">
+  [class]="classes()"
+  [href]="telLink()"
+  [attr.aria-label]="ariaLabel() || ('Позвонить по номеру ' + phone())"
+  [title]="ariaLabel() || ('Позвонить по номеру ' + phone())"
+  rel="nofollow"
+  [attr.tabindex]="tabindex()">
   
-  <ng-container *ngIf="!isSmallIcon; else smallIconTemplate">
+  @if (!isSmallIcon()) {
     <p-icon icon="orangePhone" size="20" class="p-phone-link__icon" />
-    <span class="p-phone-link__label">{{ label || phone }}</span>
-  </ng-container>
-  
-  <ng-template #smallIconTemplate>
+    <span class="p-phone-link__label">{{ label() || phone() }}</span>
+  } @else {
     <p-icon icon="phoneWhite" size="20" class="p-phone-link__icon--small" />
-  </ng-template>
+  }
+
 </a>

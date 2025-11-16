@@ -1,13 +1,21 @@
-<section class="page-empty">
-  <div class="page-empty__title text__title2">{{ title | translate }}</div>
-  <div class="page-empty__subtitle text__body">{{ subTitle | translate }}</div>
-  <p-button
-    *ngIf="buttonText"
-    color="primary"
-    type="primary"
-    width="wide"
-    class="page-empty__button"
-    (click)="onActionClick()">
-    {{ buttonText | translate }}
-  </p-button>
+<section class="page-empty" [attr.tabindex]="this.tabindex()">
+  <div class="page-empty__title text__title2">
+    {{ this.title() | translate }}
+  </div>
+  
+  <div class="page-empty__subtitle text__body">
+    {{ this.subTitle() | translate }}
+  </div>
+  
+  @if (this.buttonText()) {
+    <p-button
+      type="primary"
+      width="max"
+      class="page-empty__button"
+      [isLoading]="this.isLoading()"
+      (click)="onActionClick()"
+    >
+      {{ this.buttonText() | translate }}
+    </p-button>
+  }
 </section>

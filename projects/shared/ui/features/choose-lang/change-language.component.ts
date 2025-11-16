@@ -1,5 +1,13 @@
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  model,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, model, signal } from '@angular/core';
 import { TLang, TranslateFacade } from '@core/modules/translate';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClickOutsideDirective } from '../../../directives/utils/click-outside.directive';
@@ -20,38 +28,36 @@ import { langOptions } from './options.const';
     SkipHydrationDirective,
     ClickOutsideDirective,
     TranslateModule,
-    SvgIconComponent
-  ]
+    SvgIconComponent,
+  ],
 })
 export class ChangeLanguageComponent {
-  header = input(false);
+  header = input(false, {transform: booleanAttribute});
   isVisible = model(false);
 
   private lang = inject(TranslateFacade);
 
-  readonly currentLang = computed(() => this.lang.lang());
+  currentLang = computed(() => this.lang.lang());
 
-  readonly options = langOptions;
+  options = langOptions;
 
-  setLang = (lang: TLang): void => {
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        this.lang.setLanguage(lang);
+  setLang = (lang: TLang) => {
+    const api = this.lang;
+
+    // SSR-safe — document может быть undefined
+    if (typeof document !== 'undefined' && (document as any).startViewTransition) {
+      (document as any).startViewTransition(() => {
+        api.setLanguage(lang);
         this.isVisible.set(false);
       });
-    } else {
-      // fallback для Safari < 17
-      this.lang.setLanguage(lang);
-      this.isVisible.set(false);
+      return;
     }
+
+    api.setLanguage(lang);
+    this.isVisible.set(false);
   };
 
-  handler = (v: boolean): void => {
+  handler = (v: boolean) => {
     this.isVisible.set(v);
   };
-
-  // setLang = (lang: TLang): void => {
-  //   this.lang.setLanguage(lang);
-  //   this.isVisible.set(false);
-  // };
 }

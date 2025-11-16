@@ -1,7 +1,7 @@
 <div class="skeleton-grid">
-  <div
-    *ngFor="let skeleton of skeletons; trackBy: trackBy"
-    class="skeleton-grid__item">
-    <ng-container *ngTemplateOutlet="template"></ng-container>
-  </div>
+  @for (s of this.skeletons(); track s; let i = $index) {
+    <div class="skeleton-grid__item">
+      <ng-container [ngTemplateOutlet]="this.template()"></ng-container>
+    </div>
+  }
 </div>

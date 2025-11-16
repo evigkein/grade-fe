@@ -16,10 +16,4 @@ import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
   ],
 })
 export class MainLogoComponent {
-  @Input() AAAA!: string;
-  @Output() AAAA2 = new EventEmitter();
-
-  runOutput(): void {
-    this.AAAA2.emit();
-  }
 }

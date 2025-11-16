@@ -1,52 +1,63 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  TemplateRef,
+  computed,
+  input,
+  numberAttribute,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { trackByFn } from '@utils/angular';
 
 @Component({
   selector: 'p-skeleton-grid',
+  standalone: true,
   templateUrl: './skeleton-grid.component.html',
   styleUrls: ['./skeleton-grid.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
-export class SkeletonGridComponent implements OnInit {
-  @Input() type!: 'nft-card' | 'collection-card';
-  @Input() template!: TemplateRef<any>;
-  @Input() columns = 4;
-  @Input() rows = 3;
-  @Input() gapSizeInPx = 20;
-  @Input() itemHeight = 328;
-  @Input() itemWidth: string | number = 224;
-  @Input() skeletonRows = 2;
+export class SkeletonGridComponent {
+  type = input.required<'nft-card' | 'collection-card'>();
+  template = input.required<TemplateRef<any>>();
 
-  skeletons!: undefined[];
+  columns = input(4, { transform: numberAttribute });
+  rows = input(3, { transform: numberAttribute });
+  gapSizeInPx = input(20, { transform: numberAttribute });
+  itemHeight = input(328, { transform: numberAttribute });
+  itemWidth = input<string | number>('224');
+
+  skeletonRows = input(2, { transform: numberAttribute });
+
+  isLoading = input(false);
+  tabindex = input(0, { transform: numberAttribute });
+
   trackBy = trackByFn;
 
-  @HostBinding('style.--amount-of-columns') get amountOfColumns(): string {
-    return this.columns.toString();
-  }
-  @HostBinding('style.--amount-of-rows') get amountOfRows(): string {
-    return this.rows.toString();
-  }
-  @HostBinding('style.--gap-size') get gapSize(): string {
-    return `${this.gapSizeInPx}px`;
-  }
-  @HostBinding('style.--skeleton-item-height') get skeletonHeight(): string {
-    return `${this.itemHeight}px`;
-  }
-  @HostBinding('style.--skeleton-item-width') get skeletonWidth(): string {
-    return typeof this.itemWidth === 'number' ? `${this.itemWidth}px` : this.itemWidth;
+  skeletons = computed(() => {
+    const total = this.columns() * this.rows();
+    return Array.from({ length: total });
+  });
+
+  @HostBinding('style.--amount-of-columns') get amountOfColumns() {
+    return `${this.columns()}`;
   }
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.initSkeletons();
+  @HostBinding('style.--amount-of-rows') get amountOfRows() {
+    return `${this.rows()}`;
   }
 
-  initSkeletons(): void {
-    const amountOfSkeletons = this.columns * this.rows;
-    this.skeletons = Array.from({ length: amountOfSkeletons });
+  @HostBinding('style.--gap-size') get gapSize() {
+    return `${this.gapSizeInPx()}px`;
+  }
+
+  @HostBinding('style.--skeleton-item-height') get skeletonHeight() {
+    return `${this.itemHeight()}px`;
+  }
+
+  @HostBinding('style.--skeleton-item-width') get skeletonWidth() {
+    const w = this.itemWidth();
+    return typeof w === 'number' ? `${w}px` : w;
   }
 }

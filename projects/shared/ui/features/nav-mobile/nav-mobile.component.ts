@@ -21,9 +21,4 @@ import { ChangeLanguageComponent } from '../choose-lang/change-language.componen
 })
 export class NavMobileComponent {
   navLinks = input.required<INavLink[]>();
-  @Output() AAAA2 = new EventEmitter();
-
-  runOutput(): void {
-    this.AAAA2.emit();
-  }
 }

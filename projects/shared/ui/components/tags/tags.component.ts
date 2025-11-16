@@ -1,39 +1,59 @@
-import {CommonModule} from '@angular/common';
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
-import { StopEventsDirective } from '../../../directives/utils';
-import { SkipHydrationDirective } from '../../../directives/utils/skip-hydration.directive';
-import { FuncPipe } from '../../../pipes/func.pipe';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  input,
+  computed,
+  booleanAttribute,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../modules/svg-icon/svg-icon.component';
-
-import {convertStringToTagFormat} from './tags.helpers';
+import { StopEventsDirective } from '../../../directives/utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { SkipHydrationDirective } from '../../../directives/utils/skip-hydration.directive';
+import { convertStringToTagFormat } from './tags.helpers';
 import { ITag } from './tags.interface';
-
 
 @Component({
   selector: 'p-tags',
+  standalone: true,
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [TranslateModule, SvgIconComponent, StopEventsDirective, CommonModule, FuncPipe, SkipHydrationDirective,],
+  imports: [
+    CommonModule,
+    SvgIconComponent,
+    StopEventsDirective,
+    TranslateModule,
+    SkipHydrationDirective,
+  ],
 })
 export class TagsComponent {
-  @Input() tags: ITag[] | string[] = [];
-  @Input() isRemovable = false;
-  @Input() hasWrap = true;
-  @Input() color: 'common' | 'teal' = 'common';
-  @Input() size: 'm' | 'l' | 'x' = 'm';
-  @Input() prefix?: string;
+  tags = input<ITag[] | string[]>([]);
+  isRemovable = input(false, { transform: booleanAttribute });
+  hasWrap = input(true, { transform: booleanAttribute });
+  color = input<'common' | 'teal'>('common');
+  size = input<'m' | 'l' | 'x'>('m');
+  prefix = input<string>();
+
   @Output() removeTag = new EventEmitter<string>();
 
-  transformLabels(labels: ITag[] | string[]): ITag[] {
-    return typeof labels?.[0] === 'string'
-      ? convertStringToTagFormat(labels as string[])
-      : labels as ITag[];
-  }
+  items = computed(() => {
+    const v = this.tags();
+    return typeof v?.[0] === 'string'
+      ? convertStringToTagFormat(v as string[])
+      : (v as ITag[]);
+  });
 
-  onRemoveTag(value: string | undefined): void {
+  tagClasses = computed(() => {
+    return [
+      `tag--${this.color()}`,
+      `tag--${this.size()}`,
+    ].join(' ');
+  });
+
+  onRemoveTag(value: string | undefined) {
     this.removeTag.emit(value);
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionComponent } from '../../components/accordion';
 
@@ -14,10 +14,6 @@ import { AccordionComponent } from '../../components/accordion';
   ],
 })
 export class FaqCardComponent {
-  @Input({ required: true }) q: string;
-  @Input({ required: true }) a: string;
-
-  // runOutput(): void {
-  //   this.AAAA2.emit();
-  // }
+  q = input.required<string>();
+  a = input.required<string>();
 }

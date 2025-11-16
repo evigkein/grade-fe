@@ -1,61 +1,55 @@
-<div
-  class="accordion"
-  [class.accordion--expanded]="isOpened()"
-  [class.accordion--block]="isBlockView()"
-  [class.accordion--see-more]="isSeeMore()"
-  [class.accordion--primary-filled]="type() === 'primary-filled'"
-  [class]="[
-  'accordion--' + size(),
-  'accordion--p-' + paddingSize(),
-  ]">
+<div class="accordion" [class]="classes()" [attr.tabindex]="tabindex()">
   
-  <div
-    *ngIf="hasToggle()"
-    class="accordion__button"
-    (click)="toggle()">
-    
-    <div *ngIf="label()" class="accordion__title">
+  @if (hasToggle()) {
+    <div class="accordion__button" (click)="toggle()">
+      
+      @if (label()) {
+        <div class="accordion__title">
+          @if (icon()) {
+            <p-icon
+              class="accordion__icon"
+              [icon]="icon()">
+            </p-icon>
+          }
+          <span [class.title--bold]="isTitleBold()">{{ label() | translate }}</span>
+        </div>
+      }
+      
+      <ng-content select="[title]"></ng-content>
+      
+      @if (isSeeMore() && !isOpened()) {
+        <div class="accordion__see-more-button" (click)="toggle()">
+          {{ seeMoreLabels()[0] | translate }}
+        </div>
+      }
+      
       <p-icon
-        *ngIf="icon()"
-        class="accordion__icon"
-        [icon]="icon()">
+        class="accordion__toggle-icon"
+        [size]="size() === 'l' ? 20 : 13"
+        icon="angleDown">
       </p-icon>
-      <span [class.title--bold]="isTitleBold()">{{ label() | translate }}</span>
     </div>
-    
-    <ng-content select="[title]"></ng-content>
-    
-    <div *ngIf="isSeeMore() && !isOpened()"
-         class="accordion__see-more-button"
-         (click)="toggle()">
-      {{ seeMoreLabels()[0] | translate }}
-    </div>
-    
-    <p-icon class="accordion__toggle-icon" [size]="size() === 'l' ? 20 : 13" icon="angleDown"></p-icon>
-  </div>
+  }
   
-  <ng-container *ngIf="!useNgIf(); else ngIfTemplate">
+  @if (!useNgIf()) {
     <section
-      [@openCloseHidden]="isOpened() ? 'open' : 'closed'"
       class="accordion__container"
+      [@openCloseHidden]="isOpened() ? 'open' : 'closed'"
       [style.display]="!isOpened() && animationFinished() ? 'none' : 'block'"
       (@openClose.done)="animationDone($event)">
       <ng-content></ng-content>
     </section>
-  </ng-container>
+  } @else {
+    @if (isOpened()) {
+      <section class="accordion__container" @openClose>
+        <ng-content></ng-content>
+      </section>
+    }
+  }
   
-  <ng-template #ngIfTemplate>
-    <section
-      @openClose
-      *ngIf="isOpened()"
-      class="accordion__container">
-      <ng-content></ng-content>
-    </section>
-  </ng-template>
-  
-  <div *ngIf="isSeeMore() && isOpened()"
-       class="accordion__see-more-button"
-       (click)="toggle()">
-    {{ seeMoreLabels()[1] }}
-  </div>
+  @if (isSeeMore() && isOpened()) {
+    <div class="accordion__see-more-button" (click)="toggle()">
+      {{ seeMoreLabels()[1] }}
+    </div>
+  }
 </div>
