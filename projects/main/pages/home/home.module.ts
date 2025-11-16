@@ -12,7 +12,7 @@ import { ButtonComponent } from '@ui/components/button/button.component';
 import { BannerComponent } from '@ui/features/banner/banner.component';
 import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
 import { AlertModalComponent } from '@ui/modals/alert/alert-modal.component';
-import { CallbackModalComponent } from '@ui/features/call-us/callback-modal/callback-modal.component';
+import { ModalWrapperComponent } from '@ui/modules/modals/modal-wrapper/modal-wrapper.component';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { PageHomeComponent } from './components/entry/home.component';
 import { HomeFeaturesComponent } from './components/features/home-features.component';
@@ -34,10 +34,10 @@ import { HomeRoutingModule } from './home-routing.module';
     BannerComponent,
     FaqsComponent,
     ScrollToTopButtonComponent,
-    CallbackModalComponent,
+    ModalWrapperComponent,
     AlertModalComponent,
-    CallbackModalWrapperComponent,
     MainHomeBannerComponent,
+    CallbackModalWrapperComponent,
   ],
   declarations: [PageHomeComponent],
   exports: [PageHomeComponent],

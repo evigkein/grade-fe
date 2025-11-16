@@ -1,7 +1,7 @@
 {
   "header.link.home": "Home",
-  "header.link.services": "Services",
   "header.link.work": "Work",
+  "header.link.services": "Services",
   "header.link.values": "Values",
   "header.link.about": "About",
   "header.link.contact": "Contact",
@@ -21,7 +21,7 @@
   "home.features.b1.desc": "We build resilient and scalable digital cores with clear architecture, clean code, and predictable delivery.",
   "home.features.b2.title": "Advanced fintech & web3 solutions",
   "home.features.b2.desc": "We specialize in financial platforms and digital-asset products — payments, transfers, blockchain infrastructure, secure data flows, and high-reliability services",
-  "home.features.b3.title": "Value-driven delivery for ambitious ecosystems",
+  "home.features.b3.title": "Value-driven delivery",
   "home.features.b3.desc": "We care about clarity, reliability, transparent processes, and long-term impact. Every project is built like a system meant to grow, evolve, and withstand real-world load",
   "home.features.b4.title": "Proven enterprise experience",
   "home.features.b4.desc": "We use the experience gained by our key specialists in companies like Tinkoff, M.Video, Sberbank, and Rosbank — applying enterprise-level engineering culture to every solution we build",
@@ -102,5 +102,21 @@
   "september": "September",
   "october": "October",
   "november": "November",
-  "december": "December"
+  "december": "December",
+
+
+  "/////////////////////////////// RELATIVE //////////////////////////": "",
+  "relative.just_now": "Just now",
+  "relative.yesterday": "Yesterday",
+
+  "relative.seconds_ago": "{{count}} seconds ago",
+  "relative.minutes_ago": "{{count}} minutes ago",
+  "relative.hours_ago": "{{count}} hours ago",
+  "relative.days_ago": "{{count}} days ago",
+
+  "relative.s_short": "{{count}}s",
+  "relative.m_short": "{{count}}m",
+  "relative.h_short": "{{count}}h",
+  "relative.d_short": "{{count}}d"
+
 }

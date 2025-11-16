@@ -1,8 +1,8 @@
 <p-input-label
-  [label]="label"
-  [labelType]="labelType"
-  [labelSize]="labelSize"
-  [alignLabel]="alignLabel"
+  [label]="label()"
+  [labelType]="labelType()"
+  [labelSize]="labelSize()"
+  [alignLabel]="alignLabel()"
   [id]="id"
   role="label"
   aria-label="Дата и время"
@@ -21,53 +21,56 @@
   (visibleChange)="popoverVisibleChange($event)"
   (click)="togglePopover(true)">
   
-  <div
-    *ngIf="isVisible()"
-    stopEvents
-    class="datepicker-backdrop"
-    aria-hidden="true"
-    (click)="togglePopover(false)">
-  </div>
+  @if (isVisible()) {
+    <div
+      stopEvents
+      class="datepicker-backdrop"
+      aria-hidden="true"
+      (click)="togglePopover(false)">
+    </div>
+  }
   
   <p-input
     class="datepicker-input"
     [formControl]="inputViewControl"
-    [placeholder]="placeholder"
+    [placeholder]="placeholder()"
     cursor="pointer"
     suffixIcon="calendar"
     suffixIconSize="32"
     readonly
     role="combobox"
     aria-haspopup="dialog"
-    aria-expanded="{{isVisible()}}"
     aria-controls="calendar-popup"
     (action)="togglePopover(true)">
   </p-input>
 </p-popover>
 
 <ng-template #dateTimePickerTemplate>
-  <div
-    *ngIf="hasTime; else dateOnly"
-    id="calendar-popup"
-    class="calendar-with-timepicker"
-    role="group"
-    aria-label="Выбор даты и времени"
-    (clickOutside)="togglePopover(false)"
-    isMouseDown>
-    
+  @if (hasTime()) {
+    <div
+      id="calendar-popup"
+      class="calendar-with-timepicker"
+      role="group"
+      aria-label="Выбор даты и времени"
+      (clickOutside)="togglePopover(false)"
+      isMouseDown>
+      
+      <ng-container *ngTemplateOutlet="calendarTemplate"></ng-container>
+      
+      <p-timepicker
+        [availableTimeSlots]="timeSlots()"
+        stopEvents
+        [isActive]="isSafeClose()"
+        [locale]="locale()"
+        [isAmPm]="isAmPmFormat"
+        selectFirstAvailable
+        [formControl]="timeControl"
+        aria-label="Выбор времени">
+      </p-timepicker>
+    </div>
+  } @else {
     <ng-container *ngTemplateOutlet="calendarTemplate"></ng-container>
-    
-    <p-timepicker
-      [availableTimeSlots]="timeSlots()"
-      stopEvents
-      [isActive]="isSafeClose"
-      [locale]="locale"
-      [isAmPm]="isAmPmFormat"
-      selectFirstAvailable
-      [formControl]="timeControl"
-      aria-label="Выбор времени">
-    </p-timepicker>
-  </div>
+  }
   
   <ng-template #calendarTemplate>
     <div
@@ -94,14 +97,12 @@
           <button
             [class.button__active]="hasYear"
             (click)="toggleYearSelection()"
-            aria-pressed="{{hasYear}}"
             aria-label="Выбор года">
             {{ moment.format('YYYY') }}
           </button>
           <button
             [class.button__active]="hasMonth"
             (click)="toggleMonthSelection()"
-            aria-pressed="{{hasMonth}}"
             aria-label="Выбор месяца">
             {{ moment.format('MMMM').toLowerCase() | translate }}
           </button>
@@ -119,54 +120,63 @@
         </div>
       </div>
       
-      <div *ngIf="isYearSelectionVisible()" class="year-selection" #yearSelectionContainer role="listbox" aria-label="Выбор года">
-        <div *ngFor="let year of getYearsArray()" stopEvents (click)="selectYear(year)">
-          <button role="option">{{ year }}</button>
+      @if (isYearSelectionVisible()) {
+        <div class="year-selection" #yearSelectionContainer role="listbox" aria-label="Выбор года">
+          @for (year of getYearsArray(); track year) {
+            <div stopEvents (click)="selectYear(year)">
+              <button role="option">{{ year }}</button>
+            </div>
+          }
         </div>
-      </div>
+      }
       
-      <div *ngIf="isMonthSelectionVisible()" class="month-selection" role="listbox" aria-label="Выбор месяца">
-        <div
-          *ngFor="let month of getMonthsArray()"
-          stopEvents
-          class="month-selection__button"
-          (click)="selectMonth(month.index)">
-          <button role="option">{{ month.name | translate }}</button>
+      @if (isMonthSelectionVisible()) {
+        <div class="month-selection" role="listbox" aria-label="Выбор месяца">
+          @for (month of getMonthsArray(); track month) {
+            <div
+              stopEvents
+              class="month-selection__button"
+              (click)="selectMonth(month.index)">
+              <button role="option">{{ month.name | translate }}</button>
+            </div>
+          }
         </div>
-      </div>
+      }
       
-      <ng-container *ngIf="!isYearSelectionVisible() && !isMonthSelectionVisible()">
+      @if (!isYearSelectionVisible() && !isMonthSelectionVisible()) {
         <div class="calendar-container" role="grid" aria-label="Календарь">
           <div class="calendar-header" role="row">
-            <div *ngFor="let day of weekDaysHeaderArr()" class="calendar-date" role="columnheader">
-              {{ day }}
-            </div>
+            @for (day of weekDaysHeaderArr(); track day) {
+              <div class="calendar-date" role="columnheader">
+                {{ day }}
+              </div>
+            }
           </div>
           <div class="calendar-body" role="rowgroup">
-            <div *ngFor="let day of gridArr()" class="calendar-date" [class.is-disabled]="!day.available" role="gridcell">
-              <button
-                *ngIf="day.value !== 0"
-                class="date-item"
-                [class.is-active]="isActive(day)"
-                (click)="selectDay(day, $event)"
-                [disabled]="!day.available"
-                [attr.aria-selected]="isActive(day)"
-                [attr.aria-disabled]="!day.available">
-                {{ day.value }}
-              </button>
-              <button *ngIf="day.value === 0" class="date-item" disabled aria-hidden="true"></button>
-            </div>
+            @for (day of gridArr(); track day) {
+              <div class="calendar-date" [class.is-disabled]="!day.available" role="gridcell">
+                @if (day.value !== 0) {
+                  <button
+                    class="date-item"
+                    [class.is-active]="isActive(day)"
+                    (click)="selectDay(day, $event)"
+                    [disabled]="!day.available"
+                    [attr.aria-selected]="isActive(day)"
+                    [attr.aria-disabled]="!day.available">
+                    {{ day.value }}
+                  </button>
+                } @else {
+                  <button class="date-item" disabled aria-hidden="true"></button>
+                }
+              </div>
+            }
           </div>
         </div>
         
         <div class="calendar-footer">
           <button class="today-button" (click)="selectToday()" aria-label="Сегодня">{{ 'today' | translate }}</button>
         </div>
-      </ng-container>
+      }
     </div>
-  </ng-template>
-  
-  <ng-template #dateOnly>
-    <ng-container *ngTemplateOutlet="calendarTemplate"></ng-container>
   </ng-template>
 </ng-template>

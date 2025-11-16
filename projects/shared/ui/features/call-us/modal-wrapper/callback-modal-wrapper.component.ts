@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AlertModalComponent } from '../../../modals/alert/alert-modal.component';
+import { ModalWrapperComponent } from '../../../modules/modals/modal-wrapper/modal-wrapper.component';
 import { CallbackFormComponent } from '../call-us-form/callback-form.component';
-import { CallbackModalComponent } from '../callback-modal/callback-modal.component';
 
 @Component({
   selector: 'p-callback-wrapper',
@@ -11,23 +11,23 @@ import { CallbackModalComponent } from '../callback-modal/callback-modal.compone
   standalone: true,
   imports: [
     AlertModalComponent,
-    CallbackModalComponent,
-    CallbackFormComponent
+    CallbackFormComponent,
+    ModalWrapperComponent
   ],
 })
 export class CallbackModalWrapperComponent {
   @Input() AAAA!: string;
   @Output() AAAA2 = new EventEmitter();
 
-  @ViewChild(CallbackModalComponent) callbackModal!: CallbackModalComponent;
+  @ViewChild(ModalWrapperComponent) modal!: ModalWrapperComponent;
   @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
 
   open(): void {
-    this.callbackModal.open();
+    this.modal.open();
   }
 
   openAlertModal(): void {
-    this.callbackModal.close();
+    this.modal.close();
     this.alertModal.open();
   }
 }

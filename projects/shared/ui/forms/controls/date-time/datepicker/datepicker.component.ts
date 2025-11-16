@@ -2,22 +2,26 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   OnInit,
-  Input,
-  Output,
-  EventEmitter,
+  input,
+  output,
   booleanAttribute,
+  numberAttribute,
   ChangeDetectionStrategy,
-  OnChanges, ElementRef, ViewChild, TemplateRef
+  ElementRef,
+  ViewChild,
+  TemplateRef,
+  computed,
+  effect
 } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { momentLocales } from '@core/modules/translate/constants/moment';
 import { TranslatePipe } from '@ngx-translate/core';
 import moment, { Moment } from 'moment';
 import { startWith } from 'rxjs';
+import { destroy } from '@utils/libs/rxjs';
 import { StopEventsDirective } from '../../../../../directives/utils';
 import { ClickOutsideDirective } from '../../../../../directives/utils/click-outside.directive';
 import { DisableBodyScrollDirective } from '../../../../../services/body/disable-body-scroll.directive';
-import { ISimpleChanges } from '../../../../../utils/types';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { PopoverComponent } from '../../../../components/common/popover/popover.component';
 import { SvgIconComponent } from '../../../../modules/svg-icon/svg-icon.component';
@@ -54,33 +58,35 @@ export interface AvailableDateTime {
   imports: [CommonModule, SvgIconComponent, ButtonComponent, TimepickerComponent, ReactiveFormsModule, PopoverComponent, ClickOutsideDirective, InputModule, StopEventsDirective, DisableBodyScrollDirective, LabelComponent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatepickerComponent extends CustomControlAccessor implements OnInit, OnChanges {
-  @Input() locale: string = 'en';
-  @Input() minDate: Date | null = null;
-  @Input() maxDate: Date | null = null;
-  @Input() availableDates: Date[] | null = null;
-  @Input() disabledDates: Date[] | null = null;
-  @Input() isPastDisabled: boolean = false;
-  @Input() isFutureDisabled: boolean = false;
-  @Input() disableSpecificDayOfWeek: number[] = [];
-  @Input() availableDateTime: AvailableDateTime[] | null = null;
-  @Input() availableTimeSlots: TimeSlotRange[] | null = null;
-  @Input() label: string = '';
-  @Input() labelType: 'bold' | '' = '';
-  @Input() labelSize: 'l' | '' = '';
-  @Input() alignLabel: 'center' | '' = '';
-  @Input() placeholder = 'Выберите дату и время';
-  @Input() tooltipText: string | TemplateRef<void> = '';
-  @Input({transform: booleanAttribute}) isSlideDisabled = false;
-  @Input({transform: booleanAttribute}) hasTime = false;
-  @Input({transform: booleanAttribute}) hasMonth = true;
-  @Input({transform: booleanAttribute}) hasYear = true;
-  @Input({transform: booleanAttribute}) selectFirstAvailable = false;
-  @Input({transform: booleanAttribute}) isHideUnavailableYears = false;
-  @Input({transform: booleanAttribute}) isHideOnSelectDate = false;
-  @Input({transform: booleanAttribute}) isAlignedCenter = false;
-  @Input({transform: booleanAttribute}) isRange = false;
-  @Input({transform: booleanAttribute}) isSafeClose = true;
+export class DatepickerComponent extends CustomControlAccessor implements OnInit {
+  locale = input('en');
+  minDate = input<Date | null>(null);
+  maxDate = input<Date | null>(null);
+  availableDates = input<Date[] | null>(null);
+  disabledDates = input<Date[] | null>(null);
+  isPastDisabled = input(false, { transform: booleanAttribute });
+  isFutureDisabled = input(false, { transform: booleanAttribute });
+  disableSpecificDayOfWeek = input<number[]>([]);
+  availableDateTime = input<AvailableDateTime[] | null>(null);
+  availableTimeSlots = input<TimeSlotRange[] | null>(null);
+  label = input('');
+  labelType = input<'bold' | ''>('');
+  labelSize = input<'l' | ''>('');
+  alignLabel = input<'center' | ''>('');
+  placeholder = input('Выберите дату и время');
+  tooltipText = input<string | TemplateRef<void>>('');
+  isSlideDisabled = input(false, { transform: booleanAttribute });
+  hasTime = input(false, { transform: booleanAttribute });
+  hasMonth = input(true, { transform: booleanAttribute });
+  hasYear = input(true, { transform: booleanAttribute });
+  selectFirstAvailable = input(false, { transform: booleanAttribute });
+  isHideUnavailableYears = input(false, { transform: booleanAttribute });
+  isHideOnSelectDate = input(false, { transform: booleanAttribute });
+  isAlignedCenter = input(false, { transform: booleanAttribute });
+  isRange = input(false, { transform: booleanAttribute });
+  isSafeClose = input(true, { transform: booleanAttribute });
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
 
   @ViewChild('yearSelectionContainer', { static: false }) yearSelectionContainer!: ElementRef<HTMLDivElement>;
 
@@ -90,7 +96,8 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   isYearSelectionVisible = signal<boolean>(false);
   isMonthSelectionVisible = signal<boolean>(false);
 
-  @Output() emitSelectedDateTime = new EventEmitter<Date>();
+  emitSelectedDateTime = output<Date>();
+  destroy$ = destroy();
 
   moment: moment.Moment = moment();
   weekDaysHeaderArr = signal<string[]>([]);
@@ -102,49 +109,69 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   isVisible = signal<boolean>(false);
   private hasOpened = false;
 
+  initEffects = effect(() => {
+    this.initializeEffects();
+  });
+
+
   override ngOnInit() {
     super.ngOnInit();
+    this.initializeComponent();
+  }
 
-    moment.locale(this.locale);
+  private initializeComponent(): void {
+    moment.locale(this.locale());
     this.makeHeader();
 
     if (this.formControl.value) this.moment = moment(this.formControl.value);
 
     this.makeGrid();
+    this.initializeFormValueChanges();
+    if (this.hasTime()) this.initializeTimeChanges();
+  }
 
+  private initializeFormValueChanges(): void {
     this.formControl.valueChanges.pipe(startWith(this.formControl.value), this.destroy$()).subscribe(value => {
       if (value) {
-        const dateFormat = this.hasTime
+        const dateFormat = this.hasTime()
           ? this.isAmPmFormat ? 'D.MM.YYYY h:mm A' : 'D.MM.YYYY HH:mm'
           : 'D.MM.YYYY';
         const formattedDate = moment(value).format(dateFormat);
         this.inputViewControl.patchValue(formattedDate);
       }
     });
+  }
 
-    if (this.hasTime) {
-      this.timeControl.valueChanges.pipe(this.destroy$()).subscribe(time => {
-        if (!time) return;
+  private initializeTimeChanges(): void {
+    this.timeControl.valueChanges.pipe(this.destroy$()).subscribe(time => {
+      if (!time) return;
 
-        if (!this.selectedDate) {
-          this.formControl.patchValue(time, { emitEvent: true });
-          return;
-        }
+      if (!this.selectedDate) {
+        this.formControl.patchValue(time, { emitEvent: true });
+        return;
+      }
 
-        const updatedDateTime = this.selectedDate.clone().set({
-          hour: moment(time).hour(),
-          minute: moment(time).minute(),
-          second: 0
-        });
-
-        this.emitSelectedDateTime.emit(updatedDateTime.toDate());
-        this.formControl.patchValue(updatedDateTime.toDate());
+      const updatedDateTime = this.selectedDate.clone().set({
+        hour: moment(time).hour(),
+        minute: moment(time).minute(),
+        second: 0
       });
-    }
+
+      this.emitSelectedDateTime.emit(updatedDateTime.toDate());
+      this.formControl.patchValue(updatedDateTime.toDate());
+    });
+  }
+
+  private initializeEffects(): void {
+    effect(() => {
+      this.availableDateTime();
+      this.availableTimeSlots();
+      this.updateTimeSlots();
+    });
   }
 
   togglePopover(isVisible: boolean): void {
-    if (!this.hasOpened && this.selectFirstAvailable) {
+    if (!this.hasOpened && this.selectFirstAvailable()) {
       this.selectFirstAvailableDateAndTime();
       this.isVisible.set(true);
     } else {
@@ -157,18 +184,7 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
       if (this.formControl.value) {
         this.moment = moment(this.formControl.value);
       }
-
-      if (!this.formControl.value) {
-        // this.selectFirstAvailableDateAndTime();
-      } else {
-        // this.makeGrid();
-      }
     }
-  }
-
-  ngOnChanges(changes: ISimpleChanges<DatepickerComponent>): void {
-    if (changes.availableDateTime || changes.availableTimeSlots) this.updateTimeSlots();
-    if (changes.selectedDate) this.updateTimeSlotsForSelectedDate();
   }
 
   changeNavMonth(num: number): void {
@@ -182,17 +198,16 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
     const newNavDate = moment(this.moment).add(num, 'month');
 
     if (num < 0) {
-      if (this.minDate && newNavDate.endOf('month').isBefore(moment(this.minDate), 'day')) {
-        return false;
-      }
+      const minDate = this.minDate();
+      if (minDate && newNavDate.endOf('month').isBefore(moment(minDate), 'day')) return false;
     } else if (num > 0) {
-      if (this.maxDate && newNavDate.startOf('month').isAfter(moment(this.maxDate), 'day')) {
-        return false;
-      }
+      const maxDate = this.maxDate();
+      if (maxDate && newNavDate.startOf('month').isAfter(moment(maxDate), 'day')) return false;
     }
 
-    if (this.availableDateTime) {
-      const availableSlotInMonth = this.availableDateTime.some(slot =>
+    const availableDateTime = this.availableDateTime();
+    if (availableDateTime) {
+      const availableSlotInMonth = availableDateTime.some(slot =>
         moment(slot.date).isSame(newNavDate, 'month')
       );
       if (!availableSlotInMonth) return false;
@@ -249,7 +264,7 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
 
 
   selectDay(day: Day, event?: MouseEvent): void {
-    if(this.hasTime && event) {
+    if (this.hasTime() && event) {
       event.preventDefault();
       event.stopPropagation();
     }
@@ -263,7 +278,7 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
       this.selectedDate = day.date;
       this.updateTimeSlotsForSelectedDate();
 
-      if (this.hasTime && this.timeControl.value) {
+      if (this.hasTime() && this.timeControl.value) {
         const updatedDateTime = this.selectedDate.clone().set({
           hour: moment(this.timeControl.value).hour(),
           minute: moment(this.timeControl.value).minute(),
@@ -276,10 +291,10 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
         this.emitSelectedDateTime.emit(this.selectedDate.toDate());
         this.formControl.patchValue(this.selectedDate.toDate());
 
-        if (!this.hasTime) this.isVisible.set(false);
+        if (!this.hasTime()) this.isVisible.set(false);
       }
 
-      if (this.isHideOnSelectDate) this.isVisible.set(false);
+      if (this.isHideOnSelectDate()) this.isVisible.set(false);
     }
   }
 
@@ -320,7 +335,7 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   }
 
   toggleYearSelection(): void {
-    if(this.hasYear) {
+    if (this.hasYear()) {
       this.isYearSelectionVisible.set(!this.isYearSelectionVisible());
       this.isMonthSelectionVisible.set(false);
       setTimeout(() => this.scrollToYear(), 0);
@@ -328,20 +343,19 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   }
 
   toggleMonthSelection(): void {
-    this.hasMonth && this.isMonthSelectionVisible.set(!this.isMonthSelectionVisible());
+    if (this.hasMonth()) this.isMonthSelectionVisible.set(!this.isMonthSelectionVisible());
     this.isYearSelectionVisible.set(false);
   }
 
   getYearsArray(): number[] {
-    const currentYear = moment().year();
-    const startYear = this.minDate ? moment(this.minDate).year() : 1920;
-    const maxYear = this.maxDate ? moment(this.maxDate).year() : defaultCalendarMaxYear;
+    const minDate = this.minDate();
+    const maxDate = this.maxDate();
+    const startYear = minDate ? moment(minDate).year() : 1920;
+    const maxYear = maxDate ? moment(maxDate).year() : defaultCalendarMaxYear;
     const years: number[] = [];
 
     for (let i = maxYear; i >= startYear; i--) {
-      if (!this.isHideUnavailableYears || (i <= maxYear && i >= startYear)) {
-        years.push(i);
-      }
+      if (!this.isHideUnavailableYears() || (i <= maxYear && i >= startYear)) years.push(i);
     }
     return years;
   }
@@ -353,19 +367,19 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   isDayAvailable(date: moment.Moment): boolean {
     return isDateAvailable(
       date,
-      this.minDate,
-      this.maxDate,
-      this.availableDates,
-      this.disabledDates,
-      this.isPastDisabled,
-      this.isFutureDisabled,
-      this.disableSpecificDayOfWeek,
-      this.availableDateTime,
+      this.minDate(),
+      this.maxDate(),
+      this.availableDates(),
+      this.disabledDates(),
+      this.isPastDisabled(),
+      this.isFutureDisabled(),
+      this.disableSpecificDayOfWeek(),
+      this.availableDateTime(),
     );
   }
 
   popoverVisibleChange(visible: boolean): void {
-    if(!visible) this.isVisible.set(false);
+    if (!visible) this.isVisible.set(false);
   }
 
   selectToday(): void {
@@ -376,19 +390,22 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
 
     this.selectedDate = now.clone();
 
-    if (this.hasTime) {
+    if (this.hasTime()) {
       this.timeControl.patchValue(now.clone().seconds(0));
     }
 
     this.formControl.patchValue(now.toDate());
     this.emitSelectedDateTime.emit(now.toDate());
 
-    if (this.isHideOnSelectDate) this.isVisible.set(false);
+    if (this.isHideOnSelectDate()) this.isVisible.set(false);
   }
 
   private updateTimeSlots(): void {
-    if (this.availableDateTime && this.selectedDate) {
-      const availableDateTimeSlot = this.availableDateTime.find(slot =>
+    const availableDateTime = this.availableDateTime();
+    const availableTimeSlots = this.availableTimeSlots();
+
+    if (availableDateTime && this.selectedDate) {
+      const availableDateTimeSlot = availableDateTime.find(slot =>
         moment(slot.date).isSame(this.selectedDate, 'day')
       );
       if (availableDateTimeSlot) {
@@ -396,16 +413,17 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
       } else {
         this.timeSlots.set([]);
       }
-    } else if (this.availableTimeSlots) {
-      this.timeSlots.set(this.availableTimeSlots);
+    } else if (availableTimeSlots) {
+      this.timeSlots.set(availableTimeSlots);
     } else {
       this.timeSlots.set(null);
     }
   }
 
   private updateTimeSlotsForSelectedDate(): void {
-    if (this.availableDateTime && this.selectedDate) {
-      const selectedDateTimeSlot = this.availableDateTime.find(slot =>
+    const availableDateTime = this.availableDateTime();
+    if (availableDateTime && this.selectedDate) {
+      const selectedDateTimeSlot = availableDateTime.find(slot =>
         moment(slot.date).isSame(this.selectedDate, 'day')
       );
       if (selectedDateTimeSlot) {
@@ -441,8 +459,8 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
   }
 
   private findClosestAvailableDate(): void {
-    const maxNavDate = this.maxDate ? moment(this.maxDate) : moment().add(10, 'years'); // Верхний предел на 10 лет вперед, если maxDate не указан
-    const minNavDate = this.minDate ? moment(this.minDate) : moment().subtract(100, 'years'); // Нижний предел на 100 лет назад, если minDate не указан
+    const maxNavDate = this.maxDate ? moment(this.maxDate()) : moment().add(10, 'years'); // Верхний предел на 10 лет вперед, если maxDate не указан
+    const minNavDate = this.minDate ? moment(this.minDate()) : moment().subtract(100, 'years'); // Нижний предел на 100 лет назад, если minDate не указан
 
     // Проверяем ближайшие месяцы назад от maxDate
     let currentNavDate = maxNavDate.clone();
@@ -476,10 +494,10 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
     }
 
     if (this.minDate) {
-      this.moment = moment(this.minDate);
+      this.moment = moment(this.minDate());
       this.makeGrid();
     } else if (this.maxDate) {
-      this.moment = moment(this.maxDate);
+      this.moment = moment(this.maxDate());
       this.makeGrid();
     }
 
@@ -502,6 +520,22 @@ export class DatepickerComponent extends CustomControlAccessor implements OnInit
         element.scrollIntoView({ block: 'center' });
       }
     });
+  }
+
+  trackByYear(index: number, year: number): number {
+    return year;
+  }
+
+  trackByMonth(index: number, month: IDatePickerMonth): number {
+    return month.index;
+  }
+
+  trackByDay(index: number, day: string): string {
+    return day;
+  }
+
+  trackByGridDay(index: number, day: Day): number {
+    return day.date.valueOf();
   }
 }
 

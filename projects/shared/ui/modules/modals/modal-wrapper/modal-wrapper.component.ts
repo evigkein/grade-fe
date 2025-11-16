@@ -3,82 +3,83 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  Output,
+  input,
+  output,
   signal,
   TemplateRef,
-  ViewChild
+  ViewChild,
+  booleanAttribute,
+  numberAttribute,
 } from '@angular/core';
+import { TButtonType } from '../../../components/button/button.component';
 import { _MODAL } from '../modals/modal.service';
 import { ModalTitleSize } from '../modals/modal/modal/enums/modal-title-size.enum';
-import { TModalButton } from '../modals/modal/modal/modal.component';
 import { ModalsModule } from '../modals/modal/modals.module';
 
 @Component({
   selector: 'p-modal-wrapper',
-  templateUrl:'modal-wrapper.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, ModalsModule],
+  templateUrl: 'modal-wrapper.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalWrapperComponent {
-  @Input() titleText?: string;
-  @Input() subTitleText?: string;
-  @Input() isFullScreen = false;
-  @Input() backgroundColor?: string;
-  @Input() backgroundImage?: string;
-  @Input() submitButtonText = '';
-  @Input() submitButtonType: TModalButton = 'primary';
-  @Input() cancelButtonText = '';
-  @Input() cancelButtonType: TModalButton = 'warn';
-  @Input() titleSize: ModalTitleSize = ModalTitleSize.medium;
-  @Input() id!: string | null;
-  @Input() duration!: number;
-  @Input() maxHeight = null;
-  @Input() minHeight = null;
-  @Input() maxWidth = null;
+  titleText = input<string | undefined>(undefined);
+  subTitleText = input<string | undefined>(undefined);
+  backgroundColor = input<string | undefined>(undefined);
+  backgroundImage = input<string | undefined>(undefined);
+  submitButtonText = input<string>('');
+  cancelButtonText = input<string>('');
+  submitButtonType = input<TButtonType>('primary');
+  cancelButtonType = input<TButtonType>('warn');
+  titleSize = input<ModalTitleSize>(ModalTitleSize.medium);
+  id = input<string | null>(null);
+  duration = input<number | null>(null);
+  maxHeight = input<string | null>(null);
+  minHeight = input<string | null>(null);
+  maxWidth = input<string | null>(null);
 
-  // boolean inputs (auto transform)
-  @Input({ transform: Boolean }) isMobileFullScreen = false;
-  @Input({ transform: Boolean }) isWithoutPadding = false;
-  @Input({ transform: Boolean }) isSubmitButtonLoading = false;
-  @Input({ transform: Boolean }) preventBgClose = false;
-  @Input({ transform: Boolean }) isSnackbar = false;
-  @Input({ transform: Boolean }) isFlexibleWidth = false;
-  @Input({ transform: Boolean }) isLeftFullHeight = false;
-  @Input({ transform: Boolean }) isRightFullHeight = false;
-  @Input({ transform: Boolean }) isContentCentered = false;
-  @Input({ transform: Boolean }) isModalHeaderSticky = true;
-  @Input({ transform: Boolean }) isFlexibleHeights = false;
-  @Input({ transform: Boolean }) mobileBottomPopup = false;
-  @Input({ transform: Boolean }) mobileBottomPopupBackground = false;
-  @Input({ transform: Boolean }) iconClose = false;
-  @Input({ transform: Boolean }) iconCloseWithBackground = true;
-  @Input({ transform: Boolean }) scrollContent = false;
-  @Input({ transform: Boolean }) scrollbarIsNotVisible = false;
-  @Input({ transform: Boolean }) isFlexLayout = false;
-  @Input({ transform: Boolean }) isRoundedLayout = false;
-  @Input({ transform: Boolean }) isScrollToModalTop = false;
-  @Input({ transform: Boolean }) isAddShadow = false;
-  @Input({ transform: Boolean }) isModalWrapperContentFullHeight = false;
-  @Input({ transform: Boolean }) isContentFullWidth = false;
-  @Input({ transform: Boolean }) scrollFirstEl = false;
-  @Input({ transform: Boolean }) isButtonsSame = false;
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
 
-  // ────────────── Выходные события ──────────────
-  @Output() scrolled = new EventEmitter<number>();
-  @Output() closed = new EventEmitter<boolean>();
-  @Output() buttonCancel = new EventEmitter();
-  @Output() submit = new EventEmitter();
+  isWithoutPadding = input(false, { transform: booleanAttribute });
+  iconClose = input(true, { transform: booleanAttribute });
+  isMobileFullScreen = input(true, { transform: booleanAttribute });
 
-  // ────────────── ViewChild ──────────────
-  @ViewChild('templateRef', { static: true })
-  templateRef!: TemplateRef<ElementRef>;
+  isFullScreen = input(false, { transform: booleanAttribute });
+  isSubmitButtonLoading = input(false, { transform: booleanAttribute });
+  preventBgClose = input(false, { transform: booleanAttribute });
+  isSnackbar = input(false, { transform: booleanAttribute });
+  isFlexibleWidth = input(false, { transform: booleanAttribute });
+  isLeftFullHeight = input(false, { transform: booleanAttribute });
+  isRightFullHeight = input(false, { transform: booleanAttribute });
+  isContentCentered = input(false, { transform: booleanAttribute });
+  isModalHeaderSticky = input(true, { transform: booleanAttribute });
+  isFlexibleHeights = input(false, { transform: booleanAttribute });
+  mobileBottomPopup = input(false, { transform: booleanAttribute });
+  mobileBottomPopupBackground = input(false, { transform: booleanAttribute });
+  iconCloseWithBackground = input(true, { transform: booleanAttribute });
+  scrollContent = input(false, { transform: booleanAttribute });
+  scrollbarIsNotVisible = input(false, { transform: booleanAttribute });
+  isFlexLayout = input(false, { transform: booleanAttribute });
+  isRoundedLayout = input(false, { transform: booleanAttribute });
+  isScrollToModalTop = input(false, { transform: booleanAttribute });
+  isAddShadow = input(false, { transform: booleanAttribute });
+  isModalWrapperContentFullHeight = input(false, { transform: booleanAttribute });
+  isContentFullWidth = input(false, { transform: booleanAttribute });
+  scrollFirstEl = input(false, { transform: booleanAttribute });
+  isButtonsSame = input(false, { transform: booleanAttribute });
 
-  // ────────────── Modal API ──────────────
+  scrolled = output<number>();
+  closed = output<boolean>();
+  buttonCancel = output<void>();
+  submit = output<void>();
+
+  @ViewChild('templateRef') templateRef!: TemplateRef<ElementRef>;
+
   private modal = _MODAL();
   modalId = signal<string | null>(null);
+
 
   open(): void {
     const id = this.modal.openModal({ templateRef: this.templateRef })!;
@@ -86,9 +87,9 @@ export class ModalWrapperComponent {
   }
 
   close(): void {
-    if (this.modalId()) {
-      this.modal.closeModal(this.modalId());
-      this.modalId.set(null);
-    }
+    const id = this.modalId();
+    if (!id) return;
+    this.modal.closeModal(id);
+    this.modalId.set(null);
   }
 }

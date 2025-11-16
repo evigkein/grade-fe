@@ -1,54 +1,50 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  ElementRef,
+  TemplateRef,
+  ViewChild,
+  input,
   signal,
-  TemplateRef, ViewChild
+  booleanAttribute,
+  numberAttribute,
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ModalWrapperComponent } from '../../modules/modals/modal-wrapper/modal-wrapper.component';
 import { _MODAL } from '../../modules/modals/modals/modal.service';
 import { ModalsModule } from '../../modules/modals/modals/modal/modals.module';
+import { destroy } from '@utils/libs/rxjs';
 
 @Component({
   selector: 'p-alert-modal',
+  standalone: true,
   templateUrl: './alert-modal.component.html',
   styleUrls: ['./alert-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    ModalsModule,
-    TranslatePipe
-  ],
+  imports: [ModalsModule, TranslatePipe, ModalWrapperComponent],
 })
 export class AlertModalComponent {
-  @Input() titleText = '';
-  @Input() subTitle = '';
-  @Input() buttonText = '';
-  // @Input() title = signal<string>('');
-  // @Input() subTitle = signal<string>('');
+  destroy$ = destroy();
 
-  @ViewChild('templateRef') templateRef!: TemplateRef<unknown>;
+  titleText = input.required<string>();
+  subTitle = input.required<string>();
+  buttonText = input('OK');
 
-  modal = _MODAL();
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
+
+  @ViewChild(ModalWrapperComponent) modal!: ModalWrapperComponent;
+
   modalId = signal<string | null>(null);
 
   open(): void {
-    const modalId = this.modal.openModal({ templateRef: this.templateRef })!;
-    this.modalId.set(modalId);
+    this.modal.open();
   }
 
   close(): void {
-    this.modal.closeModal(this.modalId());
-    this.modalId.set(null);
-  }
-
-  constructor() {
-    // effect(() => {
-    //   if (this.title()) {
-    //     console.log('message changed →', this.title());
-    //   }
-    // });
+    this.modal.close();
   }
 }
+
 
 // @ViewChild(AlertModalComponent) successModal!: AlertModalComponent;

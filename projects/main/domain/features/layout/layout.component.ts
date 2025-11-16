@@ -24,9 +24,9 @@ import { HeaderComponent } from './header/header.component';
     RouterOutlet,
     HeaderComponent,
     ModalsModule,
-    CallbackModalWrapperComponent,
     ScrollToTopButtonComponent,
     NavMobileComponent,
+    CallbackModalWrapperComponent,
   ],
 })
 export class LayoutComponent {
