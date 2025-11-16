@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   lang = _TRANSLATE();
   private seo = inject(SeoService);
 
-  async ngOnInit() {
+  ngOnInit() {
     this.theme.setCurrentTheme('theme--dark');
     // this.lang.setLanguage('en');
     // this.initUser();

@@ -25,8 +25,6 @@ export class TranslateFacade {
   lang = signal<TLang>('en')
 
   private langNameMap = new Map([['en', 'English']]);
-  private _currentLanguage$ = new BehaviorSubject<TLang>(defaultLanguage);
-  currentLanguage$ = this._currentLanguage$.asObservable();
 
   availableLanguageCodes: TLang[] = availableLangCodes;
 
@@ -39,10 +37,16 @@ export class TranslateFacade {
     this.ngxTranslate.addLangs(this.availableLanguageCodes);
 
     const lang = this.getInitialLang();
-    const finalLang = this.availableLanguageCodes.includes(lang as TLang) ? lang : defaultLanguage;
+    const finalLang = this.availableLanguageCodes.includes(lang as TLang)
+      ? lang as TLang
+      : defaultLanguage;
 
+    this.lang.set(finalLang);
     this.ngxTranslate.setDefaultLang(defaultLanguage);
     this.ngxTranslate.use(finalLang);
+
+    moment.locale(finalLang, momentLocales[finalLang] as any);
+
     this.initialized.set(true);
   }
 
@@ -56,10 +60,10 @@ export class TranslateFacade {
 
   setLanguage(lang: TLang): void {
     if (!this.availableLanguageCodes.includes(lang)) {
-      return this._setLanguage(defaultLanguage);
+      lang = defaultLanguage;
     }
+
     setStorageItem('lang', lang);
-    const localLang = getStorageItem('lang');
     this._setLanguage(lang);
   }
 
@@ -72,9 +76,8 @@ export class TranslateFacade {
   }
 
   private _setLanguage(lang: TLang): void {
-    this.lang.set(lang)
-    moment.locale(lang, momentLocales[lang] as any)
+    this.lang.set(lang);
+    moment.locale(lang, momentLocales[lang] as any);
     this.ngxTranslate.use(lang);
-    this._currentLanguage$.next(lang);
   }
 }

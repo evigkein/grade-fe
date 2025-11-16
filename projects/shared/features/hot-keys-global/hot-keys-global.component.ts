@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
 import { _TRANSLATE } from '@core/modules/translate';
 import { isSSR } from '@utils/helpers/browser/is-browser.util';
-import { _KEYBOARD, KeyboardService } from '../../services/events/keyboard.service';
+import { _KEYBOARD } from '@services/events/keyboard.service';
 
 @Component({
   selector: 'p-hot-keys-global',

@@ -5,8 +5,7 @@
   [template]="userMenu"
   [isVisible]="isVisible()"
   (click)="handler(true)"
-  (clickOutside)="handler(false)"
->
+  (clickOutside)="handler(false)">
   <div class="lang__content">
     <p-icon class="lang__icon" size="30" [icon]="currentLang()"></p-icon>
     <span class="lang__title noDraggable">{{ currentLang() }}</span>

@@ -18,6 +18,9 @@
       "@utils/*": [
         "./projects/shared/utils/*"
       ],
+      "@services/*": [
+        "./projects/shared/services/*"
+      ],
     },
     "plugins": [
       {"name": "@angular/language-service"}
