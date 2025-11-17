@@ -1,17 +1,14 @@
-import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, input, booleanAttribute } from '@angular/core';
+import { _ELREF } from '@utils/angular/ng-api';
+import { isBrowser } from '@utils/helpers/browser/is-browser.util';
 
 @Directive({selector: '[autoFocus]', standalone: true})
 export class AutoFocusDirective implements AfterViewInit {
-  @Input() set autoFocus(isAutoFocus: boolean | string) {
-    this.isAutoFocus = ['', true].includes(isAutoFocus);
-  }
-
-  private isAutoFocus = true;
-
-  constructor(private el: ElementRef) {}
+  autoFocus = input(true, { transform: booleanAttribute });
+  private el = _ELREF();
 
   ngAfterViewInit(): void {
-    if (this.isAutoFocus) {
+    if (this.autoFocus() && isBrowser()) {
       setTimeout(() => {
         this.el.nativeElement.focus();
       }, 200);

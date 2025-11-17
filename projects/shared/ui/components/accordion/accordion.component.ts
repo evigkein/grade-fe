@@ -33,6 +33,7 @@ export type TAccordionPadding = '' | 'm' | 'l';
 export class AccordionComponent {
   label = input('');
   isOpened = model(false);
+  isVisible = input(false);
 
   isBlockView = input(false, { transform: booleanAttribute });
   isSeeMore = input(false, { transform: booleanAttribute });

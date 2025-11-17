@@ -1,14 +1,15 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, output, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { _ELREF, _R2 } from '@utils/angular/ng-api';
 
 @Directive({selector: '[blurAction]', standalone: true})
 export class BlurListenerDirective implements OnInit, OnDestroy {
-  @Output() blurAction = new EventEmitter<void>();
+  blurAction = output<void>();
   private unlisten!: () => void;
-
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  private el = _ELREF();
+  private r = _R2();
 
   ngOnInit() {
-    this.unlisten = this.renderer.listen(this.el.nativeElement, 'blur', () => {
+    this.unlisten = this.r.listen(this.el.nativeElement, 'blur', () => {
       this.blurAction.emit();
     });
   }

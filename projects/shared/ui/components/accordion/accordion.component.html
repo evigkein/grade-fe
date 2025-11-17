@@ -35,6 +35,7 @@
     <section
       class="accordion__container"
       [@openCloseHidden]="isOpened() ? 'open' : 'closed'"
+      [style.overflow]="isVisible() ? 'visible' : 'hidden'"
       [style.display]="!isOpened() && animationFinished() ? 'none' : 'block'"
       (@openClose.done)="animationDone($event)">
       <ng-content></ng-content>

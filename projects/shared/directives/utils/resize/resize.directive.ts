@@ -1,10 +1,10 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { resizeObserver } from '../../../utils/helpers/browser/resize-observer.util'; // Функция resizeObserver
+import { Directive, OnDestroy, OnInit, output } from '@angular/core';
+import { resizeObserver } from '../../../utils/helpers/browser/resize-observer.util';
 import { _ELREF, _R2 } from '../../../utils/angular/ng-api';
 
 @Directive({ selector: '[resize]', standalone: true })
 export class ResizeObserverDirective implements OnInit, OnDestroy {
-  @Output() widthChange = new EventEmitter<number>();
+  widthChange = output<number>();
 
   private el = _ELREF();
   private r = _R2();

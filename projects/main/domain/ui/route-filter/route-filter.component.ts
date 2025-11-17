@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ILocationSchema } from '@shared/domain/api/swagger/models/i-location-schema';
 import { ApiLocationsService } from '@shared/domain/api/swagger/services/api-locations.service';
 import { ButtonComponent } from '@ui/components/button/button.component';
-import { ISelectOption, SelectModule } from '@ui/forms/controls/select';
+import { ISelectOption, SelectModule } from '@ui/forms/controls/select2';
 import { _NOTIFY } from '@ui/modules/notifications/notification.service';
 import { SvgIconComponent } from '@ui/modules/svg-icon/svg-icon.component';
 import { destroy } from '@utils/libs/rxjs';

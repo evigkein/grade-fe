@@ -13,7 +13,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { debounceSafe$ } from '@utils/libs/rxjs/debounce-safe';
 import {CustomControlAccessor} from '../../custom-control-accessor';
-import {ISelectOption} from '../select';
+import {ISelectOption} from './';
 
 type TSelectSize = 's' | 'm' | 'l'
 

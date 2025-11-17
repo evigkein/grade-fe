@@ -4,7 +4,7 @@ import { deepClone } from '../../../../utils/helpers/objects';
 import { destroy } from '../../../../utils/libs/rxjs';
 import { debounceSafe$ } from '../../../../utils/libs/rxjs/debounce-safe';
 import {CustomControlAccessor} from '../../custom-control-accessor';
-import {ISelectOption} from '../select';
+import {ISelectOption} from '../select2';
 import { filterAutocompleteOptions } from './utils/auto-search.util';
 
 @Component({

@@ -11,7 +11,6 @@ export function _DEVICE(): DeviceService {
 }
 
 function getWindowWidth(): number {
-  console.log(window?.innerWidth);
   // return 400;
   return window?.innerWidth ?? 400
 }

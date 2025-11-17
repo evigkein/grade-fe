@@ -1,11 +1,11 @@
 import {
   Directive,
-  EventEmitter,
-  Output,
   ElementRef,
   OnInit,
-  Input,
-  booleanAttribute
+  input,
+  output,
+  booleanAttribute,
+  numberAttribute,
 } from '@angular/core';
 import { fromEvent, merge, filter } from 'rxjs';
 import { destroy } from '@utils/libs/rxjs';
@@ -13,20 +13,23 @@ import {
   IN_FRAME_TIME,
   MIN_HORIZONTAL_DISTANCE,
   MIN_HORIZONTAL_RATIO,
-  SWIPE_INITIAL_DATA
+  SWIPE_INITIAL_DATA,
 } from './swipe.constants';
 import { ISwipe, swipeCoords } from './swipe.interface';
 
 @Directive({ selector: '[swipe]', standalone: true })
 export class SwipeDirective implements OnInit {
-  @Input() hasMouseHandling = false;
-  @Input({ transform: booleanAttribute }) isDesktopSwipe = false;
-  @Input({ transform: booleanAttribute }) isReversed = true;
-  @Output() swipeRight = new EventEmitter<void>();
-  @Output() swipeLeft = new EventEmitter<void>();
-  @Output() swipeStart = new EventEmitter<swipeCoords>();
-  @Output() swipeEnd = new EventEmitter<swipeCoords>();
-  @Output() swiped = new EventEmitter<{ direction: 'left' | 'right'; distance: number }>();
+  hasMouseHandling = input(false, { transform: booleanAttribute });
+  isDesktopSwipe = input(false, { transform: booleanAttribute });
+  isReversed = input(true, { transform: booleanAttribute });
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
+
+  swipeRight = output<void>();
+  swipeLeft = output<void>();
+  swipeStart = output<swipeCoords>();
+  swipeEnd = output<swipeCoords>();
+  swiped = output<{ direction: 'left' | 'right'; distance: number }>();
 
   private swipeData: ISwipe = SWIPE_INITIAL_DATA;
   private lastSwipeTime = 0;
@@ -47,7 +50,9 @@ export class SwipeDirective implements OnInit {
 
   private handleSwipeEnd(e: TouchEvent | MouseEvent): void {
     const coord: swipeCoords =
-      'changedTouches' in e ? [e.changedTouches[0].clientX, e.changedTouches[0].clientY] : [e.clientX, e.clientY];
+      'changedTouches' in e
+        ? [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
+        : [e.clientX, e.clientY];
     const time = Date.now();
     this.endSwipe(coord, time);
     this.swipeEnd.emit(coord);
@@ -58,11 +63,13 @@ export class SwipeDirective implements OnInit {
   }
 
   private endSwipe(coord: swipeCoords, time: number): void {
-    // защита от двойных свайпов
     if (time - this.lastSwipeTime < 200) return;
     this.lastSwipeTime = time;
 
-    const direction: swipeCoords = [coord[0] - this.swipeData.coord[0], coord[1] - this.swipeData.coord[1]];
+    const direction: swipeCoords = [
+      coord[0] - this.swipeData.coord[0],
+      coord[1] - this.swipeData.coord[1],
+    ];
     const duration = time - this.swipeData.time;
     const isMouse = !(window as any).TouchEvent;
 
@@ -70,7 +77,7 @@ export class SwipeDirective implements OnInit {
       let dir: 'left' | 'right' = direction[0] < 0 ? 'left' : 'right';
       const distance = Math.abs(direction[0]);
 
-      if (this.isReversed) dir = dir === 'left' ? 'right' : 'left';
+      if (this.isReversed()) dir = dir === 'left' ? 'right' : 'left';
 
       this.swiped.emit({ direction: dir, distance });
       dir === 'left' ? this.swipeLeft.emit() : this.swipeRight.emit();
@@ -94,18 +101,18 @@ export class SwipeDirective implements OnInit {
     const touchCancel$ = fromEvent<TouchEvent>(native, 'touchcancel');
 
     const mouseDown$ = fromEvent<MouseEvent>(native, 'mousedown').pipe(
-      filter(() => this.hasMouseHandling || this.isDesktopSwipe)
+      filter(() => this.hasMouseHandling() || this.isDesktopSwipe())
     );
     const mouseUp$ = fromEvent<MouseEvent>(native, 'mouseup').pipe(
-      filter(() => this.hasMouseHandling || this.isDesktopSwipe)
+      filter(() => this.hasMouseHandling() || this.isDesktopSwipe())
     );
 
     merge(touchStart$, mouseDown$)
       .pipe(this.destroy$())
-      .subscribe((e: any) => this.handleSwipeStart(e));
+      .subscribe((e) => this.handleSwipeStart(e));
 
     merge(touchEnd$, touchCancel$, mouseUp$)
       .pipe(this.destroy$())
-      .subscribe((e: any) => this.handleSwipeEnd(e));
+      .subscribe((e) => this.handleSwipeEnd(e));
   }
 }

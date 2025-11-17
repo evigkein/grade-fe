@@ -1,18 +1,19 @@
-import { Directive, HostListener, Input } from '@angular/core';
-import { _NOTIFY } from '../../../ui/modules/notifications/notification.service';
-import { copyText } from '../../../utils/helpers/browser/window.util';
+import { Directive, HostListener, input } from '@angular/core';
+import { _NOTIFY } from '@ui/modules/notifications/notification.service';
+import { copyText } from '@utils/helpers/browser/window.util';
 
 @Directive({selector: '[copy]', standalone: true})
 export class CopyDirective {
-  @Input() copy!: string;
-  @Input() saveText!: string;
+  copy = input('');
+  saveText = input('');
 
   private notify = _NOTIFY();
 
   @HostListener('click')
   onClick() {
-    if (!this.saveText) return;
-    copyText(this.saveText);
-    this.notify.showSuccess(this.saveText, 'copied', {icon: 'copy'});
+    const text = this.saveText();
+    if (!text) return;
+    copyText(text);
+    this.notify.showSuccess(text, 'copied', {icon: 'copy'});
   }
 }

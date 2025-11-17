@@ -1,13 +1,14 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
+import { _ELREF } from '@utils/angular/ng-api';
+import { isSSR } from '@utils/helpers/browser/is-browser.util';
 
 @Directive({ selector: '[selectText]', standalone: true })
 export class SelectTextDirective {
-
-  constructor(private el: ElementRef) {
-  }
+  private el = _ELREF();
 
   @HostListener('click')
   selectText(): void {
+    if(isSSR()) return;
     const range = document.createRange();
     const selection = window.getSelection();
 

@@ -15,6 +15,7 @@ export * from './premium';
 export * from './promo';
 export * from './referralPromo';
 export * from './refund';
+export * from './search';
 export * from './tasks';
 export * from './transaction';
 export * from './user';

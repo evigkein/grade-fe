@@ -1,8 +1,8 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, HostListener, output } from '@angular/core';
 
 @Directive({ selector: '[hoverOutside]', standalone: true })
 export class HoverOutsideDirective {
-  @Output() hoverOutside: EventEmitter<MouseEvent> = new EventEmitter();
+  hoverOutside = output<MouseEvent>();
 
   constructor(private elementRef: ElementRef) { }
 

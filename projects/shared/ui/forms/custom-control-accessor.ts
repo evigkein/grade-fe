@@ -1,70 +1,67 @@
-import { Directive, Input, OnInit, Optional, Self, signal } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnInit,
+  Optional,
+  Self,
+  signal,
+  computed,
+} from '@angular/core';
 import {
   ControlValueAccessor,
-  FormArray,
   FormControl,
-  FormControlDirective,
-  FormControlName,
-  FormGroup,
-  FormGroupDirective,
   NgControl,
-  NgModel, Validators,
+  Validators,
 } from '@angular/forms';
-import { getUId } from '../../utils/helpers/different';
-import { destroy } from '../../utils/libs/rxjs';
+import { getUId } from '@utils/helpers/different';
+import { destroy } from '@utils/libs/rxjs';
 
 @Directive()
-export abstract class CustomControlAccessor implements ControlValueAccessor, OnInit {
-  @Input() formControlName!: FormControlName | string | number | null;
-  @Input() id!: string;
-  @Input() formControl: FormControl = new FormControl() as FormControl;
-  isAlertEnabled = true;
-  protected destroy$ = destroy();
+export abstract class CustomControlAccessor<T = any> implements ControlValueAccessor, OnInit {
+  @Input() id: string = getUId();
+  destroy$ = destroy();
 
-  parent?: FormGroup<any> | FormArray<any> | null | undefined;
-  isRequired = signal(false);
 
-  constructor(@Self() @Optional() public ngControl: NgControl) {
-    if (this.ngControl !== null) {
-      // Setting the value accessor directly (instead of using the providers) to avoid running into a circular import.
+  readonly value = signal<T | null>(null);
+  readonly disabled = signal(false);
+  readonly isRequired = signal(false);
+  formControl?: FormControl<T | null> = new FormControl() as FormControl;
+
+  protected onChange: (value: T | null) => void = () => {};
+  protected onTouched: () => void = () => {};
+
+  constructor(@Self() @Optional() public ngControl: NgControl | null) {
+    if (this.ngControl) {
       this.ngControl.valueAccessor = this;
-      if (!this.id && this.formControlName) this.id = `${this.formControlName}`;
-      if (!this.id) this.id = getUId();
     }
-  }
-
-  onTouched = (): void => {
-  };
-
-  writeValue(obj: any): void {
-  }
-
-  registerOnChange(fn: (_: any) => void): void {
   }
 
   ngOnInit(): void {
-    if (this.ngControl?.control) {
-      this.formControl = this.ngControl.control as any;
-      this.parent = this.ngControl?.control?.parent;
-      this.isRequired.set(!!this.formControl?.hasValidator?.(Validators.required));
+    if (!this.ngControl?.control) {
+      console.error(
+        `${this.constructor.name}: NgControl doesn't found. Check formControlName / ngModel / [formControl].`,
+      );
       return;
     }
 
-    if (this.ngControl instanceof FormControlName) {
-      const formGroupDirective = this.ngControl.formDirective as FormGroupDirective;
-      if (formGroupDirective) {
-        this.formControl = formGroupDirective.form.controls[this.ngControl.name!] as FormControl;
-      }
-    } else if (this.ngControl instanceof FormControlDirective) {
-      this.formControl = this.ngControl.control;
-    } else if (this.ngControl instanceof NgModel) {
-      this.formControl = this.ngControl.control;
-      this.formControl.valueChanges
-        .pipe(this.destroy$())
-        .subscribe(() => this.ngControl.viewToModelUpdate(this.formControl.value));
-    } else if (!this.ngControl) {
-      this.isAlertEnabled && console.error('You should provide any type of form control directive');
-    }
+    this.formControl = this.ngControl.control as FormControl<T | null>;
+
+    this.isRequired.set(
+      !!this.formControl.hasValidator?.(Validators.required),
+    );
+
+    this.value.set(this.formControl.value);
+  }
+
+  // ===== ControlValueAccessor API =====
+
+  writeValue(value: T | null): void {
+    // Приходит значение извне → кладём в свой сигнал (без эмита назад)
+    this.value.set(value);
+  }
+
+  registerOnChange(fn: (value: T | null) => void): void {
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
@@ -72,12 +69,20 @@ export abstract class CustomControlAccessor implements ControlValueAccessor, OnI
   }
 
   setDisabledState(isDisabled: boolean): void {
-    // isDisabled ? this.formControl.disable() : this.formControl.enable();
+    this.disabled.set(isDisabled);
+
+    if (this.formControl) {
+      isDisabled
+        ? this.formControl.disable({ emitEvent: false })
+        : this.formControl.enable({ emitEvent: false });
+    }
   }
 
-  focus(): void {
-    this.onTouched?.();
+  protected updateValueFromUI(value: T | null): void {
+    this.value.set(value);
+    this.onChange(value);
+    this.onTouched();
   }
+
+  readonly required = computed(() => this.isRequired());
 }
-
-

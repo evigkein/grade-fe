@@ -1,4 +1,4 @@
-import { ISelectOption } from '../../select';
+import { ISelectOption } from '../../select2';
 
 export function filterAutocompleteOptions(searchTerm: string, options: ISelectOption[]): ISelectOption[] {
   if (!searchTerm) {

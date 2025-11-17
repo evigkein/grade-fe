@@ -21,7 +21,7 @@ import { startWith } from 'rxjs';
 import { destroy } from '@utils/libs/rxjs';
 import { StopEventsDirective } from '../../../../../directives/utils';
 import { ClickOutsideDirective } from '../../../../../directives/utils/click-outside.directive';
-import { DisableBodyScrollDirective } from '../../../../../services/body/disable-body-scroll.directive';
+import { DisableBodyScrollDirective } from '@services/body/disable-body-scroll.directive';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { PopoverComponent } from '../../../../components/common/popover/popover.component';
 import { SvgIconComponent } from '../../../../modules/svg-icon/svg-icon.component';

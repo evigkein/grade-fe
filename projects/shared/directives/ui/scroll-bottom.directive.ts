@@ -13,7 +13,6 @@ export class AutoScrollBottomDirective implements AfterViewInit, OnDestroy {
     this.observeElement();
   }
 
-  // Прокрутка в самый низ
   scrollToBottom(): void {
     const element = this.el.nativeElement;
     setTimeout(() => {
@@ -21,14 +20,13 @@ export class AutoScrollBottomDirective implements AfterViewInit, OnDestroy {
     }, 0); // Добавляем небольшую задержку для завершения рендеринга
   }
 
-  // Наблюдаем за изменениями в DOM (новые сообщения)
   private observeElement(): void {
     this.observer = new MutationObserver(() => {
       this.scrollToBottom(); // Прокручиваем вниз при изменении DOM
     });
 
     this.observer.observe(this.el.nativeElement, {
-      childList: true, // Наблюдаем за добавлением/удалением дочерних элементов
+      childList: true,
       subtree: true,
     });
   }

@@ -18,6 +18,7 @@ import { premium } from './definitions/premium';
 import { promo } from './definitions/promo';
 import { referralPromo } from './definitions/referralPromo';
 import { refund } from './definitions/refund';
+import { search } from './definitions/search';
 import { tasks } from './definitions/tasks';
 import { transaction } from './definitions/transaction';
 import { user } from './definitions/user';
@@ -68,6 +69,7 @@ import { usdt } from './definitions/usdt';
   promo,
   referralPromo,
   refund,
+  search,
   tasks,
   transaction,
   user,
