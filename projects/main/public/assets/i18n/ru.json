@@ -80,8 +80,23 @@
   "/////////////////////////////// FORMS //////////////////////////": "",
   "forms.required": "Поле обязательно к заполнению",
 
-  "today": "Сегодня",
+  "select.placeholder": "Выбрать…",
+  "select.searchPlaceholder": "Поиск…",
+  "select.clearSelection": "Очистить выбор",
+  "select.searchAriaLabel": "Выберите и ищите",
+  "select.emptyText": "Нет доступных вариантов",
+  "select.loadingText": "Загрузка...",
+  "select.dropdownClosed": "Раскрывающееся меню закрыто",
+  "select.options": "доступные варианты",
+  "select.focused": "В фокусе",
 
+
+
+  "choose-date": "выберите дату",
+  "choose": "выбрать",
+  "ok": "готово",
+
+  "today": "Сегодня",
   "january": "Январь",
   "february": "Февраль",
   "march": "Март",

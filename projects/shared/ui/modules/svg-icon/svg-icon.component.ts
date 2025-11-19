@@ -11,7 +11,9 @@ import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
     styleUrls: ['./svg-icon.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-    <i nz-icon [nzType]="icon()"></i>
+      @if (icon() !== 'none') {
+        <i nz-icon [nzType]="icon()"></i>
+      }
 <!--    <i nz-icon [nzType]="icon()" [theme]="iconTheme()"></i>-->
   `,
   standalone: true,

@@ -1,34 +1,38 @@
-<div [class]="classes()">
+<div class="select__wrapper" [class]="classes()">
   @if (searchable() && !isSearchDetached()) {
-    <div class="p-select2__trigger p-select2__trigger--search" (click)="onTriggerSearchClick($event)" [class.p-select2__trigger--open]="isOpen()">
+    <div class="select__trigger select__trigger--search" (click)="onTriggerSearchClick($event)" [class.select__trigger--open]="isOpen()">
       <input
           #searchInput
           type="text"
-          class="p-select2__search-input p-select2__search-input--inline"
-          [placeholder]="selectedOption() ? '' : placeholder()"
+          class="select__search-input select__search-input--inline"
+          stopEvents
+          [placeholder]="(selectedOption() ? '' : placeholder()) | translate"
           [value]="searchText()"
           (input)="onSearchInput($event.target?.['value'] ?? '')"
           (blur)="onSearchBlur()"
           (focus)="onSearchFocus()"
           (keydown)="onKey($event)"
           (pKeypress)="onKey($event)"
+          (click)="toggle(true)"
           [disabled]="disabled()"
-          aria-label="Select and search"
+          [attr.aria-label]="'select.searchAriaLabel' | translate"
       />
-      @if (selectedOption()) {
-        <span class="p-select2__value p-select2__value--search">{{ selectedOption()!.label }}</span>
+      @if (selectedOption() && !searchText()) {
+        <span class="select__value select__value--search">{{ selectedOption()!.label }}</span>
       }
-      <span class="p-select2__icons">
-        @if (selectedOption() && !disabled()) {
+      <span class="select__icons">
+        @if (selectedOption() && !disabled() && isClearable()) {
           <button
             type="button"
-            class="p-select2__clear"
-            title="Clear selection"
-            aria-label="Clear selection"
+            class="select__clear"
+            [title]="'select.clearSelection' | translate"
+            [attr.aria-label]="'select.clearSelection' | translate"
             (click)="$event.stopPropagation(); clear()"
           >✖</button>
         }
-        <p-icon class="p-select2__chevron" icon="angleDown" aria-hidden="true" size="16"/>
+        @if (hasArrow()) {
+          <p-icon class="select__chevron" icon="angleDown" aria-hidden="true" size="16"/>
+        }
       </span>
     </div>
   } @else {
@@ -36,7 +40,7 @@
         #triggerBtn
         type="button"
         role="combobox"
-        class="p-select2__trigger"
+        class="select__trigger"
         aria-autocomplete="none"
         [disabled]="disabled()"
         [attr.tabindex]="tabindex()"
@@ -50,30 +54,32 @@
         (pKeypress)="onKey($event)"
     >
       @if (selectedOption(); as opt) {
-        <span class="p-select2__value">{{ opt.label }}</span>
+        <span class="select__value">{{ opt.label }}</span>
       } @else {
-        <span class="p-select2__placeholder">{{ placeholder() }}</span>
+        <span class="select__placeholder">{{ placeholder() | translate }}</span>
       }
-      <span class="p-select2__icons">
-        @if (selectedOption() && !disabled()) {
+      <span class="select__icons">
+        @if (selectedOption() && !disabled() && isClearable()) {
           <button
             type="button"
-            class="p-select2__clear"
-            aria-label="Очистить выбор"
+            class="select__clear"
+            [attr.aria-label]="'select.clearSelection' | translate"
             (click)="$event.stopPropagation(); clear()"
           >✖</button>
         }
         <p-icon class="" icon="search" aria-hidden="true" size="16"/>
-        <p-icon class="p-select2__chevron" icon="angleDown" aria-hidden="true" size="16"/>
+        @if (hasArrow()) {
+          <p-icon class="select__chevron" icon="angleDown" aria-hidden="true" size="16"/>
+        }
       </span>
     </button>
   }
   <span class="visually-hidden" aria-live="polite">
   @if (isOpen()) {
-    {{ filteredOptions().length }} options.
-    {{ highlightedIndex() >= 0 ? 'Focused: ' + filteredOptions()[highlightedIndex()].label : '' }}
+    {{ filteredOptions().length }} {{ 'select.options' | translate }}.
+    {{ highlightedIndex() >= 0 ? ('select.focused' | translate) + ': ' + filteredOptions()?.[highlightedIndex()]?.label : '' }}
   } @else {
-    Dropdown closed.
+    {{ 'select.dropdownClosed' | translate }}.
   }
   </span>
   
@@ -81,33 +87,34 @@
     <div [class]="panelClasses()"
          animate.enter="slide-in"
          animate.leave="slide-out"
-         [class.p-select2__panel--up]="panelDirection() === 'up'"
-         [class.p-select2__panel--down]="panelDirection() === 'down'"
-         (clickOutside)="close()">
+         [class.select__panel--up]="panelDirection() === 'up'"
+         [class.select__panel--down]="panelDirection() === 'down'"
+         (clickOutside)="close()"
+         [whitelist]="'.select__trigger, .select__search-input'">
       @if (searchable() && isSearchDetached()) {
-        <div class="p-select2__search-wrapper">
+        <div class="select__search-wrapper">
           <input
               #searchInput
               type="text"
-              class="p-select2__search-input"
-              placeholder="Search…"
+              class="select__search-input"
+              [placeholder]="'select.searchPlaceholder' | translate"
               [value]="searchText()"
               (input)="onSearchInput($event.target?.['value'] ?? '')"
               (blur)="onSearchBlur()"
               (keydown)="onKey($event)"
               (pKeypress)="onKey($event)"
-              aria-label="Search options"
+              [attr.aria-label]="'select.searchAriaLabel' | translate"
           />
         </div>
       }
       @if (isLoading()) {
-        <div class="p-select2__empty">{{loadingText()}}</div>
+        <div class="select__empty"><p-loader size="m"/></div>
       } @else if (filteredOptions().length === 0) {
-        <div class="p-select2__empty">{{ emptyText() }}</div>
+        <div class="select__empty">{{ 'select.emptyText' | translate }}</div>
       } @else {
         <ul
             #listbox
-            class="p-select2__listbox"
+            class="select__listbox"
             role="listbox"
             [attr.tabindex]="searchable() ? -1 : 0"
             pListboxNavigation
@@ -123,7 +130,7 @@
         >
           @for (o of filteredOptions(); track o.value; let i = $index) {
             <li
-              class="p-select2__option"
+              class="select__option"
               role="option"
               pOptionSelect
               [index]="i"
@@ -132,9 +139,9 @@
               [attr.data-index]="i"
               [attr.aria-selected]="o.value === selectedOption()?.value ? 'true' : 'false'"
               [attr.aria-disabled]="o.disabled ? 'true' : null"
-              [class.p-select2__option--selected]="o.value === selectedOption()?.value"
-              [class.p-select2__option--highlighted]="i === highlightedIndex()"
-              [class.p-select2__option--disabled]="o.disabled"
+              [class.select__option--selected]="o.value === selectedOption()?.value"
+              [class.select__option--highlighted]="i === highlightedIndex()"
+              [class.select__option--disabled]="o.disabled"
               (mouseenter)="onMouseEnterOption(i)"
               (click)="!o.disabled && selectIndex(i)"
             >

@@ -89,7 +89,21 @@
   "forms.required": "This field is required",
 
 
+  "select.placeholder": "Select…",
+  "select.searchPlaceholder": "Search…",
+  "select.clearSelection": "Clear selection",
+  "select.searchAriaLabel": "Select and search",
+  "select.emptyText": "No options available",
+  "select.loadingText": "Loading...",
+  "select.loadingText1": "",
+  "select.dropdownClosed": "Dropdown closed",
+  "select.options": "options",
+  "select.focused": "Focused",
+
+  "choose-date": "Choose date",
+  "ok": "ок",
   "today": "today",
+  "choose": "select",
 
   "january": "January",
   "february": "February",

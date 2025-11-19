@@ -6,8 +6,8 @@ import { ISimpleChanges } from '@utils/types';
 @Directive({ selector: '[img]', standalone: true })
 export class CustomImageDirective implements OnInit, OnChanges {
   @Input({ required: true }) img!: string;
-  @Input() defaultImage = '../assets/images/no-image.png';
-  @Input() errorImage = '../assets/images/no-image.png';
+  @Input() defaultImage = 'no-image.png';
+  @Input() errorImage = 'no-image.png';
   @Input() priorityImage = true;
   @Input() fill = true;
   @Input() width?: number;
@@ -49,7 +49,7 @@ export class CustomImageDirective implements OnInit, OnChanges {
       if (this.forceLoad) {
         this.loadImage();
       } else {
-        this.setImage(this.defaultImage);
+        this.setImage(this.getImageUrl(this.defaultImage));
         this.observer.observe(this.el.nativeElement);
       }
     }
@@ -108,7 +108,7 @@ export class CustomImageDirective implements OnInit, OnChanges {
     const src = this.getImageUrl(this.img);
     img.src = src;
     img.onload = () => this.setImage(src);
-    img.onerror = () => this.setImage(this.errorImage);
+    img.onerror = () => this.setImage(this.getImageUrl(this.errorImage));
   }
 
   private setImage(src: string) {
@@ -117,10 +117,27 @@ export class CustomImageDirective implements OnInit, OnChanges {
   }
 
   private getImageUrl(url: string): string {
-    let finalUrl: string;
-    if (url.startsWith('http')) finalUrl = url;
-    else if (!this.isAsset) finalUrl = `${this.cdnPrefix}${this.img}`;
-    else finalUrl = url.startsWith(this.imageUrlStart) ? url : `${this.imageUrlStart}${url}`;
-    return transformGithubAssetsUrl(finalUrl);
+    if (!isBrowser()) return url || `${this.imageUrlStart}${this.defaultImage}`;
+
+    if (!url) {
+      return this.isAsset
+        ? transformGithubAssetsUrl(`${this.imageUrlStart}${this.defaultImage}`)
+        : `${this.cdnPrefix}${this.defaultImage}`;
+    }
+
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+
+    if (!this.isAsset) {
+      return `${this.cdnPrefix}${url}`;
+    }
+
+    const assetUrl = url.startsWith(this.imageUrlStart)
+      ? url
+      : `${this.imageUrlStart}${url}`;
+
+    return transformGithubAssetsUrl(assetUrl);
   }
+
 }

@@ -13,9 +13,13 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { _KEYBOARD } from '@services/events/keyboard.service';
 import { isBrowser } from '@utils/helpers/browser/is-browser.util';
+import { StopEventsDirective } from '../../../../directives/utils';
 import { ClickOutsideDirective } from '../../../../directives/utils/click-outside.directive';
 import { TabTrapDirective } from '../../../../directives/utils/tab-trap.directive';
+import { LoaderComponent } from '../../../components/loader/spinner/loader.component';
 import { SvgIconComponent } from '../../../modules/svg-icon/svg-icon.component';
 
 import { CustomControlAccessor } from '../../custom-control-accessor';
@@ -40,6 +44,7 @@ export type TSelectDropdownSize = 's' | 'm' | 'l' | 'xl';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslateModule,
     POptionSelectDirective,
     PListboxNavigationDirective,
     PScrollActiveIntoViewDirective,
@@ -47,6 +52,8 @@ export type TSelectDropdownSize = 's' | 'm' | 'l' | 'xl';
     TabTrapDirective,
     ClickOutsideDirective,
     SvgIconComponent,
+    LoaderComponent,
+    StopEventsDirective,
   ],
   templateUrl: './select2.component.html',
   styleUrls: ['./select2.component.scss'],
@@ -56,10 +63,9 @@ export type TSelectDropdownSize = 's' | 'm' | 'l' | 'xl';
     '[attr.data-open]': 'isOpen() ? "true" : "false"',
   }
 })
-export class SelectComponent<T = any> extends CustomControlAccessor {
-  // Inputs
+export class PSelect2Component<T = any> extends CustomControlAccessor {
   options = input.required<PSelect2Option<T>[]>();
-  placeholder = input('Select…');
+  placeholder = input('select.placeholder');
   size = input<'s'|'m'|'l'|'xl' | 'max'>('m');
   myClass = inputSignal('');
   isLoading = input(false, { transform: booleanAttribute });
@@ -72,29 +78,42 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
   isExternalSearch = input(false, { transform: booleanAttribute });
   emptyText = input('No options available');
   loadingText = input('Loading...');
+  isClearable = input(true, { transform: booleanAttribute });
+  hasArrow = input(true, { transform: booleanAttribute });
+  compareBy = input<string>(null);
 
   panelClasses = computed(() => {
     const width = this.dropdownWidth();
     const size = this.dropdownSize() ?? this.size();
 
     return [
-      'p-select2__panel',
-      `p-select2__panel--d-width-${width}`,
-      `p-select2__panel--size-${size}`,
+      'select__panel',
+      `select__panel--d-width-${width}`,
+      `select__panel--size-${size}`,
     ].join(' ');
   });
 
   private typeaheadBuffer = '';
   private typeaheadTimeout: any;
 
+  private keyboard = _KEYBOARD();
+  // escListener =   effect(() => {
+  //   if (this.keyboard.hotkeyEvent() === 'CTRL_L') {
+  //     this.toggleLanguage();
+  //   }
+  // });
+
+  // Outputs
   valueChange = output<T | null>();
   openChange = output<boolean>();
   searchChange = output<string>();
 
+  // Refs
   @ViewChild('triggerBtn', { static: true }) triggerBtn!: ElementRef<HTMLButtonElement>;
   @ViewChild('listbox') listboxRef?: ElementRef<HTMLUListElement>;
   @ViewChild('searchInput') searchInputRef?: ElementRef<HTMLInputElement>;
 
+  // State
   isOpen = signal(false);
   highlightedIndex = signal<number>(-1);
   valueSig = signal<T | null>(null);
@@ -103,14 +122,16 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
   cachedSelectedOption = signal<PSelect2Option<T> | null>(null);
   panelDirection = signal<'up' | 'down'>('down')
 
+  // Computed
   selectedOption = computed(() => {
     const v = this.valueSig();
+    const compareBy = this.compareBy();
     if (!v) return null;
 
-    const found = this.options().find(o => o.value === v);
-    if (found) {
-      return found;
-    }
+    const found = compareBy
+      ? this.options().find(o => o.value[compareBy] === v[compareBy])
+      : this.options().find(o => o.value === v);
+    if (found) return found;
     return this.cachedSelectedOption();
   });
 
@@ -122,8 +143,7 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
     const search = this.searchText().toLowerCase();
     const selectedValue = this.valueSig();
 
-    let filtered = this.options().filter(o =>
-      o.value !== selectedValue &&
+    const filtered = this.options().filter(o =>
       o.label.toLowerCase().includes(search)
     );
 
@@ -132,11 +152,11 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
 
   classes = computed(() =>
     [
-      'p-select2__root',
-      `p-select2--width-${this.width()}`,
+      'select__root',
+      `select--width-${this.width()}`,
       this.disabled() ? 'disabled' : '',
-      this.isOpen() ? 'p-select2__root--expanded' : '',
-      `p-select2--size-${this.size()}`,
+      this.isOpen() ? 'select__root--expanded' : '',
+      `select--size-${this.size()}`,
       this.myClass(),
     ].filter(Boolean).join(' ')
   );
@@ -172,23 +192,10 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
   }
 
   // ---------- API ----------
-  toggle() {
+  toggle(withoutText?: boolean) {
+    if(withoutText && this.searchText()) return;
     if (this.disabled()) return;
-    this.isOpen.update(v => !v);
-    this.openChange.emit(this.isOpen());
-
-    if (this.isOpen()) {
-      this.ensureHighlight();
-      queueMicrotask(() => {
-        if (this.searchable() && !this.isSearchDetached()) {
-          this.searchInputRef?.nativeElement.focus();
-        } else if (this.searchable() && this.isSearchDetached()) {
-          this.searchInputRef?.nativeElement.focus();
-        } else {
-          this.listboxRef?.nativeElement.focus();
-        }
-      });
-    }
+    this.isOpen() ? this.close() : this.open();
   }
 
   open(): void {
@@ -202,7 +209,6 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
     }
 
     this.isOpen.set(true);
-
     this.openChange.emit(true);
     this.ensureHighlight();
     queueMicrotask(() => {
@@ -218,8 +224,11 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
 
   close() {
     if (!this.isOpen()) return;
-    if (!this.valueSig()) this.searchChange.emit('');
-    this.searchText.set('');
+    if (this.searchText()) {
+      this.searchText.set('');
+      this.searchChange.emit('');
+    }
+
     this.isOpen.set(false);
     this.openChange.emit(false);
   }
@@ -249,14 +258,14 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
   }
 
   onSearchBlur() {
-    if (!this.valueSig()) {
-      this.searchText.set('');
+    if (!this.isOpen()) {
+      // this.searchText.set('');
     }
   }
 
   onSearchFocus() {
     if (!this.isOpen() && this.searchable() && !this.isSearchDetached()) {
-      this.open();
+      // this.open();
     }
   }
 
@@ -272,7 +281,12 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
     this.valueSig.set(null);
     this.cachedSelectedOption.set(null);
     this.onChange(null);
-    this.triggerBtn.nativeElement.focus();
+    if (this.triggerBtn?.nativeElement) {
+      return this.triggerBtn.nativeElement.focus();
+    }
+    if (this.searchInputRef?.nativeElement) {
+      return this.searchInputRef.nativeElement.focus();
+    }
   }
 
   selectIndex(i: number) {
@@ -290,7 +304,7 @@ export class SelectComponent<T = any> extends CustomControlAccessor {
   onKey(e: KeyboardEvent) {
     const key = e.key;
 
-    if (e.key.length === 1 && /^[\p{L}\p{N}]$/u.test(e.key)) {
+    if (e.key.length === 1 && /^[\p{L}\p{N}]$/u.test(e.key) && !this.searchable()) {
       this.onTypeahead(e.key);
       return;
     }

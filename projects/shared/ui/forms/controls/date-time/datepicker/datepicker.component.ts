@@ -14,7 +14,6 @@ import {
   effect
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { momentLocales } from '@core/modules/translate/constants/moment';
 import { TranslatePipe } from '@ngx-translate/core';
 import moment, { Moment } from 'moment';
 import { startWith } from 'rxjs';
