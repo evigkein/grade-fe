@@ -1,7 +1,7 @@
 import {DOCUMENT} from '@angular/common';
 import {Inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import { destroy } from '../../utils/libs/rxjs';
+import { destroy } from '@utils/libs/rxjs';
 
 export enum ETheme {
   Dark = 'theme--dark',

@@ -30,7 +30,6 @@ export class KeyboardService {
     this.trackKeyDown();
     this.trackKeyUp();
 
-    // ---- UNIFIED & SCALABLE HOTKEY PROCESSOR ----
     effect(() => {
       const current = this.pressedKeys();
 

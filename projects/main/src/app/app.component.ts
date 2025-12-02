@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { LocalCacheService } from '@core/modules/local-cache.service';
 import { _TRANSLATE, TLang, TranslateFacade } from '@core/modules/translate';
 import { ThemeService } from '@core/services/theme.service';
-import { HotKeysGlobalComponent } from '@shared/features/hot-keys-global/hot-keys-global.component';
+import { HotKeysGlobalComponent } from '@core/modules/hot-keys/hot-keys-global/hot-keys-global.component';
 import { SeoService } from '@shared/services';
 import {
   ImageGalleryModalComponent

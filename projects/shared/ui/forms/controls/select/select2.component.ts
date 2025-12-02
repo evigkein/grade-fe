@@ -14,7 +14,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { _KEYBOARD } from '@services/events/keyboard.service';
+import { _KEYBOARD } from '@services/keyboard.service';
 import { isBrowser } from '@utils/helpers/browser/is-browser.util';
 import { StopEventsDirective } from '../../../../directives/utils';
 import { ClickOutsideDirective } from '../../../../directives/utils/click-outside.directive';

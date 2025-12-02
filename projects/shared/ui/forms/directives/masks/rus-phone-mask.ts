@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { MaskInputCoreDirective } from '@ui/forms/directives/masks/mask-core.directive';
+import { MaskInputCoreDirective } from './mask-core.directive';
 
 @Directive({
   selector: '[appRussianNumberMask]',

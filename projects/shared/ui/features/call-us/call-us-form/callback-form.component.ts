@@ -11,7 +11,7 @@ import { destroy } from '@utils/libs/rxjs';
 import { BehaviorSubject, tap } from 'rxjs';
 import { ICreateCallbackFormReqDto } from '../../../../domain/api/swagger/models/i-create-callback-form-req-dto';
 import { ApiFormsCallbackService } from '../../../../domain/api/swagger/services/api-forms-callback.service';
-import { RussianNumberMaskDirective } from '../../../../features/different/rus-phone-mask';
+import { RussianNumberMaskDirective } from '../../../forms/directives/masks/rus-phone-mask';
 
 export interface ICallbackForm {
   name: string;
