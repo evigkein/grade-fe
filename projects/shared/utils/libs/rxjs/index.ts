@@ -4,7 +4,6 @@ export * from './ensure-value';
 export * from './map-to';
 export * from './observer-log';
 export * from './retry-when-online';
-export * from './run-outside-zone$';
 export * from './skip-equal';
 export * from './start-with-timeout';
 export * from './tap$';
