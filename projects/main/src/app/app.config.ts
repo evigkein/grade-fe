@@ -29,16 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     // provideZoneChangeDetection({eventCoalescing: true}),
     routerConfigProviders(),
-    provideClientHydration(
-      // withEventReplay(),
-      // PIPELINE WAS FROZEN!!!!
-      // withHttpTransferCacheOptions({
-      //   includeHeaders: ['ETag', 'Cache-Control'],
-      //   // filter: (req) => !req.url.includes('/api/profile'),
-      //   includePostRequests: true,
-      //   includeRequestsWithAuthHeaders: false,
-      // }),
-    ),
+    provideClientHydration(),
     // provideAppInitializer(() => langInitializer()()),
     provideAnimations(),
     provideHammer(),
