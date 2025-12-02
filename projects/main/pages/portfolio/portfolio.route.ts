@@ -3,10 +3,7 @@ import { ERoute } from '@shared/domain/main/constants/route.enum';
 
 export const portfolioRoute: Route = {
   path: ERoute.Portfolio,
-  pathMatch: 'full',
   loadComponent: () =>
-    import('../../../pages/portfolio/components/entry/portfolio.component').then(
-      (m) => m.PortfolioComponent
-    ),
-  // canActivate: [authGuard]
+    import('./components/entry/portfolio.component')
+      .then((m) => m.PortfolioComponent),
 };
