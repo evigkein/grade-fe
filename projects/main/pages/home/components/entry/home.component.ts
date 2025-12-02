@@ -1,17 +1,39 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { CustomImageDirective } from '@shared/directives/ui/img/img.directive';
+import { SkipHydrationDirective } from '@shared/directives/utils/skip-hydration.directive';
+import { FaqsComponent } from '@shared/features/faq/faqs.component';
 import { _SEO, ISeo } from '@shared/services';
 import { _RS } from '@shared/services/router.service';
 import { destroy } from '@shared/utils/libs/rxjs';
+import {
+  ScrollToTopButtonComponent
+} from '@ui/components/+features/sctoll-to-top-button/scroll-to-top-button.component';
+import { MainHomeBannerComponent } from '@ui/features/banner-main/main-home-banner.component';
+import { BannerComponent } from '@ui/features/banner/banner.component';
 import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrapper/callback-modal-wrapper.component';
 import { scrollToTop } from '@utils/helpers/scroll-to.util';
 import { faqList } from '../../const/faq';
+import { HomeFeaturesComponent } from '../features/home-features.component';
 
 @Component({
   selector: 'p-page-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    CommonModule,
+    CustomImageDirective,
+    TranslatePipe,
+    HomeFeaturesComponent,
+    BannerComponent,
+    FaqsComponent,
+    ScrollToTopButtonComponent,
+    MainHomeBannerComponent,
+    CallbackModalWrapperComponent,
+    SkipHydrationDirective,
+  ]
 })
 export class PageHomeComponent implements OnInit {
   private seo = _SEO();

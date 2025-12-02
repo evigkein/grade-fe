@@ -10,6 +10,7 @@ import {
 } from '@shared/ui/components/+features/image-gallery/modal/image-gallery-modal.component';
 import { ModalsModule } from '@shared/ui/modules/modals/modals/modal/modals.module';
 import { NotificationsContainerComponent } from '@shared/ui/modules/notifications/container/container.component';
+import { MainHomeBannerComponent } from '@ui/features/banner-main/main-home-banner.component';
 import { getStorageItem } from '@utils/helpers/storage';
 import { destroy } from '@utils/libs/rxjs';
 
@@ -17,7 +18,7 @@ import { destroy } from '@utils/libs/rxjs';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterOutlet, ModalsModule, NotificationsContainerComponent, ImageGalleryModalComponent, HotKeysGlobalComponent],
+  imports: [RouterOutlet, ModalsModule, NotificationsContainerComponent, ImageGalleryModalComponent, HotKeysGlobalComponent, MainHomeBannerComponent],
 })
 export class AppComponent implements OnInit {
   title = 'main';

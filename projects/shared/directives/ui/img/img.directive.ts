@@ -1,33 +1,41 @@
-import { booleanAttribute, Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnChanges, Renderer2, booleanAttribute, numberAttribute, input } from '@angular/core';
 import { transformGithubAssetsUrl } from '../../../interceptors/cdn.interceptor';
 import { isBrowser } from '@utils/helpers/browser/is-browser.util';
+import { destroy } from '@utils/libs/rxjs';
+import { computed } from '@angular/core';
 import { ISimpleChanges } from '@utils/types';
 
-@Directive({ selector: '[img]', standalone: true })
+@Directive({selector: '[img]'})
 export class CustomImageDirective implements OnInit, OnChanges {
-  @Input({ required: true }) img!: string;
-  @Input() defaultImage = 'no-image.png';
-  @Input() errorImage = 'no-image.png';
-  @Input() priorityImage = true;
-  @Input() fill = true;
-  @Input() width?: number;
-  @Input() height?: number;
-  @Input({ transform: booleanAttribute }) forceLoad = false;
+  img = input.required<string>();
+  defaultImage = input('no-image.png');
+  errorImage = input('no-image.png');
+  priorityImage = input(true);
+  fill = input(true);
+  width = input<number | undefined>(undefined);
+  height = input<number | undefined>(undefined);
+  forceLoad = input(false, { transform: booleanAttribute });
+  isAsset = input(true);
+  disableIOSPreview = input(true, { transform: booleanAttribute });
 
-  @Input() isAsset = true;
+  isLoading = input(false, { transform: booleanAttribute });
+  tabindex = input(0, { transform: numberAttribute });
 
-  @Input({ transform: booleanAttribute }) disableIOSPreview = true;
+  destroy$ = destroy();
 
-  cdnPrefix = 'https://dp6w21h2w0g5y.cloudfront.net/';
-  imageUrlStart = '../assets/images/';
-
+  private cdnPrefix = 'https://dp6w21h2w0g5y.cloudfront.net/';
+  private imageUrlStart = '../assets/images/';
   private observer!: IntersectionObserver;
-  private removeListeners: Array<() => void> = [];
+
+  private finalSrc = computed(() => this.getImageUrl(this.img()));
 
   constructor(private el: ElementRef<HTMLImageElement>, private renderer: Renderer2) {
-    if (!isBrowser()) return;
+    if (!isBrowser()) {
+      this.loadImage();
+      return;
+    }
 
-    this.observer = new IntersectionObserver((entries) => {
+    this.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.loadImage();
@@ -40,21 +48,20 @@ export class CustomImageDirective implements OnInit, OnChanges {
   ngOnInit() {
     this.setDefaultAttributes();
 
-    if (this.isAsset) {
-      const src = this.getImageUrl(this.img);
-      this.renderer.setAttribute(this.el.nativeElement, 'src', src);
+    if (this.isAsset()) {
+      this.renderer.setAttribute(this.el.nativeElement, 'src', this.finalSrc());
       this.renderer.setAttribute(this.el.nativeElement, 'loading', 'lazy');
       this.renderer.setAttribute(this.el.nativeElement, 'decoding', 'async');
     } else {
-      if (this.forceLoad) {
+      if (this.forceLoad()) {
         this.loadImage();
       } else {
-        this.setImage(this.getImageUrl(this.defaultImage));
+        this.setImage(this.getImageUrl(this.defaultImage()));
         this.observer.observe(this.el.nativeElement);
       }
     }
 
-    if (this.disableIOSPreview) this.hardenIOS();
+    if (this.disableIOSPreview()) this.hardenIOS();
   }
 
   ngOnChanges(changes: ISimpleChanges<CustomImageDirective>) {
@@ -63,52 +70,40 @@ export class CustomImageDirective implements OnInit, OnChanges {
   }
 
   private setDefaultAttributes() {
-    if (!this.width && !this.height) {
-      this.fill = true;
-      this.priorityImage = true;
-    }
-
-    if (this.fill) {
+    if (!this.width() && !this.height()) {
       this.renderer.setStyle(this.el.nativeElement, 'width', '100%');
       this.renderer.setStyle(this.el.nativeElement, 'height', '100%');
-      this.renderer.setStyle(this.el.nativeElement, 'object-fit', 'cover'); // можно вернуть
+      this.renderer.setStyle(this.el.nativeElement, 'object-fit', 'cover');
     }
 
-    if (this.priorityImage) {
+    if (this.priorityImage()) {
       this.renderer.setAttribute(this.el.nativeElement, 'fetchpriority', 'high');
     }
 
     this.renderer.setAttribute(this.el.nativeElement, 'draggable', 'false');
-    this.renderer.setAttribute(this.el.nativeElement, 'tabindex', '-1');
-    this.renderer.setAttribute(this.el.nativeElement, 'aria-hidden', 'true'); // если картинка декоративная
+    this.renderer.setAttribute(this.el.nativeElement, 'tabindex', String(this.tabindex()));
+    this.renderer.setAttribute(this.el.nativeElement, 'aria-hidden', 'true');
   }
 
   private hardenIOS() {
     if (!isBrowser()) return;
 
-    this.renderer.setStyle(this.el.nativeElement, '-webkit-touch-callout', 'none');
-    this.renderer.setStyle(this.el.nativeElement, '-webkit-user-select', 'none');
-    this.renderer.setStyle(this.el.nativeElement, 'user-select', 'none');
-    this.renderer.setStyle(this.el.nativeElement, '-webkit-user-drag', 'none');
-
-    this.renderer.setStyle(this.el.nativeElement, 'pointer-events', 'none');
-
-    const ts = this.renderer.listen(this.el.nativeElement, 'touchstart', (e: TouchEvent) => e.preventDefault());
-    const td = this.renderer.listen(this.el.nativeElement, 'touchend',   (e: TouchEvent) => e.preventDefault());
-    const gs = this.renderer.listen(this.el.nativeElement, 'gesturestart', (e: Event) => e.preventDefault());
-    const db = this.renderer.listen(this.el.nativeElement, 'dblclick', (e: MouseEvent) => e.preventDefault());
-
-    this.removeListeners.push(ts, td, gs, db);
+    const el = this.el.nativeElement;
+    this.renderer.setStyle(el, '-webkit-touch-callout', 'none');
+    this.renderer.setStyle(el, '-webkit-user-select', 'none');
+    this.renderer.setStyle(el, 'user-select', 'none');
+    this.renderer.setStyle(el, '-webkit-user-drag', 'none');
+    this.renderer.setStyle(el, 'pointer-events', 'none');
   }
 
   private loadImage() {
-    if (!isBrowser() || !this.img) return;
+    if (!isBrowser() || !this.img()) return;
 
+    const src = this.finalSrc();
     const img = new Image();
-    const src = this.getImageUrl(this.img);
     img.src = src;
     img.onload = () => this.setImage(src);
-    img.onerror = () => this.setImage(this.getImageUrl(this.errorImage));
+    img.onerror = () => this.setImage(this.getImageUrl(this.errorImage()));
   }
 
   private setImage(src: string) {
@@ -117,21 +112,25 @@ export class CustomImageDirective implements OnInit, OnChanges {
   }
 
   private getImageUrl(url: string): string {
-    if (!isBrowser()) return url || `${this.imageUrlStart}${this.defaultImage}`;
+    if (!isBrowser()) {
+      if (this.isAsset()) {
+        const clean = url || this.defaultImage();
+        return clean.startsWith(this.imageUrlStart)
+          ? clean
+          : `${this.imageUrlStart}${clean}`;
+      }
+      return url || '';
+    }
 
     if (!url) {
-      return this.isAsset
-        ? transformGithubAssetsUrl(`${this.imageUrlStart}${this.defaultImage}`)
-        : `${this.cdnPrefix}${this.defaultImage}`;
+      return this.isAsset()
+        ? transformGithubAssetsUrl(`${this.imageUrlStart}${this.defaultImage()}`)
+        : `${this.cdnPrefix}${this.defaultImage()}`;
     }
 
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url;
-    }
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
 
-    if (!this.isAsset) {
-      return `${this.cdnPrefix}${url}`;
-    }
+    if (!this.isAsset()) return `${this.cdnPrefix}${url}`;
 
     const assetUrl = url.startsWith(this.imageUrlStart)
       ? url
@@ -139,5 +138,4 @@ export class CustomImageDirective implements OnInit, OnChanges {
 
     return transformGithubAssetsUrl(assetUrl);
   }
-
 }

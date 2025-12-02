@@ -4,9 +4,9 @@ import { ERoute } from '@shared/domain/main/constants/route.enum';
 export const portfolioRoute: Route = {
   path: ERoute.Portfolio,
   pathMatch: 'full',
-  loadChildren: () =>
-    import('../../../pages/portfolio/portfolio.module').then(
-      (m) => m.PortfolioModule
+  loadComponent: () =>
+    import('../../../pages/portfolio/components/entry/portfolio.component').then(
+      (m) => m.PortfolioComponent
     ),
   // canActivate: [authGuard]
 };

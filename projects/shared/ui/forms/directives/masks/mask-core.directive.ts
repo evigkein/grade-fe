@@ -62,7 +62,7 @@ export abstract class MaskInputCoreDirective implements OnInit {
   }
 
   @HostListener('input', ['$event'])
-  onInputChange(event: InputEvent): void {
+  onInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!this.ngControl?.control || !input) return;
 

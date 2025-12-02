@@ -15,16 +15,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.0.0",
-    "@angular/common": "^20.0.0",
-    "@angular/compiler": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/forms": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@angular/platform-browser-dynamic": "^20.0.0",
-    "@angular/platform-server": "^20.0.0",
-    "@angular/router": "^20.0.0",
-    "@angular/ssr": "^20.1.4",
+    "@angular/animations": "^21.0.2",
+    "@angular/common": "^21.0.2",
+    "@angular/compiler": "^21.0.2",
+    "@angular/core": "^21.0.2",
+    "@angular/forms": "^21.0.2",
+    "@angular/platform-browser": "^21.0.2",
+    "@angular/platform-browser-dynamic": "^21.0.2",
+    "@angular/platform-server": "^21.0.2",
+    "@angular/router": "^21.0.2",
+    "@angular/ssr": "^21.0.1",
     "@ctrl/tinycolor": "^4.1.0",
     "@ng-select/ng-select": "20.0.1",
     "@ngx-translate/core": "^17.0.0",
@@ -53,10 +53,10 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.3.12",
-    "@angular/build": "^20.1.4",
-    "@angular/cli": "^20.1.4",
-    "@angular/compiler-cli": "^20.0.0",
+    "@angular-devkit/build-angular": "^21.0.1",
+    "@angular/build": "^21.0.1",
+    "@angular/cli": "^21.0.1",
+    "@angular/compiler-cli": "^21.0.2",
     "@angular/language-service": "^19.2.14",
     "@storybook/addon-docs": "^10.0.8",
     "@storybook/angular": "^10.0.8",
@@ -72,6 +72,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^20.1.0",
     "storybook": "^10.0.8",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }

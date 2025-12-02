@@ -4,9 +4,9 @@ import { ERoute } from '@shared/domain/main/constants/route.enum';
 export const homeRoute: Route = {
   path: ERoute.Main,
   pathMatch: 'full',
-  loadChildren: () =>
-    import('../../../pages/home/home.module').then(
-      (m) => m.HomeModule
+  loadComponent: () =>
+    import('../../../pages/home/components/entry/home.component').then(
+      (m) => m.PageHomeComponent
     ),
   // canActivate: [authGuard]
 };

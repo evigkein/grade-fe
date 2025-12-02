@@ -93,3 +93,13 @@ body, document {
 .capitalize {
   text-transform: capitalize;
 }
+
+
+/** FIXES SSR flicking bug */
+app-root {
+  opacity: 0;
+}
+app-root.hydrated {
+  opacity: 1;
+  transition: opacity .1s;
+}
