@@ -30,7 +30,6 @@
       stopEvents
   >
     
-    <!-- Sticky Header -->
     <div
       *ngIf="isModalHeaderSticky()"
       class="modal-wrapper__sticky-header"
@@ -41,7 +40,6 @@
       <ng-container *ngTemplateOutlet="modalClose"></ng-container>
     </div>
     
-    <!-- Main layout -->
     <div
         #layout
         tabTrap
@@ -74,7 +72,6 @@
 </div>
 
 
-<!-- HEADER TEMPLATE -->
 <ng-template #modalHeader>
   <h3
     *ngIf="titleText()"
@@ -88,7 +85,6 @@
 </ng-template>
 
 
-<!-- CLOSE TEMPLATE -->
 <ng-template #modalClose>
   <button
     *ngIf="iconClose()"
@@ -104,7 +100,6 @@
 </ng-template>
 
 
-<!-- BOTTOM TEMPLATE -->
 <ng-template #modalBottom>
   <div
     *ngIf="submitButtonText() || cancelButtonText()"

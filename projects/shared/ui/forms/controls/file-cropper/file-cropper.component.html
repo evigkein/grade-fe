@@ -10,8 +10,8 @@
   <!--<div class="cropper-container" *ngIf="imageChangedEvent">-->
   <p-modal-wrapper #cropModal
                    title="Crop Image"
-                   submitText="Save"
-                   cancelText="Cancel"
+                   submitButtonText="Save"
+                   cancelButtonText="Cancel"
                    (submit)="saveCroppedImage()"
                    (closed)="onCancel()"
                    (cancel)="onCancel()">

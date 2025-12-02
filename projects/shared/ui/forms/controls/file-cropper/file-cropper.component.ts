@@ -2,10 +2,8 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, Output, EventEmitter, signal, ViewChild } from '@angular/core';
 import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
-import { OutputFormat } from 'ngx-image-cropper/lib/interfaces/cropper-options.interface';
-import { CustomImageDirective } from '../../../directives/ui/img/priority.directive';
-import { ModalWrapperComponent } from '../../../ui/modals/modal-wrapper.component';
+import { ImageCroppedEvent, ImageCropperComponent, OutputFormat } from 'ngx-image-cropper';
+import { ModalWrapperComponent } from '../../../modules/modals/modal-wrapper/modal-wrapper.component';
 import { FileInputComponent } from '../file-input/file-input.component';
 
 @Component({
@@ -14,7 +12,7 @@ import { FileInputComponent } from '../file-input/file-input.component';
   styleUrl: './file-cropper.component.scss',
   standalone: true,
   host: {ngSkipHydration: 'true'},
-  imports: [ImageCropperComponent, ReactiveFormsModule, FileInputComponent, CustomImageDirective, CommonModule, ModalWrapperComponent],
+  imports: [ImageCropperComponent, ReactiveFormsModule, FileInputComponent, CommonModule, ModalWrapperComponent],
 })
 export class FileCropperComponent {
   @Input() formArray!: FormArray;
