@@ -1,16 +1,9 @@
 import { Directive, HostListener, Input, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-/**
- * Универсальный core-директива для масок:
- * - поддерживает цифры и буквы (латиница и кириллица)
- * - корректно работает с backspace/delete
- * - восстанавливает caret
- */
 @Directive()
 export abstract class MaskInputCoreDirective implements OnInit {
   @Input() useOnInit = true;
-  /** Разрешённые символы (по умолчанию буквы и цифры всех алфавитов) */
   @Input() allowedPattern = /[\p{L}\p{N}]/u;
 
   private lastKey: string | null = null;

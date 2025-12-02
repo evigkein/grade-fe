@@ -17,7 +17,6 @@
   align-items: center;
 }
 
-/* Sizes */
 .banner--l { height: 400px; }
 .banner--m { height: 260px; }
 .banner--s {
@@ -25,7 +24,6 @@
   padding: 1rem 1.4rem;
 }
 
-/* FULL */
 .banner--bg-full .banner__bg {
   position: absolute;
   inset: 0;
@@ -43,7 +41,6 @@
   opacity: 0.85;
 }
 
-/* SIDE */
 .banner--bg-side {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -72,7 +69,6 @@
   opacity: 0.85;
 }
 
-/* CONTENT */
 .banner__content {
   position: relative;
   z-index: 2;
@@ -81,12 +77,10 @@
   flex-direction: column;
 }
 
-/* Alignment */
 .banner--align-left .banner__content { text-align: left; }
 .banner--align-center .banner__content { text-align: center; margin: 0 auto; }
 .banner--align-right .banner__content { text-align: right; margin-left: auto; }
 
-/* Title */
 .banner__title {
   font-size: 2.3rem;
   font-weight: 700;

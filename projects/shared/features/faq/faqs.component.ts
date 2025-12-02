@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AccordionComponent } from '@ui/components/accordion';
+import { AccordionComponent } from '@ui/components/accordion/accordion.component';
 
 export interface IFaq {
   question: string;

@@ -20,6 +20,11 @@ import { deepClone, destroy, ISimpleChanges, sizeToBytes } from '@core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { BytesToSizePipe } from '../../../../pipes/bites-to-size.pipe';
+import { SafeHtmlPipe } from '../../../../pipes/sanitize/safe-html.pipe';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { FadeTextComponent } from '../../../components/fade-text/fade-text.component';
+import { TooltipHelpComponent } from '../../../components/features/tooltip/tooltip-help/tooltip-help.component';
 import { CustomImageDirective } from '../../../directives/ui/img/priority.directive';
 import { StopPropagationDirective } from '../../../directives/utils';
 import { BytesToSizePipe } from '../../../pipes/bites-to-size.pipe';
@@ -68,7 +73,7 @@ export interface IFileErrors {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   animations: [OpenCloseAnimation],
-  imports: [CommonModule, ReactiveFormsModule, BytesToSizePipe, ButtonComponent, SvgIconComponent, DndDirective, SafeHtmlPipe, TranslateModule, FadeTextComponent, TooltipHelpComponent, CustomImageDirective, StopPropagationDirective]
+  imports: [CommonModule, ReactiveFormsModule, BytesToSizePipe, ButtonComponent, SvgIconComponent, DndDirective, SafeHtmlPipe, TranslateModule, FadeTextComponent, TooltipHelpComponent, CustomImageDirective, StopPropagationDirective, ButtonComponent, TooltipHelpComponent, SafeHtmlPipe, BytesToSizePipe, FadeTextComponent, BytesToSizePipe]
 })
 export class FileInputComponent implements OnInit, OnChanges {
   @Input() text = 'file-input.drag';

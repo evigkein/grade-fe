@@ -10,16 +10,6 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-/**
- * LocalCacheService
- *
- * ✅ Features:
- * - Типизированный кэш <T>
- * - TTL (время жизни данных)
- * - Автоочистка по таймеру
- * - Прямая поддержка async/await через getOrFetch()
- * - Защита от утечек (unsubscribe + complete)
- */
 interface CacheEntry<T> {
   state: BehaviorSubject<T>;
   expiresAt?: number;
@@ -30,7 +20,6 @@ export class LocalCacheService implements OnDestroy {
   private cache = new Map<string, CacheEntry<any>>();
   private destroy$ = new Subject<void>();
 
-  /** Получить кэшированный Observable (если есть) */
   get<T>(key: string, unsubscriber?: Subject<void>): Observable<T> | null {
     const entry = this.cache.get(key);
     if (!entry) return null;
@@ -39,7 +28,6 @@ export class LocalCacheService implements OnDestroy {
     return unsubscriber ? stream.pipe(takeUntil(unsubscriber)) : stream;
   }
 
-  /** Установить значение в кэш */
   set<T>(key: string, value: T, ttlMs?: number): void {
     const now = Date.now();
     const entry = this.cache.get(key);
@@ -62,7 +50,6 @@ export class LocalCacheService implements OnDestroy {
     }
   }
 
-  /** Получить из кэша или сделать fetch (если нет) */
   getOrFetch<T>(
     key: string,
     fetchFn: () => Observable<T>,
@@ -81,7 +68,6 @@ export class LocalCacheService implements OnDestroy {
     );
   }
 
-  /** Проверка на устаревание */
   private removeIfExpired(key: string): void {
     const entry = this.cache.get(key);
     if (!entry) return;
@@ -91,7 +77,6 @@ export class LocalCacheService implements OnDestroy {
     }
   }
 
-  /** Удалить ключ */
   remove(key: string): void {
     const entry = this.cache.get(key);
     if (!entry) return;

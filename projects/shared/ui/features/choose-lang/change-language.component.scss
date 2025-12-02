@@ -31,7 +31,6 @@
     font-weight: 500;
   }
 
-  /* MENU */
   &__menu {
     width: 220px;
     padding: 0 !important;
@@ -61,7 +60,7 @@
     color: var(--first-1);
     background: transparent;
 
-    cursor: pointer; /* ← добавлено */
+    cursor: pointer;
     transition: all 0.18s ease;
 
     .lang__icon {
@@ -70,13 +69,11 @@
       margin-right: 0;
     }
 
-    /* hover */
     &:hover {
       background: #22242E;
       transform: translateX(2px);
     }
 
-    /* активный язык */
     &.is-active {
       background: rgba(255, 255, 255, 0.10);
       border-left: 3px solid var(--action);

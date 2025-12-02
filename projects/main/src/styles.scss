@@ -69,13 +69,13 @@ body, document {
 //  }
 //}
 
-/* убирает ВСЕ визуальные скроллы, но оставляет функционал */
+
 * {
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* старый Edge/IE */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 ::-webkit-scrollbar {
-  display: none;               /* Chrome, Safari, Edge */
+  display: none;
 }
 
 .p-text-center {

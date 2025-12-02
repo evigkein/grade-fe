@@ -12,7 +12,6 @@ export async function storageSetWithTTL(key: string, value: any, ttlMs?: number)
   await storage.setItem(key, { value, expiresAt });
 }
 
-/** 📦 Получаем значение с TTL-проверкой */
 export async function storageGetWithTTL<T = any>(key: string): Promise<T | null> {
   if (!isBrowser() || !storage) return null;
 
@@ -27,7 +26,6 @@ export async function storageGetWithTTL<T = any>(key: string): Promise<T | null>
   return item.value;
 }
 
-/** 🗑 Удаляем значение */
 export async function storageRemove(key: string): Promise<void> {
   if (!isBrowser() || !storage) return;
   await storage.removeItem(key);

@@ -30,9 +30,7 @@ import { TranslateFacade } from './services/translate-facade.service';
   exports: [TranslateModule]
 })
 export class AppTranslateModule {
-  /** We need to import it in every lazy loading module */
-
-  /** in order to avoid injecting and initializing in AppComponent in every app we inject here required core providers */
+  /** Import root only */
   constructor(private translateFacade: TranslateFacade) {
   }
 }

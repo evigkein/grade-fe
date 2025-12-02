@@ -2,9 +2,7 @@
   display: inline-block;
 }
 
-/* ----------------- ПОПОВЕР ----------------- */
 
-/* Начальное состояние */
 .p-popover2 {
   opacity: 0;
   transform: translateY(6px) scale(0.94);
@@ -24,7 +22,6 @@
 
 
 
-/* arrow */
 .p-popover2__arrow {
   position: absolute;
   width: 10px;
@@ -35,12 +32,10 @@
   border-radius: 2px;
 }
 
-/* backdrop */
 .p-popover2__backdrop {
   background: transparent;
 }
 
-/* adaptive */
 @media (max-width: 480px) {
   .p-popover2 {
     white-space: normal;

@@ -9,8 +9,3 @@ export function trackByFn<T extends NonNullable<unknown>>(index: number, item: T
 
   return options?.isDeep ? JSON.stringify(item) : mark;
 }
-
-/**
- simple: trackById = trackByFn;
- with arguments: trackByDeep = (index: number, item: RestTurnoverTaskModel) => trackByFn(index, item, { isDeep: true });
- */
