@@ -13,9 +13,9 @@ const TRANSFERRED_MODULES = [CommonModule, AppTranslateModule, IconsModule];
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
-  imports: [...TRANSFERRED_MODULES,
+  imports: [
+    ...TRANSFERRED_MODULES,
     ApiModule,
-
   ],
   declarations: [],
   exports: [],
