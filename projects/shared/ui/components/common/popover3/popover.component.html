@@ -1,0 +1,40 @@
+<div
+  class="p-popover2__trigger"
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  (click)="onTriggerClick($event)"
+  (mouseenter)="onTriggerMouseEnter()"
+  (mouseleave)="onTriggerMouseLeave()"
+  (focus)="onTriggerFocus()"
+  tabindex="0">
+  <ng-content></ng-content>
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="visible()"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayHasBackdrop]="hasBackdrop()"
+  [cdkConnectedOverlayBackdropClass]="hasBackdrop() ? 'p-popover2__backdrop' : null"
+  
+  cdkConnectedOverlayFlexibleDimensions="true"
+  cdkConnectedOverlayGrowAfterOpen="true"
+  cdkConnectedOverlayPush="true"
+  [cdkConnectedOverlayViewportMargin]="8"
+  
+  (backdropClick)="onBackdropClick()"
+  (detach)="onDetach()"
+>
+  <div
+    class="p-popover2"
+    animate.enter="fade-in1"
+    animate.leave="fade-out1"
+    [class.p-popover2--visible]="visible()"
+    [class.p-popover2--arrow]="arrow()"
+  >
+    <ng-container *ngTemplateOutlet="template()"></ng-container>
+    
+    <div *ngIf="arrow()" class="p-popover2__arrow"></div>
+  </div>
+</ng-template>

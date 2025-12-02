@@ -43,3 +43,6 @@ Thumbs.db
 
 # Cache
 .angular
+
+*storybook.log
+storybook-static

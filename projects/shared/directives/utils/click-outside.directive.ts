@@ -4,75 +4,77 @@ import {
   EventEmitter,
   Output,
   Renderer2,
-  effect,
-  input,
-  inject,
+  Input,
+  OnInit,
+  OnDestroy, booleanAttribute, input,
 } from '@angular/core';
 
 @Directive({
   selector: '[clickOutside]',
   standalone: true,
 })
-export class ClickOutsideDirective {
-  immediate = input(true);
-  esc = input(true);
-  /**
-   * Можно передать:
-   * - HTMLElement
-   * - ElementRef
-   * - массив
-   * - строку-селектор ('#id', '.class', '[attr]')
-   */
-  whitelist = input<HTMLElement | ElementRef | string | (HTMLElement | ElementRef | string)[] | null>(null);
+export class ClickOutsideDirective implements OnInit, OnDestroy {
+  @Input() immediate = true; // pointerdown или click
+  @Input() esc = true;       // реагировать ли на Escape
+  @Input() whitelist: HTMLElement | ElementRef | string | Array<any> | null = null;
+  isPrevent = input(false, {transform: booleanAttribute});       // реагировать ли на Escape
 
   @Output() clickOutside = new EventEmitter<PointerEvent | KeyboardEvent>();
 
-  private host = inject(ElementRef<HTMLElement>);
-  private r2 = inject(Renderer2);
+  private destroyFns: Array<() => void> = [];
+  private hostEl!: HTMLElement;
 
-  private destroyFns: (() => void)[] = [];
+  constructor(
+    private host: ElementRef<HTMLElement>,
+    private r2: Renderer2
+  ) {}
 
-  constructor() {
-    effect(() => {
-      this.destroy();
+  ngOnInit() {
+    this.hostEl = this.host.nativeElement;
 
-      const listenType = this.immediate() ? 'pointerdown' : 'click';
+    // ---- Pointer / Click outside ----
+    const listenType = this.immediate ? 'pointerdown' : 'click';
 
-      const offPointer = this.r2.listen('document', listenType, (ev: PointerEvent) =>
-        this.handle(ev)
-      );
-      const offEsc = this.esc()
-        ? this.r2.listen('document', 'keydown', (ev: KeyboardEvent) => {
-          if (ev.key === 'Escape') this.clickOutside.emit(ev);
-        })
-        : undefined;
-
-      this.destroyFns.push(offPointer);
-      if (offEsc) this.destroyFns.push(offEsc);
-      return () => this.destroy();
+    const offPointer = this.r2.listen('document', listenType, (ev: PointerEvent) => {
+      this.handle(ev);
     });
+    this.destroyFns.push(offPointer);
+
+    // ---- Escape ----
+    if (this.esc) {
+      const offEsc = this.r2.listen('document', 'keydown', (ev: KeyboardEvent) => {
+        if (ev.key === 'Escape') {
+          this.clickOutside.emit(ev);
+        }
+      });
+      this.destroyFns.push(offEsc);
+    }
   }
 
-  private destroy() {
-    this.destroyFns.forEach((fn) => fn());
+  ngOnDestroy() {
+    this.destroyFns.forEach(fn => fn());
     this.destroyFns = [];
   }
 
   private handle(ev: PointerEvent) {
-    const host = this.host.nativeElement;
     const path = ev.composedPath?.() ?? [ev.target];
 
-    if (path.includes(host)) return;
+    // клик внутри хоста
+    if (path.includes(this.hostEl)) return;
 
-    const white = this.whitelist();
-    if (white) {
-      const list = Array.isArray(white) ? white : [white];
+    // whitelist (ElementRef | HTMLElement | селекторы | массив)
+    if (this.whitelist) {
+      const list = Array.isArray(this.whitelist) ? this.whitelist : [this.whitelist];
       for (const ref of list) {
         const el = this.resolveElement(ref);
-        if (el && path.includes(el)) return;
+        if (el && path.includes(el)) return; // клик по whitelist-element
       }
     }
 
+    if(this.isPrevent()) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
     this.clickOutside.emit(ev);
   }
 

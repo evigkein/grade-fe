@@ -100,6 +100,9 @@
   "select.options": "options",
   "select.focused": "Focused",
 
+
+
+
   "choose-date": "Choose date",
   "ok": "ок",
   "today": "today",
@@ -117,6 +120,31 @@
   "october": "October",
   "november": "November",
   "december": "December",
+
+  "/////////////////////////////// DATEPICKER //////////////////////////": "",
+  "datep.dateTimeLabel": "Date & Time",
+  "datep.placeholder": "Select date & time",
+  "datep.chooseDate": "Choose a date",
+  "datep.choose": "Select",
+  "datep.dateTimeSelection": "Date & Time selection",
+  "datep.dateSelection": "Date selection",
+  "datep.monthNavigation": "Month navigation",
+  "datep.previousMonth": "Previous month",
+  "datep.nextMonth": "Next month",
+  "datep.yearSelection": "Year selection",
+  "datep.calendar": "Calendar",
+  "datep.timeSelection": "Time selection",
+  "datep.today": "Today",
+  "datep.month.selection": "Month selection",
+  "datep.time.label": "Time",
+  "datep.time.placeholder": "Select time",
+  "day.short.mon": "Mon",
+  "day.short.tue": "Tue",
+  "day.short.wed": "Wed",
+  "day.short.thu": "Thu",
+  "day.short.fri": "Fri",
+  "day.short.sat": "Sat",
+  "day.short.sun": "Sun",
 
 
   "/////////////////////////////// RELATIVE //////////////////////////": "",

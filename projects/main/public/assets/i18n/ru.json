@@ -45,6 +45,9 @@
   "work.desc111": "Мы создаём надёжные цифровые платформы для финансового сектора, Web3 и крупных операционных экосистем.",
   "work.desc2": "В основе каждого нашего решения — ясность, точность и долгосрочная ценность.",
 
+  "home.portfolio.title": "Продукты, которые мы реализовали",
+  "home.portfolio.action": "Смотреть наше портфолио",
+
   "work.case.action": "Посмотреть",
 
   "work.case1.title": "AVO: RWA Marketplace",
@@ -90,6 +93,34 @@
   "select.options": "доступные варианты",
   "select.focused": "В фокусе",
 
+
+
+
+
+  "/////////////////////////////// DATEPICKER //////////////////////////": "",
+  "datep.dateTimeLabel": "Дата и время",
+  "datep.placeholder": "Выберите дату и время",
+  "datep.chooseDate": "Выберите дату",
+  "datep.choose": "Выбрать",
+  "datep.dateTimeSelection": "Выбор даты и времени",
+  "datep.dateSelection": "Выбор даты",
+  "datep.monthNavigation": "Навигация по месяцам",
+  "datep.previousMonth": "Предыдущий месяц",
+  "datep.nextMonth": "Следующий месяц",
+  "datep.yearSelection": "Выбор года",
+  "datep.calendar": "Календарь",
+  "datep.timeSelection": "Выбор времени",
+  "datep.today": "Сегодня",
+  "datep.month.selection": "Выбор месяца",
+  "datep.time.label": "Время",
+  "datep.time.placeholder": "Выберите время",
+  "day.short.mon": "пн",
+  "day.short.tue": "вт",
+  "day.short.wed": "ср",
+  "day.short.thu": "чт",
+  "day.short.fri": "пт",
+  "day.short.sat": "сб",
+  "day.short.sun": "вс",
 
 
   "choose-date": "выберите дату",

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from '../domain/features/layout/layout.component';
+import { LayoutComponent } from '../../domain/features/layout/layout.component';
 import { homeRoute } from './routes/home';
 import { portfolioRoute } from './routes/portfolio';
 

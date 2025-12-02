@@ -1,17 +1,20 @@
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
-  TemplateRef,
-  ViewEncapsulation,
+  computed,
   input,
-  computed, booleanAttribute, numberAttribute
+  numberAttribute,
+  OnInit,
+  output,
+  TemplateRef,
+  ViewEncapsulation
 } from '@angular/core';
-import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { NzTooltipTrigger } from 'ng-zorro-antd/tooltip';
-import { popoverPositions } from './popover-position';
+
+import {popoverPositions} from './popover-position';
 
 @Component({
   selector: 'p-popover',
@@ -22,39 +25,36 @@ import { popoverPositions } from './popover-position';
   imports: [CommonModule, NzPopoverModule],
   encapsulation: ViewEncapsulation.None,
 })
-export class PopoverComponent {
+export class PopoverComponent implements OnInit {
   template = input.required<TemplateRef<void>>();
   position = input<popoverPositions>('bottomRight');
-  trigger = input<NzTooltipTrigger | null>(null);
+  trigger = input<NzTooltipTrigger>(null);
   type = input<'withoutArrow' | null>(null);
-  isPopoverWithoutArrows = input(true, { transform: booleanAttribute });
-  isVisible = input(false, { transform: booleanAttribute });
-  hasBackdrop = input(false, { transform: booleanAttribute });
-  isPopoverArrowPointAtCenter = input(false, { transform: booleanAttribute });
+  isPopoverWithoutArrows = input(true, {transform: booleanAttribute});
+  isVisible = input(false, {transform: booleanAttribute});
+  hasBackdropType = input<'transparent' | 'full' | undefined>(undefined);
+  isPopoverArrowPointAtCenter = input(false, {transform: booleanAttribute});
+  isLoading = input(false, {transform: booleanAttribute});
+  tabindex = input(0, {transform: numberAttribute});
 
-  isLoading = input(false, { transform: booleanAttribute });
-  tabindex = input(0, { transform: numberAttribute });
-
-  @Output() visibleChange = new EventEmitter<boolean>();
-
-  popoverClassName = '';
-
-  constructor() {
-    this.initPopoverClass();
-  }
-
-  initPopoverClass() {
-    if (this.type() === 'withoutArrow') {
-      this.popoverClassName = 'nz-popover-without-arrow';
-    }
-  }
+  visibleChange = output<boolean>();
 
   classes = computed(() => {
     return [
       'popover',
-      this.isPopoverWithoutArrows() ? 'popover--no-arrows' : '',
-      this.type() === 'withoutArrow' ? 'popover--type-without-arrow' : '',
+      this.type() === 'withoutArrow' ? 'popover--without-arrow' : '',
       this.isLoading() ? 'popover--loading' : '',
     ].filter(Boolean).join(' ');
   });
+
+  popoverClassName = computed(() => {
+    if (this.type() === 'withoutArrow') return 'nz-popover-without-arrow';
+    return '';
+  });
+
+  ngOnInit() {}
+
+  onBackdropClick() {
+    this.visibleChange.emit(false);
+  }
 }

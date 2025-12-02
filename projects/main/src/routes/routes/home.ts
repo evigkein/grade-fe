@@ -5,7 +5,7 @@ export const homeRoute: Route = {
   path: ERoute.Main,
   pathMatch: 'full',
   loadChildren: () =>
-    import('../../pages/home/home.module').then(
+    import('../../../pages/home/home.module').then(
       (m) => m.HomeModule
     ),
   // canActivate: [authGuard]

@@ -1,13 +1,21 @@
 <div
   [class]="classes()"
+  [tabindex]="tabindex()"
   nz-popover
   [nzPopoverPlacement]="position()"
   [nzPopoverVisible]="isVisible()"
   [nzPopoverContent]="template()"
-  [nzPopoverOverlayClassName]="popoverClassName"
+  [nzPopoverOverlayClassName]="popoverClassName()"
   [nzPopoverArrowPointAtCenter]="isPopoverArrowPointAtCenter()"
   [nzPopoverTrigger]="trigger()"
-  (nzPopoverVisibleChange)="visibleChange.emit($event)"
-  [attr.tabindex]="tabindex()">
+  (nzPopoverVisibleChange)="visibleChange.emit($event)">
   <ng-content></ng-content>
 </div>
+
+@if (hasBackdropType() && isVisible()) {
+  <div
+    class="popover-backdrop"
+    (click)="onBackdropClick()"
+    aria-hidden="true"
+  ></div>
+}

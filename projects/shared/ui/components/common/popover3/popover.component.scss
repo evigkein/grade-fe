@@ -1,0 +1,81 @@
+:host {
+  display: inline-block;
+}
+
+/* ----------------- ПОПОВЕР ----------------- */
+
+/* Начальное состояние */
+.p-popover2 {
+  opacity: 0;
+  transform: translateY(6px) scale(0.94);
+  filter: blur(4px);
+
+  transition:
+          opacity 180ms cubic-bezier(0.2, 0, 0, 1),
+          transform 240ms cubic-bezier(0.2, 0, 0, 1),
+          filter 260ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.p-popover2--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+
+
+/* arrow */
+.p-popover2__arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+}
+
+/* backdrop */
+.p-popover2__backdrop {
+  background: transparent;
+}
+
+/* adaptive */
+@media (max-width: 480px) {
+  .p-popover2 {
+    white-space: normal;
+    max-width: calc(100vw - 32px);
+  }
+}
+
+.fade-in1 {
+  animation: scaleInSoft 300ms cubic-bezier(0.18, 0.64, 0.22, 1) forwards;
+}
+
+.fade-out1 {
+  animation: scaleOutSoft 220ms cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+@keyframes scaleInSoft {
+  0% {
+    opacity: 0;
+    transform: scale(0.90);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.00);
+  }
+}
+
+@keyframes scaleOutSoft {
+  0% {
+    opacity: 1;
+    transform: scale(1.00);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.90);
+  }
+}

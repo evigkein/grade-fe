@@ -105,6 +105,24 @@
             ],
             "scripts": []
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/main/.storybook",
+            "browserTarget": "main:build",
+            "compodoc": false,
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/main/.storybook",
+            "browserTarget": "main:build",
+            "compodoc": false,
+            "outputDir": "dist/storybook/main"
+          }
         }
       }
     },
@@ -132,7 +150,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/shared/tsconfig.spec.json",
+            "tsConfig": "projects/shared/tsconfig.spec.json"
           }
         }
       }

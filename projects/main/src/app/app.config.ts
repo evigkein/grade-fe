@@ -18,7 +18,7 @@ import {
 import { langInitializer } from '@core/modules/translate/initializer/translate-bootstrap';
 import { provideHammer } from '@core/services/hammer';
 import { githubInterceptor } from '@shared/interceptors/cdn.interceptor';
-import { routes } from '../../routes/app.routes';
+import { routes } from '../routes/app.routes';
 import { AppModule } from './app.module';
 
 export const appConfig: ApplicationConfig = {

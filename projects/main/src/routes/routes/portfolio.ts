@@ -5,7 +5,7 @@ export const portfolioRoute: Route = {
   path: ERoute.Portfolio,
   pathMatch: 'full',
   loadChildren: () =>
-    import('../../pages/portfolio/portfolio.module').then(
+    import('../../../pages/portfolio/portfolio.module').then(
       (m) => m.PortfolioModule
     ),
   // canActivate: [authGuard]

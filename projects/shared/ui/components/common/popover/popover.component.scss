@@ -9,12 +9,25 @@
   }
 }
 
-.ant-popover-inner{
+.ant-popover-inner {
   border-radius: 12px!important;
-  background: transparent!important;
   box-shadow: none!important;
+  background: transparent!important;
 
   &-content {
     padding: 0!important;
   }
+}
+
+.popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 999;
+}
+
+.nz-popover-without-arrow,
+.popover {
+  position: relative;
+  z-index: 1000 !important;
 }
