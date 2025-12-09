@@ -6,6 +6,7 @@ import { angleLeft } from './definitions/angleLeft';
 import { angleRight } from './definitions/angleRight';
 import { bell } from './definitions/bell';
 import { calendar } from './definitions/calendar';
+import { clock } from './definitions/clock';
 import { close } from './definitions/close';
 import { cross } from './definitions/cross';
 import { dashboard } from './definitions/dashboard';
@@ -31,6 +32,10 @@ import { enterprise } from './definitions/enterprise';
 import { layers } from './definitions/layers';
 import { shield } from './definitions/shield';
 import { target } from './definitions/target';
+import { ai } from './definitions/ai';
+import { desktop } from './definitions/desktop';
+import { mobile } from './definitions/mobile';
+import { team } from './definitions/team';
 import { home } from './definitions/home';
 import { clocks } from './definitions/clocks';
 import { roadSign } from './definitions/roadSign';
@@ -57,6 +62,7 @@ import { usdt } from './definitions/usdt';
   angleRight,
   bell,
   calendar,
+  clock,
   close,
   cross,
   dashboard,
@@ -82,6 +88,10 @@ import { usdt } from './definitions/usdt';
   layers,
   shield,
   target,
+  ai,
+  desktop,
+  mobile,
+  team,
   home,
   clocks,
   roadSign,

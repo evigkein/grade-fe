@@ -1,0 +1,58 @@
+<section class="partnership">
+  <div class="partnership__background">
+    <div class="partnership__background-overlay partnership__background-overlay--1"></div>
+    <div class="partnership__background-overlay partnership__background-overlay--2"></div>
+    <div class="partnership__background-orb partnership__background-orb--top"></div>
+    <div class="partnership__background-orb partnership__background-orb--bottom"></div>
+    <div class="partnership__background-grid"></div>
+  </div>
+  
+  <div class="partnership__main">
+    <div class="partnership__main-glow"></div>
+    <div class="partnership__container">
+    <div class="partnership__header">
+      <div class="partnership__header-decorative">
+        <div class="partnership__header-line partnership__header-line--left"></div>
+        <div class="partnership__header-dots">
+          <div class="partnership__header-dot partnership__header-dot--1"></div>
+          <div class="partnership__header-dot partnership__header-dot--2"></div>
+          <div class="partnership__header-dot partnership__header-dot--3"></div>
+        </div>
+        <div class="partnership__header-line partnership__header-line--right"></div>
+      </div>
+
+      <h2 class="partnership__title">{{ 'home.partnership.title' | translate }}</h2>
+      
+      <p class="partnership__subtitle">{{ 'home.partnership.subtitle' | translate }}</p>
+    </div>
+
+    <div class="partnership__content">
+      <div class="partnership__content-header">
+        <div class="partnership__content-accent"></div>
+        <h3 class="partnership__content-title">{{ 'home.partnership.content.title' | translate }}</h3>
+      </div>
+      
+      <div class="partnership__items">
+        @for (item of partnershipItems(); track trackByIndex($index, item)) {
+          <div class="partnership__item">
+            <div class="partnership__item-bullet">
+              <div class="partnership__item-bullet-core"></div>
+              <div class="partnership__item-bullet-ring"></div>
+            </div>
+            <p class="partnership__item-text">{{ item | translate }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="partnership__bottom">
+      <div class="partnership__bottom-glow"></div>
+      <div class="partnership__bottom-content">
+        <p class="partnership__bottom-text">
+          <span class="partnership__bottom-highlight">{{ 'home.partnership.bottom' | translate }}</span>
+        </p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+<section class="services">
+  <div class="services__background-elements">
+    <div class="services__background-orb services__background-orb--left"></div>
+    <div class="services__background-orb services__background-orb--right"></div>
+  </div>
+  
+  <div class="services__container">
+    <div class="services__header">
+      <div class="services__header-decorative">
+        <div class="services__header-line services__header-line--left"></div>
+        <div class="services__header-dot"></div>
+        <div class="services__header-line services__header-line--right"></div>
+      </div>
+
+      <h2 class="services__title">{{ 'home.services.title' | translate }}</h2>
+      
+      <p class="services__subtitle">{{ 'home.services.subtitle' | translate }}</p>
+
+      <div class="services__header-dots">
+        <div class="services__header-dots-item services__header-dots-item--1"></div>
+        <div class="services__header-dots-item services__header-dots-item--2"></div>
+        <div class="services__header-dots-item services__header-dots-item--3"></div>
+      </div>
+    </div>
+
+    <div class="services__grid">
+      @for (service of services(); track service.index; let i = $index) {
+        <div class="services__card services__card--index-{{i}}">
+          <div class="services__card-background"></div>
+          <div class="services__card-particles"></div>
+          <div class="services__card-content">
+            <div class="services__card-header">
+              <div class="services__card-icon-wrapper">
+                <div class="services__card-icon-background"></div>
+                <p-icon 
+                  class="services__card-icon" 
+                  [icon]="service.icon"
+                />
+              </div>
+              <h3 class="services__card-title">{{ service.title | translate }}</h3>
+            </div>
+            <p class="services__card-description">{{ service.description | translate }}</p>
+          </div>
+          <div class="services__card-accent"></div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

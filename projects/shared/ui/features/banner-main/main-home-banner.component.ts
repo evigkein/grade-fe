@@ -17,6 +17,7 @@ import { CustomImageDirective } from '../../../directives/ui/img/img.directive';
 })
 export class MainHomeBannerComponent {
   title = input<string>('work.title');
+  type = input<string>('work');
   subt = input<string>('work.subt');
   desc1 = input<string>('work.desc1');
   desc2 = input<string>('work.desc2');

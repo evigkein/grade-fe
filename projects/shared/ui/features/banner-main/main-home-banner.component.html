@@ -8,7 +8,12 @@
     <h1 class="home-main_title motion-up delay-3"
         [class.text-colored]="isTitleColored()"
         style="view-transition-name: work-title;">
-      {{ title() | translate | uppercase }}
+      @if (type() === 'home') {
+        {{ title() | translate | uppercase }}
+        <span class="text-colored">{{ 'home.main.title-c' | translate | uppercase }}</span>
+      } @else {
+        {{ title() | translate  | uppercase }}
+      }
     </h1>
     
     <p class="home-main_desc motion-up delay-5"

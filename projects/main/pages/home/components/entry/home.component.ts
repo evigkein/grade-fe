@@ -16,6 +16,8 @@ import { CallbackModalWrapperComponent } from '@ui/features/call-us/modal-wrappe
 import { scrollToTop } from '@utils/helpers/scroll-to.util';
 import { faqList } from '../../const/faq';
 import { HomeFeaturesComponent } from '../features/home-features.component';
+import { HomeServicesComponent } from '../services/home-services.component';
+import { HomePartnershipComponent } from '../partnership/home-partnership.component';
 
 @Component({
   selector: 'p-page-home',
@@ -27,6 +29,8 @@ import { HomeFeaturesComponent } from '../features/home-features.component';
     CustomImageDirective,
     TranslatePipe,
     HomeFeaturesComponent,
+    HomeServicesComponent,
+    HomePartnershipComponent,
     BannerComponent,
     FaqsComponent,
     ScrollToTopButtonComponent,
@@ -59,31 +63,16 @@ export class PageHomeComponent implements OnInit {
 
 function SEO(): Partial<ISeo> {
   return {
-    title: 'SouzTransfer — ваш надёжный сервис онлайн-заказа такси и трансферов по России',
+    title: 'A Grade Technologies — Enterprise Digital Engineering & Fintech Solutions',
     description: `
-SouzTransfer — современный онлайн-сервис для заказа такси и трансферов по всей России. 
-Рассчитайте стоимость поездки онлайн и закажите комфортный трансфер по России. 
-Здесь вы можете быстро рассчитать стоимость поездки, выбрать класс автомобиля — эконом, стандарт, комфорт, бизнес, минивэны, микроавтобус и зоотакси — и оформить заказ за пару минут. 
-Мы работаем с проверенными перевозчиками и гарантируем надёжность, комфорт и безопасность каждой поездки. 
-Наши клиенты заказывают трансферы из аэропортов, железнодорожных и автовокзалов, отелей и городов в любые направления. 
-SouzTransfer подходит как для индивидуальных поездок, так и для встреч гостей, корпоративных и групповых трансферов. 
-На сайте достаточно указать точку отправления и прибытия — система мгновенно рассчитает цену и предложит варианты транспорта. 
-После оформления заявки с вами свяжется диспетчер, подтвердит заказ и поможет уточнить детали маршрута. 
-Такси всех категорий — от эконома до бизнес-класса, даже зоотакси. 
-Трансферы между городами и регионами России. 
-Микроавтобусы и минивэны для больших групп. 
-Поддержка клиентов 24/7 и прозрачные тарифы без скрытых платежей. 
-Выбирая SouzTransfer, вы экономите время и получаете уверенность, что трансфер будет подан вовремя. 
-Мы делаем каждую поездку комфортной и безопасной — для вас, ваших близких и гостей.
-© 2025 SouzTransfer.ru — онлайн-заказ такси и трансферов по России.
+A Grade Technologies delivers enterprise-grade digital engineering solutions. We build resilient, scalable platforms for finance, Web3, and large-scale operations. Our team combines deep experience from leading financial and technology companies to create systems that grow with your business.
   `.trim(),
     keywords: `
-такси, трансфер, заказать такси онлайн, SouzTransfer, трансфер по России, 
-такси аэропорт, трансфер вокзал, корпоративный трансфер, минивэн, микроавтобус, зоотакси, 
-комфортный трансфер, бизнес-такси, междугороднее такси, онлайн-трансфер, поездка Россия
+digital engineering, enterprise software development, fintech solutions, web3 development, 
+blockchain infrastructure, financial platforms, scalable architecture, custom software development
   `.trim(),
-    url: 'https://souztransfer.ru',
-    image: 'https://souztransfer.ru/assets/og-image.jpg',
+    url: 'https://agrade.tech',
+    image: 'https://agrade.tech/assets/og-image.jpg',
     type: 'website',
   };
 }

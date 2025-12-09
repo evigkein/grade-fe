@@ -1,60 +1,60 @@
-#name: Deploy Angular to GitHub Pages (PNPM)
-#
-#on:
-#  push:
-#    branches: ["main"]
-#  workflow_dispatch:
-#
-#permissions:
-#  contents: read
-#  pages: write
-#  id-token: write
-#
-#concurrency:
-#  group: "pages"
-#  cancel-in-progress: false
-#
-#jobs:
-#  deploy:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 22
-#
-#      - name: Install PNPM
-#        run: npm install -g pnpm
-#
-#      - name: Install dependencies
-#        run: pnpm install
-#
-#      - name: Build Angular
-#        run: |
-#          pnpm exec ng build main \
-#            --configuration production \
-#            --source-map=false \
-#            --named-chunks=false \
-#            --base-href "/grade-fe/" \
-#            --deploy-url "/grade-fe/"
-#
-#      - name: Rename index.csr → index.html
-#        run: |
-#          cd dist/main/browser
-#          mv index.csr.html index.html
-#
-#      - name: Setup Pages
-#        uses: actions/configure-pages@v5
-#
-#      - name: Upload artifact
-#        uses: actions/upload-pages-artifact@v3
-#        with:
-#          path: dist/main/browser
-#
-#      - name: Deploy
-#        id: deployment
-#        uses: actions/deploy-pages@v4
+name: Deploy Angular to GitHub Pages (PNPM)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Angular
+        run: |
+          pnpm exec ng build main \
+            --configuration production \
+            --source-map=false \
+            --named-chunks=false \
+            --base-href "/grade-fe/" \
+            --deploy-url "/grade-fe/"
+
+      - name: Rename index.csr → index.html
+        run: |
+          cd dist/main/browser
+          mv index.csr.html index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/main/browser
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
